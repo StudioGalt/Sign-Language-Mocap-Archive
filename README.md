@@ -57,7 +57,7 @@ Every file has date on it, when an error is found, we receate the motion under a
 
 13) Can I use the motions for non-sign language purposes?
 
-Yes, but it is a language as such it has meaning or context can confuse and annoy people (see Neon Genesis Evangelion). A good way around this is modify it to be less likely to mistaken for something it shouldn't be.
+Yes, but these motions are part of a language as such it has meaning or context can confuse and annoy people (see Neon Genesis Evangelion). A good way around this is modify it to be less likely to mistaken for something it shouldn't be.
 
 14) We can modify these files?
 
@@ -131,9 +131,6 @@ Hatsune Miku demands it. The real reason is part of the clean up process is maki
 
 3) Can I use her in X?
 
-She is opensource and free to use. 
-
-
-
+She is opensource and free to use. Please no crimes.
 
 
