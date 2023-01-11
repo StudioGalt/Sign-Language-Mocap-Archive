@@ -1,6 +1,6 @@
 # SLMocapArchive
 Collected Sign Language Motion Capture
-Hello this is Studio Galt. Since 2020 we have been recording Motion Capture, primary of American Sing Language. I'm going to run the rest of the ReadMe as an FAQ.
+Hello this is Studio Galt. Since 2020 we have been recording Motion Capture, primarily of American Sing Language. I'm going to run the rest of the ReadMe as an FAQ.
 General starts at line 8.
 Tech FAQ starts at line 79.
 Avatar FAQ starts at line 122.
@@ -25,7 +25,7 @@ I'm in English speaking North America.
 
 5) Speaking, you are not Deaf?
 
-Nope I am hearing person, my knowledge of ASL is not complete.
+Nope, I am hearing person, my knowledge of ASL is not complete.
 
 6) Why would I come to you for translation then?
 
@@ -61,15 +61,15 @@ Yes, but it is a language as such it has meaning or context can confuse and anno
 
 14) We can modify these files?
 
-Absolutely. That is point of this project.
+Absolutely. That is point of this project. Retarget to your characters.
 
 15) Can I use this for other languages other than ASL?
 
-If you know a sign in another language matches an ASL one, or how to modify an existing motion to do so go for it. Please advise as well, if this project ever does tackle other languages reusing we would a great aid.
+If you know a sign in another language matches an ASL one, or how to modify an existing motion to do so go for it. Please advise as well, if this project ever does tackle other languages reusing existing motions would be a great aid.
 
 16) Can use this for machine learning?
 
-Going to split this in two. For translation, but I have requests for that though, one test it, and don't test on the unwilling. We're quite skeptical of how well machine learning will translate to various sign languages, but would love to be wrong. 
+Going to split this in two. For translation, but I have requests for that, one test it, and don't test on the unwilling. We're quite skeptical of how well machine learning will translate to various sign languages, but would love to be wrong. 
 For artistic AI, yes, but we please other artists decision to not want to be used my artistic AIs.
 
 17) Can we use them for NFT?
