@@ -1,11 +1,13 @@
 # SLMocapArchive
-Collected Sign Language Motion Capture
+Collected Sign Language Motion Capture  
+  
 Hello this is Studio Galt. Since 2020 we have been recording Motion Capture, primarily of American Sign Language. I'm going to run the rest of the ReadMe as an FAQ.
-General starts at line 8.
-Tech FAQ starts at line 79.
-Avatar FAQ starts at line 122.
+1. [General FAQ](#general_faq)
+2. [Tech FAQ](#tech_faq)
+3. [Avatar FAQ](#avatar_faq)
 
-GENERAL FAQ
+<a name="general_faq"></a>
+## GENERAL FAQ
 
 1) What's the License?
 
@@ -76,7 +78,8 @@ For Art AI, yes, but we please other artists decision to not want to be used by 
 
 Yes, but we will not endorse any NFT projects. We are for maximum access to everyone, where NFT are about controlled access. This is not a bad goal, but it is not our goal.
 
-TECH FAQ
+<a name="tech_faq"></a>
+## TECH FAQ
 
 1) What do you record at?
 
@@ -119,7 +122,8 @@ Shapekeys, sometimes called Blendshapes. This will explained in the Tutorials.
 
 All tutorials will be posted at https://www.studiogalt.com/. 
 
-CHARACTER FAQ
+<a name="avatar_faq"></a>
+## AVATAR FAQ
 
 1) Who is the Avatar?
 
