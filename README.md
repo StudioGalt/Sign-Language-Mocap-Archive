@@ -1,6 +1,6 @@
 # SLMocapArchive
 Collected Sign Language Motion Capture
-Hello this is Studio Galt. Since 2020 we have been recording Motion Capture, primarily of American Sing Language. I'm going to run the rest of the ReadMe as an FAQ.
+Hello this is Studio Galt. Since 2020 we have been recording Motion Capture, primarily of American Sign Language. I'm going to run the rest of the ReadMe as an FAQ.
 General starts at line 8.
 Tech FAQ starts at line 79.
 Avatar FAQ starts at line 122.
@@ -17,7 +17,7 @@ We hope so, but because the internet is truly unpredictable, we may change that 
 
 3) Why Sign Language?
 
-It hadn't been done, or not publically available. Also we mainly do ASL (American Sign Language).
+It hadn't been done, or not publicly available. Also, we mainly do ASL (American Sign Language).
 
 4) Why ASL?
 
@@ -33,19 +33,19 @@ You shouldn't. I do not offer translation services. I offer the ability to turn 
 
 7) I speak English, why don't I just do it myself?
 
-That would be SEE (Signed Exact English) not ASL. That may be appropiate for your project or not, depending on what project is. Like a dictionary it teach certain things about a language, but not others.
+That would be SEE (Signed Exact English) not ASL. That may be appropriate for your project or not, depending on what project is. Like a dictionary it can teach certain things about a language, but not others.
 
 8) Do you intend to do other languages?
 
-We try to do the base alphabets for as many languages as we can but in order to another full lanuage, I would require sponsorship and assistance with the language.
+We try to do the base alphabets for as many languages as we can but to another full language, I would require sponsorship and assistance with the language.
 
 9) Sponsorship?
 
-This is not my fulltime job, I would like it to be. If you are not described phrase "-illionaire" or a major corporation do not worry. But we will fight to keep the resources free and CC0.
+This is not my fulltime job, but I would like it to be. We will fight to keep the resources free and CC0 in any case.
 
 10) What do you mean language assistance?
 
-Most Sign Language resources are written in the local spoken. I can do ASL and BANZL (Bristish, Australian and New Zealand Sign Language) because the resources are in English, but doing it without knowing the spoken language will increase errors exponenitally?
+Most Sign Language resources are written in the local spoken. I can do ASL and BANZL (British, Australian and New Zealand Sign Language) because the resources are in English, but doing it without knowing the spoken language will increase errors exponentially.
 
 11) Errors?
 
@@ -57,7 +57,7 @@ Every file has date on it, when an error is found, we receate the motion under a
 
 13) Can I use the motions for non-sign language purposes?
 
-Yes, but these motions are part of a language as such it has meaning or context can confuse and annoy people (see Neon Genesis Evangelion). A good way around this is modify it to be less likely to mistaken for something it shouldn't be.
+Yes, but these motions are part of a language as such it has meaning or context can confuse and annoy people (see Neon Genesis Evangelion). A good way around this is modify it to be less likely to mistaken for something they shouldn't be.
 
 14) We can modify these files?
 
@@ -69,8 +69,8 @@ If you know a sign in another language matches an ASL one, or how to modify an e
 
 16) Can use this for machine learning?
 
-Going to split this in two. For translation, but I have requests for that, one test it, and don't test on the unwilling. We're quite skeptical of how well machine learning will translate to various sign languages, but would love to be wrong. 
-For artistic AI, yes, but we please other artists decision to not want to be used my artistic AIs.
+Going to split this in two. For translation, but I have requests for that, one test it, and don't test on the unwilling. We're quite skeptical of how well machine learning will translate to various sign languages but would love to be wrong. 
+For Art AI, yes, but we please other artists decision to not want to be used by Art AIs.
 
 17) Can we use them for NFT?
 
@@ -80,7 +80,7 @@ TECH FAQ
 
 1) What do you record at?
 
-All recording are done at 240 frames per second. However we post at 60 frame per second.
+All recordings are done at 240 frames per second. However, we post at 60 frame per second.
 
 2) Why change fps (frames per second)?
 
@@ -100,7 +100,7 @@ Blender is the primary, it's free and open source, so it is natural. We do occas
 
 6) What about X software?
 
-We don't have access to every software, but Blender is very good at interoperablity.
+We don't have access to every software, but Blender is very good at interoperability.
 
 7) What are your export formats?
 
@@ -109,11 +109,11 @@ USD is open format create by Pixar, and is being adopted many parts of the 3d in
 
 8) Facial data?
 
-ASL and other sign languages use facial movements convey tone and information. Some signs require facial movement to be complete, other it adds extra information (similar to punctuation of vocal tone). Because there are a wide range of tones, the facial data is usually left blanket unless required to complete the motion. 
+ASL and other sign languages use facial movements convey tone and information. Some signs require facial movement to be complete, other it adds extra information (similar to punctuation of vocal tone). Because there are a wide range of tones, the facial data is usually left blanket unless required to complete the motion (such as angrer).
 
 9) How do I change her face?
 
-This will explained in the Tutorials. 
+Shapekeys, sometimes called Blendshapes. This will explained in the Tutorials. 
 
 10) Where are your tutorials?
 
@@ -127,10 +127,11 @@ Her name is Galtis. Very creative. But we stan.
 
 2) Why is she a girl?
 
-Hatsune Miku demands it. The real reason is part of the clean up process is making sure the mesh doesn't intersect itself. This is a more likley to happen on a female avatar then a male avatar. If the avatar intersections are fixed for female, it should be fixed for a male avatar.
+Hatsune Miku demands it. The real reason is part of the clean up process is making sure the mesh doesn't intersect itself. This is a more likely to happen on a female avatar than a male avatar. If the avatar intersections are fixed for female, it should be fixed for a male avatar.
 
 3) Can I use her in X?
 
 She is opensource and free to use. Please no crimes.
+
 
 
