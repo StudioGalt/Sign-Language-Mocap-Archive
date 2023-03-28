@@ -15,7 +15,7 @@ CC0, we don't reserve any rights, use this as you feel. We want to make these as
 
 2) CC0 forever?
 
-We hope so, but because the internet is truly unpredictable, we may change that in the future if there are unforeseen circumstances. We will prioritize keeping the content free use for as many people as possible. If it is not a crime, or going to be a crime, you are fine.
+Yes, we are forced by law to change. So please no crimes.
 
 3) Why Sign Language?
 
