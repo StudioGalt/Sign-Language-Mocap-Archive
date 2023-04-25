@@ -15,7 +15,7 @@ CC0, we don't reserve any rights, use this as you feel. We want to make these as
 
 2) CC0 forever?
 
-Yes, we are forced by law to change. So please no crimes.
+Yes, unless we are forced by law to change. So please no crimes.
 
 3) Why Sign Language?
 
@@ -67,12 +67,12 @@ Absolutely. That is point of this project. Retarget to your characters.
 
 15) Can I use this for other languages other than ASL?
 
-If you know a sign in another language matches an ASL one, or how to modify an existing motion to do so go for it. Please advise as well, if this project ever does tackle other languages reusing existing motions would be a great aid.
+If you know a sign in another language matches an ASL one, or how to modify an existing motion to do so go for it. Please advise us as well, if this project ever does tackle other languages being able to reuse existing motions would be a great aid.
 
 16) Can use this for machine learning?
 
-Going to split this in two. For translation, but I have requests for that, one test it, and don't test on the unwilling. We're quite skeptical of how well machine learning will translate to various sign languages but would love to be wrong. 
-For Art AI, yes, but we please other artists decision to not want to be used by Art AIs.
+Going to split this in two. For translation, yes but I have requests for that, one test it, and don't test on the unwilling. We're quite skeptical of how well machine learning will translate to various sign languages but would love to be wrong. 
+For Art AI, yes, but we please respect other artists decision to not want to be used for AIs Art.
 
 17) Can we use them for NFT?
 
