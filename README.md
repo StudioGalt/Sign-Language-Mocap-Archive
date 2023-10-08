@@ -112,7 +112,7 @@ USD is open format create by Pixar, and is being adopted many parts of the 3d in
 
 8) Facial data?
 
-ASL and other sign languages use facial movements convey tone and information. Some signs require facial movement to be complete, other it adds extra information (similar to punctuation of vocal tone). Because there are a wide range of tones, the facial data is usually left blanket unless required to complete the motion (such as angrer).
+ASL and other sign languages use facial movements convey tone and information. Some signs require facial movement to be complete, other it adds extra information (similar to punctuation of vocal tone). Because there are a wide range of tones, the facial data is usually left blanket unless required to complete the motion (such as anger).
 
 9) How do I change her face?
 
