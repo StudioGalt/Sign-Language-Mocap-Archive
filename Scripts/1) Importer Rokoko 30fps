@@ -4,27 +4,34 @@ import glob
 import shutil 
 import datetime
 import numpy
+import sys
 
-#Last updated 2024-03-21
+#Last updated 2024-03-24
 #This version is for faster cleaning of Rokoko mocap files, this assumes they are 30fps, and bakes them to 60.
 
 #import necessary Modules
 
 #!!Set your Workspace here!!
-RenderSpace=('D:\\Rokoko')
+RenderSpace=('C:\\Users\\Courtland\\Desktop\\Rokoko')
 os.chdir(RenderSpace)  
 
 #This looks at all files ending in FBX, and picks the first one alphabetically.
 directory = glob.glob('*.fbx')
-print(directory[0])
 
+if not directory:  
+    print("List is empty, reload directory")
+else:
+    print("List has items")
+
+
+print(directory[0])
 RAWFBX=directory[0]
 
 
 RAWFBXless=RAWFBX[:-4]
 Split= RAWFBX.split('_')
 prepMotion1=RAWFBXless.replace("_", " ")
-prepMotion2=prepMotion1.replace("-", "")
+prepMotion2=prepMotion1.replace("-", " ")
 Motion=''.join(char for char in prepMotion2 if not char.isdigit())
 print(Motion)
 current_time = datetime.datetime.now()
@@ -38,40 +45,8 @@ print(Today)
 #All the Motion Capture files are labelled similarly, this removes unneeded information. And adds a the file is being worked on.
 
 
-# The Galtis Rig, goes by 'root' to match with Unreal's Mannequin.
-
-bpy.ops.object.mode_set(mode='OBJECT')
-armature = bpy.data.objects['root']
-
-#The Galtis Rig has a Locator
-#Let's add key info to it
-bone = armature.pose.bones['Locator_Root']
-file_path = bpy.path.basename(bpy.context.blend_data.filepath)
-file_name=file_path[:-6]
-print(file_name)
-
-properties_to_rename = {
-    'Test': file_name,
-    'Date': Today,
-    'Source': RAWFBXless
-}
-
-for old_prop_name, new_prop_name in properties_to_rename.items():
-    # Check if the old property exists
-    if old_prop_name in bone.keys():
-        bone[new_prop_name] = bone[old_prop_name]
-        del bone[old_prop_name]
-    else:
-        print(f"No property named '{old_prop_name}' found on {bone.name}")
-
-
-#We just added Blender Version, Date, and Source motion to Locator Root's custom properties.
-#This helps with version control, and should a motion go bad, it can be investigate easily.
-bpy.ops.object.mode_set(mode='POSE')
 
 #Now we create a folder, using the Motion name, and today's date.
-Today=str(Year) + '-' + str(Month) + '-' + str(Day)
-print(Today)
 Stamp=Motion+ ' ' + Today
 print(Stamp)
 
@@ -93,13 +68,18 @@ ArchivePathblend=ArchivePath+'\\'+Stamp+' Unedited.blend'
 print(ArchivePathblend)
 
 
-#This purges any existing actions in the scene.
-actions = bpy.data.actions
-for action in actions:
-    bpy.data.actions.remove(action)
+#This purges any existing actions in the scene. To active, remove following 3 hashtags.
+#actions = bpy.data.actions
+#for action in actions:
+    #bpy.data.actions.remove(action)
 
 #This imports the desired motion, Automatic bone orientation makes the bones fall blender standard
 bpy.ops.import_scene.fbx(filepath=ArchivePathFBX,automatic_bone_orientation=True)
+
+if "RokokoFaceRoot" in bpy.data.objects:
+    print("facial data, script not useable") 
+else:
+    print("No facial data, proceeding")
 
 bpy.context.object.data.show_names = True
 bpy.context.object.show_in_front = True
@@ -121,8 +101,10 @@ print("Armatures in the scene:")
 for name in armature_names:
     print(name)
     
-print(armature_names[1])
-ImportedMotion=armature_names[1]
+    
+#print all armature created, and selects last created one    
+print(armature_names[-1])
+ImportedMotion=armature_names[-1]
 
 
 # Check if motion contains "mixamo"
@@ -137,7 +119,6 @@ else:
     
 bpy.context.scene.render.fps = 60
 
-    
 if "mixamorig:Hips" in ImportedMotion:
     armature = bpy.data.objects['mixamorig:Hips']
 elif "Reference" in ImportedMotion:
@@ -196,8 +177,37 @@ if "Reference" not in ImportedMotion:
 else:
     print("Intro poses fine, not correction done.")
 
-bpy.ops.transform.transform(mode='TIME_SCALE', value=(2, 0, 0, 0), orient_axis='Z', orient_type='GLOBAL', orient_matrix=((1, 0, 0), (0, 1, 0), (0, 0, 1)), orient_matrix_type='GLOBAL', mirror=False, use_proportional_edit=False, proportional_edit_falloff='SMOOTH', proportional_size=1, use_proportional_connected=False, use_proportional_projected=False, snap=False, snap_elements={'VERTEX'}, use_snap_project=False, snap_target='CLOSEST', use_snap_self=True, use_snap_edit=True, use_snap_nonedit=True, use_snap_selectable=False)
+if "mixamorig:Hips" in ImportedMotion:
+    bpy.data.objects["mixamorig:Hips"].select_set(True)
+elif "Reference" in ImportedMotion:
+    bpy.data.objects["Reference"].select_set(True)
+elif "Root" in ImportedMotion:
+    bpy.data.objects["Root"].select_set(True)
+else:
+    print("Unexpected motion type")   
 
+bpy.ops.object.mode_set(mode='POSE')
+bpy.ops.pose.select_all(action='SELECT')
+
+obj = bpy.context.active_object
+
+
+anim_data = obj.animation_data
+selected_objects = bpy.context.selected_objects
+
+
+for obj in selected_objects:
+    # Get the animation data
+    anim_data = obj.animation_data
+    if anim_data:
+        # Get all fcurves
+        fcurves = anim_data.action.fcurves
+        # Double the frame numbers of keyframes
+        for fcurve in fcurves:
+            for keyframe in fcurve.keyframe_points:
+                keyframe.co.x *= 2
+                
+           
 if "Reference" in ImportedMotion:
     bpy.ops.nla.bake(frame_start=1, frame_end=int(BakeTime), step=1, clean_curves=True, bake_types={'POSE'})
 else: 
@@ -214,6 +224,25 @@ elif "Root" in ImportedMotion:
 else:
     print("Unexpected motion type")   
 
+if"mixamorig:Hips" in ImportedMotion:
+    armature_name = "mixamorig:Hips" 
+    bone_name = "mixamorig:Hips" 
+    armature_obj = bpy.data.objects[armature_name]    
+    if bone_name not in armature_obj.data.bones:
+        # Bone doesn't exist, so create it:
+        bpy.ops.object.mode_set(mode='EDIT')  # Switch to Edit mode
+        edit_bone = armature_obj.data.edit_bones.new(bone_name)  # Create the bone
+        edit_bone.head = (0, 0, 0)  # Set the bone's head position
+        edit_bone.tail = (0, 15, 0)  # Set the bone's tail position
+        arm = bpy.data.objects['mixamorig:Hips']
+        bpy.ops.object.mode_set(mode='EDIT')
+        arm.data.edit_bones['mixamorig:Spine'].parent = arm.data.edit_bones['mixamorig:Hips']
+        arm.data.edit_bones['mixamorig:LeftUpLeg'].parent = arm.data.edit_bones['mixamorig:Hips']
+        arm.data.edit_bones['mixamorig:RightUpLeg'].parent = arm.data.edit_bones['mixamorig:Hips']
+
+
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.ops.object.origin_set(type='ORIGIN_CURSOR', center='MEDIAN')
 
 bpy.ops.object.mode_set(mode='EDIT')
 
@@ -223,27 +252,19 @@ new_bone.head = (0, 0, 0)
 new_bone.tail = (0, 25, 0)
 
 
-bpy.ops.object.mode_set(mode='EDIT')
-
-
-if "mixamorig:Hips" in ImportedMotion:
-    bpy.data.objects["mixamorig:Hips"].select_set(True)
-elif "Reference" in ImportedMotion:
-    bpy.data.objects["Reference"].select_set(True)
-elif "Root" in ImportedMotion:
-    bpy.data.objects["Root"].select_set(True)
-else:
-    print("Unexpected motion type")   
 
 
 if "mixamorig:Hips" in ImportedMotion:
     arm = bpy.data.objects['mixamorig:Hips']
+    bpy.ops.object.mode_set(mode='EDIT')
     arm.data.edit_bones['mixamorig:Hips'].parent = arm.data.edit_bones['Locator']
 elif "Root" in ImportedMotion:
     arm = bpy.data.objects['Root']
+    py.ops.object.mode_set(mode='EDIT')
     arm.data.edit_bones['Hips'].parent = arm.data.edit_bones['Locator']
 elif "Reference" in ImportedMotion:
     arm = bpy.data.objects['Reference']
+    bpy.ops.object.mode_set(mode='EDIT')
     arm.data.edit_bones['Hips'].parent = arm.data.edit_bones['Locator']
 else:
     print("Unexpected motion type")      
@@ -288,8 +309,69 @@ bpy.ops.pose.select_all(action='DESELECT')
 scene = bpy.context.scene
 last_frame = scene.frame_end
 
+if "mixamorig:Hips" in ImportedMotion:
+   armature_obj = bpy.data.objects['mixamorig:Hips']  
+elif "Reference" in ImportedMotion:
+    armature_obj = bpy.data.objects['Reference']  
+elif "Root" in ImportedMotion:
+    armature_obj = bpy.data.objects['Root']  
+else:
+    print("Unexpected motion type")   
+
+
+
+
+
+bone = armature_obj.pose.bones['Locator'] 
+
+
+bone['Test'] = 0  
+bone['Date'] = 0 
+bone['Source'] = 0 
+
+
+bpy.ops.object.mode_set(mode='OBJECT')
+
+
+if "mixamorig:Hips" in ImportedMotion:
+    armature = bpy.data.objects['mixamorig:Hips']
+elif "Reference" in ImportedMotion:
+    armature = bpy.data.objects['Reference']
+elif "Root" in ImportedMotion:
+    armature = bpy.data.objects['Root']
+else:
+    print("Unexpected motion type")   
+
+
+
+Version= bpy.app.version_string
+
+
+#The Galtis Rig has a Locator
+#Let's add key info to it
+bone = armature.pose.bones['Locator']
+
+
+properties_to_rename = {
+    'Test': Version,
+    'Date': Today,
+    'Source': RAWFBX
+}
+
+for old_prop_name, new_prop_name in properties_to_rename.items():
+    # Check if the old property exists
+    if old_prop_name in bone.keys():
+        bone[new_prop_name] = bone[old_prop_name]
+        del bone[old_prop_name]
+    else:
+        print(f"No property named '{old_prop_name}' found on {bone.name}")
+
+
+#We just added Blender Version, Date, and Source motion to Locator Root's custom properties.
+#This helps with version control, and should a motion go bad, it can be investigate easily.
+
+
+
 #Lastly save the file.
 bpy.ops.wm.save_as_mainfile(filepath=ArchivePathblend)
-
-
 
