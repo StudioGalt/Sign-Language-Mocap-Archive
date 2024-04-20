@@ -1,0 +1,469 @@
+import bpy
+import os
+
+#Using Blender 4.1
+#Last tested April 20th, 2024 
+#Necessary Addon Animation Layer by Tal
+
+#After you have used autorig pro for retargeting, use this script.
+
+#Grab the rig
+GaltisRig = bpy.data.objects['root']
+
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.context.view_layer.objects.active = GaltisRig
+
+#This turn Animation Layers on.
+bpy.context.object.als.turn_on = True
+bpy.ops.object.mode_set(mode='POSE')
+bpy.context.object.data.collections["Limbs Corrections"].is_visible = True
+bpy.context.object.data.collections["Limbs FK"].is_visible = True
+bpy.context.object.data.collections["Limbs IK"].is_visible = True
+bpy.context.object.data.collections["Limbs IK Correction"].is_visible = True
+bpy.context.object.data.collections["Spine Input"].is_visible = True
+bpy.context.object.data.collections["Fingers FK"].is_visible = True
+bpy.context.object.data.collections["Fingers IK"].is_visible = True
+bpy.context.object.data.collections["Fingers Intermediate"].is_visible = True
+bpy.context.object.data.collections["Unreal (Deform Rig)"].is_visible = True
+bpy.context.object.data.collections["Intermediate Rig"].is_visible = True
+
+#This adds an animation layer, from Animation Layers.
+bpy.ops.anim.add_anim_layer()
+bpy.context.scene.frame_set(0)
+bpy.ops.pose.select_all(action='SELECT')
+bpy.ops.anim.keyframe_insert()
+bpy.ops.pose.copy()
+#This is done to ensure the T-pose is perserved, Xsens files have a T-pose on frame 0
+
+#The following are anchor points to perserve the motion, 30 from beginning and end.
+#For whatever corrections are at the ends, do not effect the middle
+bpy.context.scene.frame_set(bpy.context.scene.frame_start)
+bpy.context.scene.frame_set(30)
+bpy.ops.anim.keyframe_insert()
+
+
+scene = bpy.context.scene
+scene.frame_set(scene.frame_end - 30)
+bpy.ops.anim.keyframe_insert()
+
+
+#To create a standardize rest position, we got to frame 1, and copy and modify the T-Pose, by moving BicepFk.
+bpy.context.scene.frame_set(1)
+bpy.ops.pose.paste(flipped=False)
+bpy.ops.pose.select_all(action='DESELECT')
+bpy.data.objects['root'].data.bones['bicepfk_R'].select = True
+bpy.context.object.pose.use_mirror_x = True
+bpy.ops.transform.rotate(value=1.40, orient_axis='Y', orient_type='CURSOR', orient_matrix=((1, 0, 0), (0, -1, 0), (0, 0, -1)), orient_matrix_type='CURSOR', constraint_axis=(False, True, False), mirror=False, use_proportional_edit=False, proportional_edit_falloff='SMOOTH', proportional_size=0.0151545, use_proportional_connected=False, use_proportional_projected=False)
+bpy.context.object.pose.use_mirror_x = False
+bpy.data.objects['root'].data.bones['bicepfk_R'].select = False
+
+
+bpy.ops.pose.select_all(action='SELECT')
+bpy.ops.anim.keyframe_insert()
+bpy.ops.pose.copy()
+
+bpy.context.scene.frame_set(bpy.context.scene.frame_end)
+bpy.ops.pose.paste(flipped=False)
+bpy.ops.anim.keyframe_insert()
+bpy.ops.pose.select_all(action='DESELECT')
+
+
+#This is a stabilizer, to keep the legs and hips mostly in the same place, 
+#It allow a little movement for realism
+
+bpy.context.scene.frame_set(1)
+bpy.ops.pose.select_all(action='DESELECT')
+bpy.data.objects['root'].data.bones['hip'].select = True
+
+
+bpy.data.objects['root'].data.bones['thighfk_L'].select = True
+bpy.data.objects['root'].data.bones['shinfk_L'].select = True
+bpy.data.objects['root'].data.bones['footfk_L'].select = True
+bpy.data.objects['root'].data.bones['toefk_L'].select = True
+
+bpy.data.objects['root'].data.bones['thighfk_R'].select = True
+bpy.data.objects['root'].data.bones['shinfk_R'].select = True
+bpy.data.objects['root'].data.bones['footfk_R'].select = True
+bpy.data.objects['root'].data.bones['toefk_R'].select = True
+
+bpy.context.scene.frame_set(1)
+bpy.ops.pose.copy()
+bpy.context.scene.frame_set(2)
+bpy.ops.pose.paste(flipped=False)
+bpy.ops.anim.keyframe_insert()
+bpy.context.scene.frame_set(30)
+bpy.ops.pose.paste(flipped=False)
+bpy.ops.anim.keyframe_insert()
+scene.frame_set(scene.frame_end - 30)
+bpy.ops.pose.paste(flipped=False)
+bpy.ops.anim.keyframe_insert()
+
+
+
+start_frame = bpy.context.scene.frame_start
+end_frame = bpy.context.scene.frame_end
+
+
+
+for frame in range(start_frame, end_frame + 1, 30):
+    bpy.context.scene.frame_set(frame)
+    bpy.ops.pose.paste(flipped=False)
+    bpy.ops.anim.keyframe_insert()
+
+
+#This is repeated with the Chest. These edits are all kept on seperate layer. 
+#If necessary to remove they can be removed. 
+
+bpy.context.scene.frame_set(1)
+bpy.ops.pose.select_all(action='DESELECT')
+bpy.data.objects['root'].data.bones['chest_1'].select = True
+bpy.data.objects['root'].data.bones['chest_2'].select = True
+bpy.data.objects['root'].data.bones['chest_3'].select = True
+bpy.data.objects['root'].data.bones['chest_4'].select = True
+bpy.data.objects['root'].data.bones['neckfk'].select = True
+bpy.data.objects['root'].data.bones['headfk'].select = True
+
+bpy.ops.pose.copy()
+
+
+bpy.context.scene.frame_set(30)
+bpy.ops.pose.paste(flipped=False)
+bpy.ops.anim.keyframe_insert()
+scene.frame_set(scene.frame_end - 30)
+bpy.ops.pose.paste(flipped=False)
+bpy.ops.anim.keyframe_insert()
+
+for frame in range(start_frame, end_frame + 1, 60):
+    bpy.context.scene.frame_set(frame)
+    bpy.ops.pose.paste(flipped=False)
+    bpy.ops.anim.keyframe_insert()
+
+
+
+bpy.context.scene.frame_set(1)
+bpy.ops.pose.select_all(action='SELECT')
+bpy.ops.pose.copy()
+
+
+bpy.context.scene.frame_set(2)
+bpy.ops.pose.paste(flipped=False)
+bpy.ops.anim.keyframe_insert()
+
+#Now we bake our FK limbs to IK
+GaltisRig = bpy.data.objects['root']
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.context.view_layer.objects.active = GaltisRig
+
+def snaparm_ik_to_fk(armature_name, fk_bones, ik_bones, frame_range):
+    armature = bpy.data.objects.get(armature_name)
+    if armature is None or armature.type != 'ARMATURE':
+        print(f"Object '{armature_name}' not found or not an armature")
+        return
+    for frame in frame_range:
+        bpy.context.scene.frame_set(frame)
+        for fk_bone, ik_bone in zip(fk_bones, ik_bones):
+            fk_bone_obj = armature.pose.bones.get(fk_bone)
+            ik_bone_obj = armature.pose.bones.get(ik_bone)
+            if fk_bone_obj is None or ik_bone_obj is None:
+                print(f"Bones '{fk_bone}' or '{ik_bone}' not found in armature '{armature_name}'")
+                continue
+            ik_bone_obj.matrix = fk_bone_obj.matrix
+            for channel in ['location', 'rotation_quaternion', 'scale']:
+                armature.keyframe_insert(data_path=f'pose.bones["{ik_bone}"].{channel}', frame=frame)
+        bpy.context.view_layer.update()
+
+def snapleg_ik_to_fk(armature_name, fk_bones, ik_bones, frame_range):
+    armature = bpy.data.objects.get(armature_name)
+    if armature is None or armature.type != 'ARMATURE':
+        print(f"Object '{armature_name}' not found or not an armature")
+        return
+    for frame in frame_range:
+        bpy.context.scene.frame_set(frame)
+        for fk_bone, ik_bone in zip(fk_bones, ik_bones):
+            fk_bone_obj = armature.pose.bones.get(fk_bone)
+            ik_bone_obj = armature.pose.bones.get(ik_bone)
+            if fk_bone_obj is None or ik_bone_obj is None:
+                print(f"Bones '{fk_bone}' or '{ik_bone}' not found in armature '{armature_name}'")
+                continue
+            ik_bone_obj.matrix = fk_bone_obj.matrix
+            for channel in ['location', 'rotation_quaternion', 'scale']:
+                armature.keyframe_insert(data_path=f'pose.bones["{ik_bone}"].{channel}', frame=frame)
+        bpy.context.view_layer.update()
+
+
+
+
+# Replace 'Armature' with the name of your armature object
+armature_name = 'root'
+
+# Define the FK and IK bone names
+fkarm_bonesR = ['bicepfk_R', 'forearmfk_R', 'handfk_R']
+ikarm_bonesR = ['bicepik_R', 'forearmik_R', 'handik_R']
+fkarm_bonesL = ['bicepfk_L', 'forearmfk_L', 'handfk_L']
+ikarm_bonesL = ['bicepik_L', 'forearmik_L', 'handik_L']
+
+fkleg_bonesR = ['thighfk_R', 'shinfk_R', 'footfk_R']
+ikleg_bonesR = ['thighik_R', 'shinik_R', 'footik_R']
+fkleg_bonesL = ['thighfk_L', 'shinfk_L', 'footfk_L']
+ikleg_bonesL = ['thighik_L', 'shinik_L', 'footik_L']
+
+
+
+scene_end = bpy.context.scene.frame_end
+
+# Set the frame range for keyframing
+frame_range = range(0, scene_end)  # Replace with your desired frame range
+
+# Call the function to snap FK bones to their IK counterparts and keyframe them
+snaparm_ik_to_fk(armature_name, fkarm_bonesR, ikarm_bonesR, frame_range)
+snaparm_ik_to_fk(armature_name, fkarm_bonesL, ikarm_bonesL, frame_range)
+
+
+snapleg_ik_to_fk(armature_name, fkarm_bonesR, ikarm_bonesR, frame_range)
+snapleg_ik_to_fk(armature_name, fkarm_bonesL, ikarm_bonesL, frame_range)
+
+
+#We removed keyframes from IK bones, that are not controller.
+#This will not effect position, but also makes editting easier.
+def remove_keyframes_for_bone(armature, bone_name):
+    if bone_name in armature.pose.bones:
+        pose_bone = armature.pose.bones[bone_name]
+        if armature.animation_data:
+            fcurves_to_remove = []
+            for fcurve in armature.animation_data.action.fcurves:
+                if fcurve.data_path.startswith(f'pose.bones["{pose_bone.name}"]'):
+                    fcurves_to_remove.append(fcurve)
+            for fcurve in fcurves_to_remove:
+                armature.animation_data.action.fcurves.remove(fcurve)        
+
+
+root = bpy.data.objects.get("root")
+if root and root.type == "ARMATURE":
+    bpy.ops.object.mode_set(mode="POSE")  
+    bpy.context.view_layer.objects.active = root  # Corrected line
+    specific_IKbones = [
+        'bicepik_L', 'forearmik_L', 'bicepik_R', 'forearmik_R', 
+        'thighik_L',  'shinik_L', 'thighik_R', 'shinik_R',
+    ]
+    for bone_name in specific_IKbones:
+        remove_keyframes_for_bone(root, bone_name)
+
+
+
+bpy.ops.anim.add_anim_layer()
+bpy.context.scene.frame_set(0)
+bpy.ops.pose.select_all(action='SELECT')
+bpy.ops.anim.keyframe_insert()
+
+bpy.context.scene.frame_set(1)
+bpy.ops.anim.keyframe_insert()
+
+
+bpy.ops.pose.copy()
+
+
+scene = bpy.context.scene
+
+
+
+bpy.context.scene.frame_set(scene.frame_end-1)
+bpy.ops.anim.keyframe_insert()
+
+
+bpy.context.scene.frame_set(scene.frame_end)
+bpy.ops.pose.paste(flipped=True)
+bpy.ops.anim.keyframe_insert()
+
+bpy.ops.pose.select_all(action='DESELECT')
+
+
+#Move the elbow target from rest pose to a more natural default.
+#They are originally set for T-Pose, and this moves them to N-Pose.
+
+bpy.data.objects['root'].data.bones['elbow_target_R'].select = True
+bpy.data.objects['root'].data.bones['elbow_target_L'].select = True
+
+bpy.context.scene.frame_set(20)
+
+
+
+bpy.ops.transform.translate(value=(0, 0, 60), orient_type='LOCAL', orient_matrix=((-1, 0, 0), (0, 1, 2.8213e-07), (0, 2.8213e-07, -1)), orient_matrix_type='LOCAL', constraint_axis=(False, False, True), mirror=False, snap=False, snap_elements={'INCREMENT'}, use_snap_project=False, snap_target='CLOSEST', use_snap_self=True, use_snap_edit=True, use_snap_nonedit=True, use_snap_selectable=False)
+
+bpy.ops.anim.keyframe_insert()
+
+bpy.ops.pose.copy()
+
+bpy.context.scene.frame_set(scene.frame_end-20)
+bpy.ops.pose.paste(flipped=False)
+bpy.ops.anim.keyframe_insert()
+
+bpy.context.object.pose.use_mirror_x = False
+bpy.data.objects['root'].data.bones['elbow_target_R'].select = False
+
+#We now activate the FK/IK switch so that IK will be used.
+bpy.data.objects['root'].data.bones['FKIK Switch'].select = True
+
+
+if bpy.context.active_object and bpy.context.active_object.type == 'ARMATURE':
+    # Set the mode to 'POSE'
+    bpy.ops.object.mode_set(mode='POSE')
+else:
+    print("No armature selected.")
+    
+bpy.data.objects["root"].pose.bones["FKIK Switch"]["ArmIKFK_L"] = 1
+bpy.data.objects["root"].pose.bones["FKIK Switch"]["ArmIKFK_R"] = 1
+bpy.data.objects["root"].pose.bones["FKIK Switch"]["LegIKFK_L"] = 1
+bpy.data.objects["root"].pose.bones["FKIK Switch"]["LegIKFK_R"] = 1
+
+
+bpy.context.scene.frame_set(1)
+bpy.ops.pose.select_all(action='SELECT')
+bpy.ops.pose.copy()
+bpy.context.scene.frame_set(scene.frame_end-1)
+bpy.ops.pose.paste(flipped=False)
+bpy.ops.anim.keyframe_insert()
+
+
+root = bpy.data.objects.get("root")
+if root and root.type == "ARMATURE":
+    bpy.ops.object.mode_set(mode="POSE")  
+    bpy.context.view_layer.objects.active = root  # Corrected line
+    specificIK_bones = [
+        'bicepik_L', 'forearmik_L', 'bicepik_R', 'forearmik_R', 
+        'thighik_L',  'shinik_L', 'thighik_R', 'shinik_R',
+    ]
+    for bone_name in specificIK_bones:
+        remove_keyframes_for_bone(root, bone_name)
+
+#For some reason the rig creates reversed elbow, we can fix this by clearing the rotation.
+
+bpy.data.objects['root'].data.bones['forearmik_R'].select = True
+bpy.data.objects['root'].data.bones['bicepik_R'].select = True
+bpy.data.objects['root'].data.bones['forearmik_L'].select = True
+bpy.data.objects['root'].data.bones['bicepik_L'].select = True
+
+bpy.ops.pose.rot_clear()
+#Done
+
+
+file_name = bpy.path.basename(bpy.context.blend_data.filepath)
+fnsplit = file_name.split()
+Stamp = " ".join(fnsplit[:-1])
+print(Stamp)
+
+#This is whatever your working directory is !!!
+Base='C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace'
+
+#we add blinking to the rig, my having the rig oscilate between Eye Close 0, 1. 
+#The Rig starts and ends on eyes open, to allow looping, and make sure mixing motions is good.
+object_name = "Galtismesh"  # replace with the name of your object
+
+shape_key_nameL = "EyesCloseL_AU43_L"
+shape_key_nameR = "EyesCloseR_AU43_R"
+
+scene = bpy.context.scene
+start_frame = scene.frame_start
+end_frame = scene.frame_end
+
+obj = bpy.data.objects.get(object_name)
+
+if not obj:
+    print(f"No object found with the name {object_name}.")
+else:
+    for frame in range(start_frame, end_frame, 60):  # Adjusted the range to include start_frame and end_frame
+        scene.frame_set(frame)
+        # Shape Key L
+        shape_keyL = obj.data.shape_keys.key_blocks.get(shape_key_nameL)
+        if shape_keyL:
+            shape_keyL.value = 0.0  # Corrected the value to 1.0 as per the comment
+            shape_keyL.keyframe_insert(data_path="value", frame=frame)
+            print(f"Set {shape_key_nameL} value to 0 and inserted keyframe at frame {frame}.")
+        else:
+            print(f"No shape key found with the name {shape_key_nameL}.")
+        # Shape Key R (if needed)
+        shape_keyR = obj.data.shape_keys.key_blocks.get(shape_key_nameR)
+        if shape_keyR:
+            shape_keyR.value = 0.0
+            shape_keyR.keyframe_insert(data_path="value", frame=frame)
+            print(f"Set {shape_key_nameR} value to 0 and inserted keyframe at frame {frame}.")
+        else:
+            print(f"No shape key found with the name {shape_key_nameR}.")
+
+
+if not obj:
+    print(f"No object found with the name {object_name}.")
+else:
+    for frame in range(start_frame+20, end_frame-20, 60):  # Adjusted the range to include start_frame and end_frame
+        scene.frame_set(frame)
+        # Shape Key L
+        shape_keyL = obj.data.shape_keys.key_blocks.get(shape_key_nameL)
+        if shape_keyL:
+            shape_keyL.value = 0.0  # Corrected the value to 1.0 as per the comment
+            shape_keyL.keyframe_insert(data_path="value", frame=frame)
+            print(f"Set {shape_key_nameL} value to 0 and inserted keyframe at frame {frame}.")
+        else:
+            print(f"No shape key found with the name {shape_key_nameL}.")
+        # Shape Key R (if needed)
+        shape_keyR = obj.data.shape_keys.key_blocks.get(shape_key_nameR)
+        if shape_keyR:
+            shape_keyR.value = 0.0
+            shape_keyR.keyframe_insert(data_path="value", frame=frame)
+            print(f"Set {shape_key_nameR} value to 0 and inserted keyframe at frame {frame}.")
+        else:
+            print(f"No shape key found with the name {shape_key_nameR}.")
+
+if not obj:
+    print(f"No object found with the name {object_name}.")
+else:
+    for frame in range(start_frame+30, end_frame-30, 60):  # Adjusted the range to include start_frame and end_frame
+        scene.frame_set(frame)
+        # Shape Key L
+        shape_keyL = obj.data.shape_keys.key_blocks.get(shape_key_nameL)
+        if shape_keyL:
+            shape_keyL.value = 1.0  # Corrected the value to 1.0 as per the comment
+            shape_keyL.keyframe_insert(data_path="value", frame=frame)
+            print(f"Set {shape_key_nameL} value to 1 and inserted keyframe at frame {frame}.")
+        else:
+            print(f"No shape key found with the name {shape_key_nameL}.")
+        # Shape Key R (if needed)
+        shape_keyR = obj.data.shape_keys.key_blocks.get(shape_key_nameR)
+        if shape_keyR:
+            shape_keyR.value = 1.0
+            shape_keyR.keyframe_insert(data_path="value", frame=frame)
+            print(f"Set {shape_key_nameR} value to 1 and inserted keyframe at frame {frame}.")
+        else:
+            print(f"No shape key found with the name {shape_key_nameR}.")
+        
+
+#Renaming the Shapekeys after the motion in question for easy of use.
+#This is important because later scripts will want a predictable name for shapekeys
+old_datablock_name = "Key"  # Replace with the name of your shape key datablock
+new_datablock_name = Stamp + " ShapeKeys" # Replace with the new name you desire
+
+shape_key_datablock = bpy.data.shape_keys.get(old_datablock_name)
+if shape_key_datablock:
+    shape_key_datablock.name = new_datablock_name
+    print(f"Shape Key Datablock '{old_datablock_name}' renamed to '{new_datablock_name}'.")
+else:
+    print(f"No Shape Key Datablock found with the name {old_datablock_name}.")
+
+bpy.data.actions["KeyAction"].name = new_datablock_name
+
+
+#Last step is hiding bone setting rig ready for animating.
+bpy.context.scene.tool_settings.transform_pivot_point = 'INDIVIDUAL_ORIGINS'
+
+bpy.context.object.data.collections["Limbs Corrections"].is_visible = False
+bpy.context.object.data.collections["Limbs FK"].is_visible = False
+bpy.context.object.data.collections["Limbs IK"].is_visible = True
+bpy.context.object.data.collections["Limbs IK Correction"].is_visible = False
+bpy.context.object.data.collections["Spine Input"].is_visible = False
+bpy.context.object.data.collections["Fingers FK"].is_visible = False
+bpy.context.object.data.collections["Fingers IK"].is_visible = False
+bpy.context.object.data.collections["Fingers Intermediate"].is_visible = False
+bpy.context.object.data.collections["Unreal (Deform Rig)"].is_visible = False
+bpy.context.object.data.collections["Intermediate Rig"].is_visible = False
+bpy.context.object.data.collections["Limbs IK Correction"].is_visible = False
+bpy.context.object.data.collections["HeadCTRL"].is_visible = False
+
+
