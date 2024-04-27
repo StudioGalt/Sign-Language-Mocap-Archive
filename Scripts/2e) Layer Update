@@ -1,0 +1,38 @@
+import bpy
+
+#Using Blender 4.1
+#Last tested April 26th, 2024 
+
+#This script is to be used after baking the motion with Animation Layers
+#It remains action to Motion XXX Animation
+
+
+Base='C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace'
+file_name = bpy.path.basename(bpy.context.blend_data.filepath)
+
+
+fnsplit = file_name.split()
+Stamp = " ".join(fnsplit[:-1])
+
+ArchivePathblend=Base+'\\'+Stamp+'\\' + file_name
+
+bpy.ops.anim.layers_merge_down()
+
+StampAni=Stamp+" Animation"
+
+
+armature_name = 'root'
+armature = bpy.data.objects.get(armature_name)
+if armature is None or armature.type != 'ARMATURE':
+    print(f"Object '{armature_name}' not found or not an armature")
+else:
+    animation_data = armature.animation_data
+    if animation_data is not None and animation_data.action is not None:
+        action = animation_data.action
+        action.name = StampAni
+        print(f"Action renamed to: {action.name}")
+    else:
+        print("No action is currently assigned to the armature")
+        
+
+
