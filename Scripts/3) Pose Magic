@@ -1,0 +1,159 @@
+import json
+import bpy
+import os
+
+
+#Using Blender 4.1
+#Last tested April 26th, 2024 
+
+#This script converts markers into animation assets, and exports them as json files.
+#This file needs to be in current file in asset browser and have it open.
+#I do not know how to force that through scripting, if you know please tell me.
+#In addition this script assumes markers are in the scene, and 0 current assets.
+
+
+#Markers are counted in Blender in order they are created, not in scene order, this script creates a list in scene order.
+sorted_markers = sorted(bpy.context.scene.timeline_markers, key=lambda marker: marker.frame)
+
+#This function just automates going from one marker to the next
+
+def jump_to_next_marker():
+    # Get the current frame
+    current_frame = bpy.context.scene.frame_current
+    # Find the next marker frame
+    next_marker_frame = None
+    for marker in sorted_markers:
+        if marker.frame  > current_frame:
+            next_marker_frame  = marker.frame
+            break
+    # If a next marker is found, jump to it
+    if next_marker_frame is not None:
+        bpy.context.scene.frame_set(next_marker_frame)
+        print(f"Jumped to the next marker at frame {next_marker_frame}")
+    else:
+        print("No next marker found")
+
+
+#This function exports current pose as JSON file, that is compatible with Jason pose manager.
+#Jason pose manager is a paid addon, by V. Sesarius, F. Oktavius
+def export_armature_data():
+    armatures = []
+    # Iterate over all armatures in the scene
+    for obj in bpy.data.objects:
+        if obj.type == 'ARMATURE' and obj.name == 'root':
+            PN2 = str(PN.replace("(", "").replace(")", ""))
+            armature_data = {
+                "addon": "jpm",
+                "name": PN2,
+                "def_limbs": [None] * 8,
+                "bones": []
+            }
+            # Iterate over all bones in the armature
+            for bone in obj.pose.bones:
+                # Create a dictionary for each bone
+                bone_data = {
+                    "name": bone.name,
+                    "location": {"vector": list(bone.location)},
+                    "rotation": {"vector": list(bone.rotation_quaternion), "mode": "QUATERNION"},
+                    "scale": {"vector": list(bone.scale)}
+                }
+                # Append the bone dictionary to the "bones" list
+                armature_data["bones"].append(bone_data)
+            # Append the armature dictionary to the armatures list
+            armatures.append(armature_data)
+    # Write the armatures list to a JSON file
+    directory = bpy.path.abspath("//")
+    PN2=str(PN.replace("(", "").replace(")", ""))
+    PN3=str(PN2.replace(" ", "_"))
+    PNjson="jpm_"+PN3+".json"
+    JSONtest = os.path.join(directory, PNjson)
+
+    with open(JSONtest, "w") as outfile:
+        json.dump(armatures, outfile, indent=1)
+
+#This script counts the amount of assets in a scene, than adds to the count.
+
+action_assets = [action for action in bpy.data.actions if action.asset_data]
+
+
+AssetCount = len(action_assets)
+
+print(f"Number of action assets in the current file: {AssetCount}")
+AC= str((AssetCount)+1)
+
+PoseNames = ["Pose 1", "Pose 2", "Pose 3", "Pose 4", "Pose 5",
+            "Pose 6", "Pose 7", "Pose 8", "Pose 9", "Pose 10"] 
+
+
+sorted_markers = sorted(bpy.context.scene.timeline_markers, key=lambda marker: marker.frame)
+
+
+marker_pose_map = {}
+
+for i, marker in enumerate(sorted_markers):
+    if i < len(PoseNames):
+        pose_name = PoseNames[i]
+        marker_pose_map[marker] = pose_name
+        print(f"Marker for {pose_name}: {marker}")
+    else:
+        break 
+    
+print(marker_pose_map)
+
+GaltisRig = bpy.data.objects['root']
+
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.context.view_layer.objects.active = GaltisRig
+
+
+#
+file_name = bpy.path.basename(bpy.context.blend_data.filepath)
+fnsplit = file_name.split()
+Stamp = " ".join(fnsplit[:-1])
+print(Stamp)
+Base='C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace'
+
+#Set the scene to 0, then jump to first marker
+bpy.context.scene.frame_set(0)
+jump_to_next_marker()
+
+num_iterations = len(marker_pose_map)  
+for i in range(num_iterations):
+    GaltisRig = bpy.data.objects['root']
+    armature_object = bpy.data.objects.get('root')
+    bpy.ops.object.mode_set(mode='OBJECT')
+    bpy.ops.object.select_all(action='DESELECT')
+    bpy.context.view_layer.objects.active = GaltisRig
+    bpy.ops.object.mode_set(mode='POSE')
+    bpy.ops.pose.select_all(action='SELECT')
+    action_assets = [action for action in bpy.data.actions if action.asset_data]
+    print(action_assets)
+    AssetCount = len(action_assets)
+    print(f"Number of action assets in the current file: {AssetCount}")
+    AC = str((AssetCount)+1)
+    Posename = Stamp + " P" + AC
+    PN = str(Posename)
+    PN2=str(PN.replace("(", "").replace(")", ""))
+    if armature_object:
+        bpy.context.view_layer.objects.active = armature_object
+        bpy.ops.object.mode_set(mode='POSE')
+        try:
+            bpy.ops.poselib.create_pose_asset(pose_name=Posename, activate_new_action=True)
+        except Exception as e:
+            print("Error creating pose asset:", e)
+            #exception keeps script running
+    else:
+        print("Armature object not found")
+
+    bpy.data.actions[PN].name = Posename
+    current_frame = bpy.context.scene.frame_current
+    cf = str(current_frame)
+    #These set the author, description, and copyright, set to yours.
+    bpy.data.actions[PN].asset_data.author = "Studio Galt Mocap"
+    bpy.data.actions[PN].asset_data.description = cf
+    bpy.data.actions[PN].asset_data.copyright = "CC0"
+    #Export as JSON file.
+    export_armature_data()
+    jump_to_next_marker()
+
+
