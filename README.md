@@ -5,6 +5,7 @@ Hello this is Studio Galt. Since 2020 we have been recording Motion Capture, pri
 1. [General FAQ](#general_faq)
 2. [Tech FAQ](#tech_faq)
 3. [Avatar FAQ](#avatar_faq)
+4. [File FAQ](#file faq)
 
 <a name="general_faq"></a>
 ## GENERAL FAQ
@@ -162,3 +163,22 @@ FK and IK bones are manipulated by animator, and move intetmediate rig. The inte
 ## File FAQ
 
 1) There is a lot going in each folder.
+
+Correct. Let's break it down:
+
+2) What is in Documentation folder?
+
+MKV is a video of render animation, MP4 is the same video with Captions, that in turn becomes the GIF that is used on social media sites. The Shapekeys text file, shows which shapekeys are activated when to make sure you can recreate face movements. And lastly the ReadMe, includes version of blender, Rig version, date, and list of all keypose frames.
+
+3) What is in the Pose Folder?
+
+The JSON folder is a series of JSON files for every keyposes that lists all bone positions. It works with Jason Pose Manager, which is available on Blender. 
+Here is my affilate link (a percentage of purchase through this link goes to the project):
+JSON files can be used for non-JPM purposes. 
+Next is blend files, these include the nothing but the pose assets. You can append to your own copy of rig, and access the poses. The mixamo is the exact same but under mixamo mapping.
+
+4) What is in the FBX folder?
+
+Two sets of folders, game ready, and research. Game ready includes the mesh assets with all bones (that is almost 400 at time of writing). This is probably overkill but its there. Next is No Mesh Mixamo, matchinbg the Mixamo rig, with the addition of a locator root. Lastly is UE mannequin, designed to match Unreal Engines Mannequins.
+The other folder is research, still useable for other purpose but are heavier. No Mesh Full, has every bone the full version does but no mesh. The UEplus is the Unreal Mannequin with additional correction bones. And the No Mesh Mini is very similar to the Mixamo one, with different names (in case Adobe requests we stop mapping in Mixamo, we will transition to No Mesh Mini). 
+
