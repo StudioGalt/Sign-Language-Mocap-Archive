@@ -31,7 +31,7 @@ Nope, I am hearing person, my knowledge of ASL is not complete.
 
 6) Why would I come to you for translation then?
 
-You shouldn't. I do not offer translation services. I offer the ability to turn translation into animation.
+You shouldn't. I do not offer translation services. I offer the ability to turn translation into animation. Once in a digital format there is a lot that can be done quite easily. Change character, change angle, change speed. Digitzation does not solve all problems but has its advantages.
 
 7) I speak English, why don't I just do it myself?
 
@@ -69,10 +69,26 @@ Absolutely. That is point of this project. Retarget to your characters.
 
 If you know a sign in another language matches an ASL one, or how to modify an existing motion to do so go for it. Please advise us as well, if this project ever does tackle other languages being able to reuse existing motions would be a great aid.
 
-16) Can use this for machine learning?
+16) Can use this for machine learning (AI)?
 
-Going to split this in two. For translation, yes but I have requests for that, one test it, and don't test on the unwilling. We're quite skeptical of how well machine learning will translate to various sign languages but would love to be wrong. 
+We need to break this into sub points cause that's a big category.
+
+16a) AI translation?
+
+ASL and English are differnet languages so automatic translation will be difficult. It is definitely the long term goal for great translation, automatically generated. However, in terms of time line that could be available from tomorrow to never.
+There is definitely a value in fast but dubious quality translations, the popularity of anime across the globe is proof of this. If someone says the automatic translation are not desireable for themselves please respect their wishes.
+
+16b) AI art?
+
 For Art AI, yes, but we please respect other artists decision to not want to be used for AIs Art.
+
+16c) Are you using AI?
+
+Maybe. The Xsens, and Stetchsense have algorithms to smooth and correct data, as I do not know their internal systems, I cannot say for sure. Coding is AI assisted, and there plans for AI automations.
+
+16d) AI automation how so?
+
+The workflow now exports records of change in layers as CSV. Using Reinforcement Learning to predict where edits are going to speed up cleanup.
 
 17) Can we use them for NFT?
 
@@ -99,28 +115,29 @@ No, but I would like to be.
 
 5) What Software do you use?
 
-Blender is the primary, it's free and open source, so it is natural. We do occasional quality checks to make sure files load into Autodesk Maya, Nvidia Omniverse, Unity and Unreal Engine. But not every motion will be checked. If something does not work please let us know!
+Blender is the primary, it's free and open source. One of the goals of this project is create sign avatars at 0 cost or as close as possible, naturally Blender has  We do occasional quality checks to make sure files load into Autodesk Maya, Nvidia Omniverse, Unity and Unreal Engine. But not every motion will be checked. If something does not work please let us know!
 
 6) What about X software?
 
 We don't have access to every software, but Blender is very good at interoperability.
+If you have a software you would like to 
 
 7) What are your export formats?
 
-FBX and USD. The FBX is broken up into with Mesh and No Mesh. No Mesh is less data but will not have any facial information.
-USD is open format create by Pixar, and is being adopted many parts of the 3d industry. We intend to make tutorials and workflows for both.
+FBX is our primary. We want to expand into GLTF and USD>
+USD is open format create by Pixar, and is being adopted many parts of the 3d industry.
 
 8) Facial data?
 
-ASL and other sign languages use facial movements convey tone and information. Some signs require facial movement to be complete, other it adds extra information (similar to punctuation of vocal tone). Because there are a wide range of tones, the facial data is usually left blanket unless required to complete the motion (such as anger).
+ASL and other sign languages use facial movements convey tone and information. Some signs require facial movement to be complete, other it adds extra information (similar to punctuation of vocal tone). Because there are a wide range of tones, the facial data is usually left blanket unless required to complete the motion.
 
 9) How do I change her face?
 
-Shapekeys, sometimes called Blendshapes. This will explained in the Tutorials. 
+Shapekeys, sometimes called Blendshapes. Under the GaltisHead Object, click on the data tab (green triangle on right), you will a list of shapekeys, following the FACS (Facial Action Coding System) measurement system. Move the numbers from 0-1 to see face perform the movements.
 
 10) Where are your tutorials?
 
-All tutorials will be posted at https://www.studiogalt.com/. 
+Under documentation, if you have something or want something let us know.
 
 <a name="avatar_faq"></a>
 ## AVATAR FAQ
@@ -137,5 +154,11 @@ Hatsune Miku demands it. The real reason is part of the clean up process is maki
 
 She is opensource and free to use. Please no crimes.
 
+4) What is the rig flow?
 
+FK and IK bones are manipulated by animator, and move intetmediate rig. The intermediate rig has correction bones that helps the bones deform more naturally. Finally correction bones, and the intermediate bones go into unreal (deform rig). All the deform rig does is translate the axis from blender standard to unreal standard.
 
+<a name="File_faq"></a>
+## File FAQ
+
+1) There is a lot going in each folder.
