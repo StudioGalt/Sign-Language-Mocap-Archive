@@ -5,7 +5,7 @@ Hello this is Studio Galt. Since 2020 we have been recording Motion Capture, pri
 1. [General FAQ](#general_faq)
 2. [Tech FAQ](#tech_faq)
 3. [Avatar FAQ](#avatar_faq)
-4. [File FAQ](#file faq)
+4. [File FAQ](#file_faq)
 
 <a name="general_faq"></a>
 ## GENERAL FAQ
