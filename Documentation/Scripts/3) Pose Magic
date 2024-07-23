@@ -3,8 +3,8 @@ import bpy
 import os
 
 
-#Using Blender 4.1
-#Last tested April 26th, 2024 
+#Using Blender 4.2
+#Last tested July 22nd, 2024 
 
 #This script converts markers into animation assets, and exports them as json files.
 #This file needs to be in current file in asset browser and have it open.
@@ -70,6 +70,15 @@ def export_armature_data():
 
     with open(JSONtest, "w") as outfile:
         json.dump(armatures, outfile, indent=1)
+
+# Get the current object
+obj = bpy.context.object
+
+# Iterate over all collections in the object's data
+for collection in obj.data.collections_all.values():
+    collection.is_solo = False
+
+
 
 #This script counts the amount of assets in a scene, than adds to the count.
 
