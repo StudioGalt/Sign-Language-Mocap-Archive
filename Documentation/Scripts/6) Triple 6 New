@@ -1,0 +1,1011 @@
+import bpy
+
+#Using Blender 4.2
+#Last tested July 22nd, 2024 
+#This addon assumes you have pose exporter by Bookyakuno
+
+#This function purges keyframes
+def remove_keyframes_for_bone(armature, bone_name):
+    if bone_name in armature.pose.bones:
+        pose_bone = armature.pose.bones[bone_name]
+        if armature.animation_data:
+            fcurves_to_remove = []
+            for fcurve in armature.animation_data.action.fcurves:
+                if fcurve.data_path.startswith(f'pose.bones["{pose_bone.name}"]'):
+                    fcurves_to_remove.append(fcurve)
+            for fcurve in fcurves_to_remove:
+                armature.animation_data.action.fcurves.remove(fcurve)        
+
+#This function converts markers into Pose Assets
+def jump_to_next_marker():
+    # Get the current frame
+    current_frame = bpy.context.scene.frame_current
+    # Find the next marker frame
+    next_marker_frame = None
+    for marker in sorted_markers:
+        if marker.frame  > current_frame:
+            next_marker_frame  = marker.frame
+            break
+    # If a next marker is found, jump to it
+    if next_marker_frame is not None:
+        bpy.context.scene.frame_set(next_marker_frame)
+        print(f"Jumped to the next marker at frame {next_marker_frame}")
+    else:
+        print("No next marker found")
+
+
+
+GaltisRig = bpy.data.objects['root']
+
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.ops.object.select_all(action='DESELECT')
+
+bpy.context.view_layer.objects.active = GaltisRig
+
+
+#Build the stamp
+file_name = bpy.path.basename(bpy.context.blend_data.filepath)
+fnsplit = file_name.split()
+Stamp = " ".join(fnsplit[:-1])
+print(Stamp)
+
+
+Base='C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace'
+
+scene = bpy.context.scene
+scene_end = bpy.context.scene.frame_end
+
+armature = bpy.data.objects['root']
+
+
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.ops.object.select_all(action='DESELECT')
+
+#Turn all layers on
+bpy.data.objects["root"].select_set(True)
+
+bpy.context.object.data.collections["Limbs Corrections"].is_visible = True
+bpy.context.object.data.collections["Limbs FK"].is_visible = True
+bpy.context.object.data.collections["Limbs IK"].is_visible = True
+bpy.context.object.data.collections["Limbs IK Correction"].is_visible = True
+bpy.context.object.data.collections["Spine Input"].is_visible = True
+bpy.context.object.data.collections["Fingers FK"].is_visible = True
+bpy.context.object.data.collections["Fingers IK"].is_visible = True
+bpy.context.object.data.collections["Fingers Intermediate"].is_visible = True
+bpy.context.object.data.collections["Unreal (Deform Rig)"].is_visible = True
+bpy.context.object.data.collections["Intermediate Rig"].is_visible = True
+
+
+bpy.ops.object.mode_set(mode='POSE')
+
+#This is a necessary step because pure armature take 0 frame as rest pose.
+#This ensure it will always animate off of 0.
+bpy.context.scene.frame_set(0)
+bpy.ops.pose.select_all(action='SELECT')
+
+bpy.ops.pose.scale_clear()
+bpy.ops.pose.rot_clear()
+bpy.ops.pose.loc_clear()
+
+
+bpy.ops.anim.keyframe_insert_by_name(type="LocRotScale")
+
+# Export the selected object to the given path in FBX format
+
+ 
+NoMeshFull=Stamp+ " No Mesh Full.fbx" 
+
+NoMeshPathFull=Base+'\\'+Stamp+'\\'+ NoMeshFull
+
+bpy.ops.export_scene.fbx(filepath=NoMeshPathFull,check_existing=True, use_selection=True, object_types={'ARMATURE'},add_leaf_bones=False, bake_anim=True, bake_anim_use_all_bones=True, bake_anim_use_nla_strips=True, bake_anim_use_all_actions=True)
+
+
+
+
+armature = bpy.data.objects['root']
+action = armature.animation_data.action
+frame_range = action.frame_range
+last_frame = action.frame_range[1]
+lf = int(last_frame)
+bpy.ops.nla.bake(frame_start=1, frame_end=lf, only_selected=False, visual_keying=True, use_current_action=True, bake_types={'POSE'})
+
+
+
+#Unreal Arc
+
+#Select Primary
+
+
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.ops.object.select_all(action='DESELECT')
+
+
+bpy.data.objects["root"].select_set(True)
+bpy.ops.object.mode_set(mode='POSE')
+bpy.ops.pose.select_all(action='DESELECT')
+
+#Select all bones for Unrealplus
+
+bones_to_select = [
+    'thumb_01_l', 'thumb_02_l', 'thumb_03_l',
+    'index_01_l', 'index_02_l', 'index_03_l',
+    'middle_01_l', 'middle_02_l', 'middle_03_l',
+    'ring_01_l', 'ring_02_l', 'ring_03_l',
+    'pinky_01_l', 'pinky_02_l', 'pinky_03_l',
+    'index_metacarpal_l', 'middle_metacarpal_l',
+    'ring_metacarpal_l', 'pinky_metacarpal_l',
+    'hand_l', 'wrist_l', 'lowerarm_twist_01_l',
+    'lowerarm_twist_02_l', 'lowerarm_l', 'elbow_l',
+    'upperarm_twist_02_l', 'upperarm_twist_01_l',
+    'upperarm_l', 'shoulder_l', 'clavicle_l',
+    'trapius_l', 'deltoid_l', 'serratus_l',
+    'boob_l', 'hip_middle_l', 'pelvisback_l',
+    'thigh_l', 'thigh_twist_01_l', 'thigh_twist_02_l',
+    'cthigh_l', 'cshin_l', 'knee_l', 'calf_l',
+    'calf_twist_01_l', 'calf_twist_02_l', 'foot_l',
+    'ball_l', 'ik_foot_l', 'ik_hand_l', 'latissimus_l',
+    'thumb_01_r', 'thumb_02_r', 'thumb_03_r',
+    'index_01_r', 'index_02_r', 'index_03_r',
+    'middle_01_r', 'middle_02_r', 'middle_03_r',
+    'ring_01_r', 'ring_02_r', 'ring_03_r',
+    'pinky_01_r', 'pinky_02_r', 'pinky_03_r',
+    'index_metacarpal_r', 'middle_metacarpal_r',
+    'ring_metacarpal_r', 'pinky_metacarpal_r',
+    'hand_r', 'wrist_r', 'lowerarm_twist_01_r',
+    'lowerarm_twist_02_r', 'lowerarm_r', 'elbow_r',
+    'upperarm_twist_02_r', 'upperarm_twist_01_r',
+    'upperarm_r', 'shoulder_r', 'clavicle_r',
+    'trapius_r', 'deltoid_r', 'serratus_r',
+    'boob_r', 'hip_middle_r', 'pelvisback_r',
+    'thigh_r', 'thigh_twist_01_r', 'thigh_twist_02_r',
+    'cthigh_r', 'cshin_r', 'knee_r', 'calf_r',
+    'calf_twist_01_r', 'calf_twist_02_r', 'foot_r',
+    'ball_r', 'ik_foot_r', 'ik_hand_r', 'latissimus_r',
+    'head', 'neck_02', 'neck_01', 'spine_05',
+    'spine_04', 'spine_03', 'spine_02', 'spine_01',
+    'pelvis', 'interaction', 'center_of_mass',
+    'ik_hand_root', 'ik_foot_root', 'ik_hand_gun'
+]
+
+for bone_name in bones_to_select:
+    if bone_name in armature.pose.bones:
+        armature.pose.bones[bone_name].bone.select = True
+    else:
+        print(f"Bone '{bone_name}' not found in armature.")
+
+
+bpy.ops.object.mode_set(mode='EDIT')
+
+#Flip and Seperate the Unreal bones from their counterparts
+bpy.ops.armature.select_all(action='INVERT')
+bpy.ops.armature.separate()
+
+
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.ops.object.select_all(action='DESELECT')
+bpy.data.objects["root"].select_set(True)
+
+UEPlus=Stamp+ " No Mesh UEPlus.fbx" 
+
+UEPlusPathFull=Base+'\\'+Stamp+'\\'+ UEPlus
+
+bpy.ops.export_scene.fbx(filepath=UEPlusPathFull,check_existing=True, use_selection=True, object_types={'ARMATURE'},add_leaf_bones=False, bake_anim=True, bake_anim_use_all_bones=True, bake_anim_use_nla_strips=True, bake_anim_use_all_actions=True)
+
+
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.ops.object.select_all(action='DESELECT')
+
+#Grab the non-unreal rig
+bpy.data.objects["root.001"].select_set(True)
+
+#select all bone not in original UE mannequin to get rid of
+bone_names_to_selectII = [
+    'wrist_l', 'elbow_l', 'trapius_l', 'deltoid_l', 'serratus_l', 'boob_l',
+    'hip_middle_l', 'pelvisback_l', 'cthigh_l', 'cshin_l', 'knee_l',
+    'shoulder_l', 'latissimus_l',
+    'wrist_r', 'elbow_r', 'trapius_r', 'deltoid_r', 'serratus_r', 'boob_r',
+    'hip_middle_r', 'pelvisback_r', 'cthigh_r', 'cshin_r', 'knee_r',
+    'shoulder_r', 'latissimus_r'
+]
+
+armature = bpy.data.objects['root'].data
+
+bpy.ops.object.mode_set(mode='POSE')
+
+for bone_name in bone_names_to_selectII:
+    if bone_name in armature.bones:
+        armature.bones[bone_name].select = True
+    else:
+        print(f"Bone '{bone_name}' not found in armature.")
+
+bpy.ops.object.mode_set(mode='EDIT')
+bpy.ops.armature.delete()
+
+
+
+
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.ops.object.select_all(action='DESELECT')
+bpy.data.objects["root"].select_set(True)
+
+UEMannequin=Stamp+ " No Mesh UE Mannequin.fbx" 
+
+UEMannequinPath=Base+'\\'+Stamp+'\\'+ UEMannequin
+
+bpy.ops.export_scene.fbx(filepath=UEMannequinPath,check_existing=True, use_selection=True, object_types={'ARMATURE'},add_leaf_bones=False, bake_anim=True, bake_anim_use_all_bones=True, bake_anim_use_nla_strips=True, bake_anim_use_all_actions=True)
+
+actions = bpy.data.actions
+
+#The previous steps created duplicate actions, lets get rig of them.
+for action in actions:
+    # Check if the action name does not start with "SG ASL"
+    if action.name.endswith("Animation"):
+        # Remove the action
+        bpy.data.actions.remove(action)
+        
+    
+armature_name = 'root'  
+
+# Deselect all objects
+bpy.ops.object.select_all(action='DESELECT')
+
+# Retrieve the armature object
+armature_object = bpy.data.objects.get(armature_name)
+
+# Check if the armature object exists
+if armature_object:
+    armature_object.select_set(True)
+    bpy.context.view_layer.objects.active = armature_object
+    bpy.ops.object.delete()
+    print(f"Deleted armature: {armature_name}")
+else:
+    print(f"No armature found with the name: {armature_name}")
+
+armature_name = 'root'  
+
+for obj in bpy.data.objects:
+    if obj.type == 'ARMATURE' and obj.data.name == armature_name:
+        bpy.data.objects.remove(obj, do_unlink=True)
+        break
+
+
+for armature in bpy.data.armatures:
+    if armature.name == armature_name:
+        bpy.data.armatures.remove(armature)
+        break
+
+print(f"Deleted armature object and data block: {armature_name}")
+
+
+scene = bpy.context.scene
+scene_end = bpy.context.scene.frame_end
+
+armature = bpy.data.objects['root.001']
+
+bpy.data.objects["root.001"].select_set(True)
+
+bpy.data.objects["root.001"].select_set(True)
+object_name = 'root.001'
+object_to_set_active = bpy.data.objects.get(object_name)
+if object_to_set_active:
+    bpy.context.view_layer.objects.active = object_to_set_active
+else:
+    print(f"Object '{object_name}' not found in the scene.")
+
+
+bpy.ops.object.mode_set(mode='OBJECT')
+
+
+object_name = 'root.001'
+object_to_set_active = bpy.data.objects.get(object_name)
+if object_to_set_active:
+    bpy.context.view_layer.objects.active = object_to_set_active
+else:
+    print(f"Object '{object_name}' not found in the scene.")
+
+
+bpy.context.object.data.collections["Limbs Corrections"].is_visible = True
+bpy.context.object.data.collections["Limbs FK"].is_visible = True
+bpy.context.object.data.collections["Limbs IK"].is_visible = True
+bpy.context.object.data.collections["Limbs IK Correction"].is_visible = True
+bpy.context.object.data.collections["Spine Input"].is_visible = True
+bpy.context.object.data.collections["Fingers FK"].is_visible = True
+bpy.context.object.data.collections["Fingers IK"].is_visible = True
+bpy.context.object.data.collections["Fingers Intermediate"].is_visible = True
+bpy.context.object.data.collections["Unreal (Deform Rig)"].is_visible = True
+bpy.context.object.data.collections["Intermediate Rig"].is_visible = True
+
+
+
+old_armature_name = 'root.001'
+new_armature_name = 'Galtis_Rig'
+armature_object = bpy.data.objects.get(old_armature_name)
+if armature_object and armature_object.type == 'ARMATURE':
+    # Change the armature object's name
+    armature_object.name = new_armature_name
+    # Change the armature data's name (if it's different from the object's name)
+    armature_object.data.name = new_armature_name
+    print(f"Armature '{old_armature_name}' renamed to '{new_armature_name}'.")
+else:
+    print(f"Armature '{old_armature_name}' not found or is not of type 'ARMATURE'.")
+
+
+
+GaltisRig = bpy.data.objects['Galtis_Rig']
+
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.context.view_layer.objects.active = GaltisRig
+
+bpy.context.object.data.collections["Limbs Corrections"].is_visible = True
+bpy.context.object.data.collections["Limbs FK"].is_visible = True
+bpy.context.object.data.collections["Limbs IK"].is_visible = True
+bpy.context.object.data.collections["Limbs IK Correction"].is_visible = True
+bpy.context.object.data.collections["Spine Input"].is_visible = True
+bpy.context.object.data.collections["Fingers FK"].is_visible = True
+bpy.context.object.data.collections["Fingers IK"].is_visible = True
+bpy.context.object.data.collections["Fingers Intermediate"].is_visible = True
+bpy.context.object.data.collections["Unreal (Deform Rig)"].is_visible = True
+bpy.context.object.data.collections["Intermediate Rig"].is_visible = True
+
+#selecte all the bones for intemediate rig
+bone_names_to_select = [
+    'thumbinte_01_L', 'thumbinte_02_L', 'thumbinte_03_L',
+    'indexinte_01_L', 'indexinte_02_L', 'indexinte_03_L',
+    'middleinte_01_L', 'middleinte_02_L', 'middleinte_03_L',
+    'ringinte_01_L', 'ringinte_02_L', 'ringinte_03_L',
+    'pinkyinte_01_L', 'pinkyinte_02_L', 'pinkyinte_03_L',
+    'handinte_L', 'lowerarminte_L', 'upperarminte_L',
+    'clavicleinte_L', 'thighinte_L', 'calfinte_L', 'footinte_L', 'ballinte_L',
+    'thumbinte_01_R', 'thumbinte_02_R', 'thumbinte_03_R',
+    'indexinte_01_R', 'indexinte_02_R', 'indexinte_03_R',
+    'middleinte_01_R', 'middleinte_02_R', 'middleinte_03_R',
+    'ringinte_01_R', 'ringinte_02_R', 'ringinte_03_R',
+    'pinkyinte_01_R', 'pinkyinte_02_R', 'pinkyinte_03_R',
+    'handinte_R', 'lowerarminte_R', 'upperarminte_R',
+    'clavicleinte_R', 'thighinte_R', 'calfinte_R', 'footinte_R', 'ballinte_R',
+    'headinte', 'neckinte_02', 'neckinte_01',
+    'spineinte_05', 'spineinte_04', 'spineinte_03', 'spineinte_02', 'spineinte_01',
+    'pelvisinte', 'Locator_Root'
+]
+
+armature = bpy.data.objects['Galtis_Rig'].data
+
+bpy.ops.object.mode_set(mode='POSE')
+
+for bone_name in bone_names_to_select:
+    if bone_name in armature.bones:
+        armature.bones[bone_name].select = True
+    else:
+        print(f"Bone '{bone_name}' not found in armature.")
+
+
+bpy.ops.object.mode_set(mode='EDIT')
+
+bpy.ops.armature.separate()
+
+
+#this deletes orange man
+armature_name = 'Galtis_Rig'  
+
+
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.ops.object.select_all(action='DESELECT')
+
+# Retrieve the armature object
+armature_object = bpy.data.objects.get(armature_name)
+
+# Check if the armature object exists
+if armature_object:
+    armature_object.select_set(True)
+    bpy.context.view_layer.objects.active = armature_object
+    bpy.ops.object.delete()
+    print(f"Deleted armature: {armature_name}")
+else:
+    print(f"No armature found with the name: {armature_name}")
+
+
+armature_name = 'Galtis_Rig'  # Replace with the name of your armature
+
+# Find and delete the armature object
+for obj in bpy.data.objects:
+    if obj.type == 'ARMATURE' and obj.data.name == armature_name:
+        bpy.data.objects.remove(obj, do_unlink=True)
+        break
+
+# Now remove the armature data block
+for armature in bpy.data.armatures:
+    if armature.name == armature_name:
+        bpy.data.armatures.remove(armature)
+        break
+
+print(f"Deleted armature object and data block: {armature_name}")
+
+
+#This renames Orange guy in outliner
+StampAni = Stamp+ " Animation"
+object_name_to_select = 'Galtis_Rig.001'
+#Armature is new name.
+new_object_name = "Armature"
+bpy.ops.object.select_all(action='DESELECT')
+object_to_select = bpy.data.objects.get(object_name_to_select)
+if object_to_select:
+    object_to_select.select_set(True)
+    bpy.context.view_layer.objects.active = object_to_select
+    object_to_select.name = new_object_name
+else:
+    print(f"Object named '{object_name_to_select}' not found")
+
+#This renames Green guy in outliner
+
+# Specify the current name of the armature data and the new name
+current_name = 'Galtis_Rig.001'  # Replace with the current name of your armature data
+new_name = 'Armature'  # Replace with the new name you want to assign
+
+# Rename the armature data
+armature_data = bpy.data.armatures.get(current_name)
+if armature_data:
+    armature_data.name = new_name
+    print(f"Armature data renamed to: {new_name}")
+else:
+    print(f"No armature data found with the name: {current_name}")
+
+StampMix = Stamp + " Mixa Anim"
+
+actions = bpy.data.actions
+for action in actions:
+    if action.name.endswith(".002"):
+        action.name = StampMix
+
+# Get all actions
+actions = bpy.data.actions
+
+# Create a list of actions to be removed
+actions_to_remove = [action for action in actions if not action.name.endswith("Anim")]
+
+# Iterate through the list and remove each action
+for action in actions_to_remove:
+    bpy.data.actions.remove(action)
+
+
+
+bpy.data.objects["Armature"].select_set(True)
+bpy.context.view_layer.objects.active = bpy.data.objects["Armature"]
+bpy.ops.object.mode_set(mode='POSE')
+bpy.ops.pose.select_all(action='DESELECT')
+
+
+
+bpy.ops.object.mode_set(mode='OBJECT')
+
+
+bpy.context.object.als.turn_on = True
+bpy.ops.object.select_all(action='DESELECT')
+
+bpy.data.objects["Armature"].select_set(True)
+
+
+#Get rid of contraints on fingers
+bpy.context.view_layer.objects.active = bpy.data.objects["Armature"]
+bone_names_to_remove_constraints = [
+    "thumbinte_01_R", "thumbinte_02_R", "thumbinte_03_R",
+    "indexinte_01_R", "indexinte_02_R", "indexinte_03_R",
+    "middleinte_01_R", "middleinte_02_R", "middleinte_03_R",
+    "ringinte_01_R", "ringinte_02_R", "ringinte_03_R",
+    "pinkyinte_01_R", "pinkyinte_02_R", "pinkyinte_03_R",
+     "thumbinte_01_L", "thumbinte_02_L", "thumbinte_03_L",
+    "indexinte_01_L", "indexinte_02_L", "indexinte_03_L",
+    "middleinte_01_L", "middleinte_02_L", "middleinte_03_L",
+    "ringinte_01_L", "ringinte_02_L", "ringinte_03_L",
+    "pinkyinte_01_L", "pinkyinte_02_L", "pinkyinte_03_L"
+    ]
+
+for bone_name in bone_names_to_remove_constraints:
+    if bone_name in bpy.context.active_object.data.bones:
+        pose_bone = bpy.context.active_object.pose.bones[bone_name]
+        copyTransConstraints = [c for c in pose_bone.constraints if c.type == 'COPY_TRANSFORMS']
+        for c in copyTransConstraints:
+            pose_bone.constraints.remove(c)  # Remove constraint
+    else:
+        print(f"Bone '{bone_name}' not found in the armature.")
+
+
+# Export the selected object to the given path in FBX format
+rig_object = bpy.data.objects["Armature"]
+
+#Start renaming intermediate rig 
+bone_pairs = [
+    ("headinte", "Head"),
+    ("neckinte_02", "Neckdissolve"),
+    ("neckinte_01", "Neck"),
+    ("spineinte_05", "Chestdissolve"),
+    ("spineinte_04", "Chest_4"),
+    ("spineinte_03", "Chest_3"),
+    ("spineinte_02", "Chest_2"),
+    ("spineinte_01", "Chest_1"),
+    ("pelvisinte", "Hips"),
+    ("clavicleinte_R", "Collar_R"),
+    ("upperarminte_R", "Bicep_R"),
+    ("lowerarminte_R", "Forearm_R"),
+    ("handinte_R", "Hand_R"),
+    ("thumbinte_03_R", "Thumb3_R"),
+    ("thumbinte_02_R", "Thumb2_R"),
+    ("thumbinte_01_R", "Thumb1_R"),
+    ("indexinte_03_R", "Index3_R"),
+    ("indexinte_02_R","Index2_R"),
+    ("indexinte_01_R","Index1_R"),
+    ("middleinte_03_R","Middle3_R"),
+    ("middleinte_02_R","Middle2_R"),
+    ("middleinte_01_R","Middle1_R"),
+    ("ringinte_03_R", "Ring3_R"),
+    ("ringinte_02_R", "Ring2_R"),
+    ("ringinte_01_R", "Ring1_R"),
+    ("pinkyinte_03_R", "Pinky3_R"),
+    ("pinkyinte_02_R", "Pinky2_R"),
+    ("pinkyinte_01_R","Pinky1_R"),
+    ("thighinte_R", "Thigh_R"),
+    ("calfinte_R", "Shin_R"),
+    ("footinte_R", "Foot_R"),
+    ("ballinte_R", "Toe_R"),
+    ("clavicleinte_L", "Collar_L"),
+    ("upperarminte_L", "Bicep_L"),
+    ("lowerarminte_L", "Forearm_L"),
+    ("handinte_L", "Hand_L"),
+    ("thumbinte_03_L", "Thumb3_L"),
+    ("thumbinte_02_L", "Thumb2_L"),
+    ("thumbinte_01_L", "Thumb1_L"),
+    ("indexinte_03_L", "Index3_L"),
+    ("indexinte_02_L", "Index2_L"),
+    ("indexinte_01_L", "Index1_L"),
+    ("middleinte_03_L", "Middle3_L"),
+    ("middleinte_02_L", "Middle2_L"),
+    ("middleinte_01_L", "Middle1_L"),
+    ("ringinte_03_L", "Ring3_L"),
+    ("ringinte_02_L", "Ring2_L"),
+    ("ringinte_01_L", "Ring1_L"),
+    ("pinkyinte_03_L", "Pinky3_L"),
+    ("pinkyinte_02_L", "Pinky2_L"),
+    ("pinkyinte_01_L","Pinky1_L"),
+    ("thighinte_L", "Thigh_L"),
+    ("calfinte_L", "Shin_L"),
+    ("footinte_L", "Foot_L"),
+    ("ballinte_L","Toe_L")
+    ]
+
+# Rename the bones
+for current_name, new_name in bone_pairs:
+    if current_name in rig_object.pose.bones:
+        rig_object.pose.bones[current_name].name = new_name
+    else:
+        print(f"Error: Bone {current_name} not found.")
+
+
+
+
+armature = bpy.data.objects["Armature"]  
+bpy.context.view_layer.objects.active = armature
+bpy.ops.object.mode_set(mode='EDIT')
+
+bone_name = "Head" 
+
+bpy.context.view_layer.objects.active = armature
+bpy.ops.object.mode_set(mode='EDIT')
+
+edit_bones = armature.data.edit_bones
+if bone_name in edit_bones:
+    bone = edit_bones[bone_name]
+    bone.use_connect = False
+    
+bpy.ops.object.mode_set(mode='OBJECT')    
+bpy.ops.object.select_all(action='DESELECT')
+
+bpy.data.objects["Armature"].select_set(True)
+bpy.context.view_layer.objects.active = bpy.data.objects["Armature"]
+bpy.ops.object.mode_set(mode='POSE')
+bpy.ops.pose.select_all(action='DESELECT')
+
+
+
+#The intermediate rig has extra bones to pilot the unreal rig.
+#Not needed anymore so lets dissolve
+bpy.data.objects['Armature'].data.bones['Neckdissolve'].select = True
+bpy.data.objects['Armature'].data.bones['Chestdissolve'].select = True
+bpy.ops.object.mode_set(mode='EDIT')
+bpy.ops.armature.dissolve()
+
+if bone_name in edit_bones:
+    bone = edit_bones[bone_name]
+    bone.use_connect = True
+ 
+
+
+bpy.ops.object.mode_set(mode='POSE')
+
+
+bpy.data.objects["Armature"].select_set(True)
+
+bpy.ops.object.mode_set(mode='POSE')
+bpy.ops.pose.select_all(action='SELECT')
+#repeat rest pose reset.
+bpy.context.scene.frame_set(0)
+
+bpy.ops.pose.scale_clear()
+bpy.ops.pose.rot_clear()
+bpy.ops.pose.loc_clear()
+
+bpy.ops.anim.keyframe_insert_by_name(type="LocRotScale")
+
+bpy.ops.object.mode_set(mode='OBJECT')
+
+bpy.context.object.als.turn_on = True
+bpy.ops.object.select_all(action='DESELECT')
+
+bpy.data.objects["Armature"].select_set(True)
+
+NoMeshMini=Stamp+ " No Mesh Mini.fbx" 
+NoMeshPathMini=Base+'\\'+Stamp+'\\'+ NoMeshMini
+
+bpy.ops.export_scene.fbx(filepath=NoMeshPathMini,check_existing=True, use_selection=True, object_types={'ARMATURE'},add_leaf_bones=False, bake_anim=True, bake_anim_use_all_bones=True, bake_anim_use_nla_strips=True, bake_anim_use_all_actions=True)
+
+
+#Now convert all the bones to the mixamo rig we know and love
+bpy.context.object.als.turn_on = True
+bpy.ops.object.select_all(action='DESELECT')
+NoMeshMixamo=Stamp+ " No Mesh Mixamo.fbx" 
+NoMeshPathMixamo=Base+'\\'+Stamp+'\\'+ NoMeshMixamo
+rig_object = bpy.data.objects["Armature"]
+
+
+bone_pairs = [
+    ("Head", "mixamorig:Head"),
+    ("Neck", "mixamorig:Neck"),
+    ("Chest_4", "mixamorig:Spine2"),
+    ("Chest_3", "mixamorig:Spine1"),
+    ("Chest_2", "mixamorig:Spine"),
+    ("Chest_1", "mixamorig:Hips"),
+    ("Collar_R", "mixamorig:RightShoulder"),
+    ("Bicep_R", "mixamorig:RightArm"),
+    ("Forearm_R", "mixamorig:RightForeArm"),
+    ("Hand_R", "mixamorig:RightHand"),
+    ("Thumb3_R", "mixamorig:RightHandThumb3"),
+    ("Thumb2_R", "mixamorig:RightHandThumb2"),
+    ("Thumb1_R", "mixamorig:RightHandThumb1"),
+    ("Index3_R", "mixamorig:RightHandIndex3"),
+    ("Index2_R", "mixamorig:RightHandIndex2"),
+    ("Index1_R", "mixamorig:RightHandIndex1"),
+    ("Middle3_R", "mixamorig:RightHandMiddle3"),
+    ("Middle2_R", "mixamorig:RightHandMiddle2"),
+    ("Middle1_R", "mixamorig:RightHandMiddle1"),
+    ("Ring3_R", "mixamorig:RightHandRing3"),
+    ("Ring2_R", "mixamorig:RightHandRing2"),
+    ("Ring1_R", "mixamorig:RightHandRing1"),
+    ("Pinky3_R", "mixamorig:RightHandPinky3"),
+    ("Pinky2_R", "mixamorig:RightHandPinky2"),
+    ("Pinky1_R", "mixamorig:RightHandPinky1"),
+    ("Thigh_R", "mixamorig:RightUpLeg"),
+    ("Shin_R", "mixamorig:RightLeg"),
+    ("Foot_R", "mixamorig:RightFoot"),
+    ("Toe_R", "mixamorig:RightToeBase"),
+    ("Collar_L", "mixamorig:LeftShoulder"),
+    ("Bicep_L", "mixamorig:LeftArm"),
+    ("Forearm_L", "mixamorig:LeftForeArm"),
+    ("Hand_L", "mixamorig:LeftHand"),
+    ("Thumb3_L", "mixamorig:LeftHandThumb3"),
+    ("Thumb2_L", "mixamorig:LeftHandThumb2"),
+    ("Thumb1_L", "mixamorig:LeftHandThumb1"),
+    ("Index3_L", "mixamorig:LeftHandIndex3"),
+    ("Index2_L", "mixamorig:LeftHandIndex2"),
+    ("Index1_L", "mixamorig:LeftHandIndex1"),
+    ("Middle3_L", "mixamorig:LeftHandMiddle3"),
+    ("Middle2_L", "mixamorig:LeftHandMiddle2"),
+    ("Middle1_L", "mixamorig:LeftHandMiddle1"),
+    ("Ring3_L", "mixamorig:LeftHandRing3"),
+    ("Ring2_L", "mixamorig:LeftHandRing2"),
+    ("Ring1_L", "mixamorig:LeftHandRing1"),
+    ("Pinky3_L", "mixamorig:LeftHandPinky3"),
+    ("Pinky2_L", "mixamorig:LeftHandPinky2"),
+    ("Pinky1_L", "mixamorig:LeftHandPinky1"),
+    ("Thigh_L", "mixamorig:LeftUpLeg"),
+    ("Shin_L", "mixamorig:LeftLeg"),
+    ("Foot_L", "mixamorig:LeftFoot"),
+    ("Toe_L", "mixamorig:LeftToeBase"),
+]
+
+# Rename the bones
+for current_name, new_name in bone_pairs:
+    if current_name in rig_object.pose.bones:
+        rig_object.pose.bones[current_name].name = new_name
+    else:
+        print(f"Error: Bone {current_name} not found.")
+
+# Export the selected object to the given path in FBX format
+bone_pairs_dict = {current_name: new_name for current_name, new_name in bone_pairs}
+for action in bpy.data.actions:
+    #these so called action groups are the bones, ie one group contains all fcurves of one bone
+    for group in action.groups:
+        if group.name in bone_pairs_dict:
+            oldname = group.name
+            group.name = bone_pairs_dict[oldname]
+            for fcurve in group.channels:
+                fcurve.data_path = fcurve.data_path.replace(oldname, bone_pairs_dict[oldname])
+
+
+
+
+bpy.ops.object.select_all(action='DESELECT')
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.data.objects["Armature"].select_set(True)
+bpy.context.view_layer.objects.active = bpy.data.objects["Armature"]
+bpy.ops.object.mode_set(mode='POSE')
+bpy.ops.pose.select_all(action='DESELECT')
+
+bpy.data.objects['Armature'].data.bones['Hips'].select = True
+bpy.ops.object.mode_set(mode='EDIT')
+bpy.ops.armature.delete()
+
+bpy.ops.object.mode_set(mode='POSE')
+
+bpy.data.objects["Armature"].select_set(True)
+
+bpy.ops.object.mode_set(mode='POSE')
+bpy.ops.pose.select_all(action='SELECT')
+bpy.context.scene.frame_set(0)
+
+bpy.ops.pose.scale_clear()
+bpy.ops.pose.rot_clear()
+bpy.ops.pose.loc_clear()
+
+bpy.ops.anim.keyframe_insert_by_name(type="LocRotScale")
+
+armature_name = "Armature"  # replace with your armature name
+bone_nameL = "mixamorig:LeftUpLeg"  # replace with the name of the bone you want to reparent
+bone_nameR = "mixamorig:RightUpLeg"
+new_parent_name = "mixamorig:Hips"  # replace with the name of the new parent bone
+
+# Get the armature object
+armature = bpy.data.objects[armature_name]
+
+# Make sure the armature is the active object and is in Edit Mode
+bpy.context.view_layer.objects.active = armature
+bpy.ops.object.mode_set(mode='EDIT')
+
+# Get the EditBones collection
+edit_bones = armature.data.edit_bones
+
+# Check if the bone and the new parent exist in the armature
+if bone_nameL in edit_bones and new_parent_name in edit_bones:
+    bone = edit_bones[bone_nameL]
+    new_parent = edit_bones[new_parent_name]
+    # Set the parent of the bone
+    bone.parent = new_parent
+    bone.use_connect = False  # Use this line if you want to make sure the bone is not connected to its parent
+
+# Check if the bone and the new parent exist in the armature
+if bone_nameR in edit_bones and new_parent_name in edit_bones:
+    bone = edit_bones[bone_nameR]
+    new_parent = edit_bones[new_parent_name]
+    # Set the parent of the bone
+    bone.parent = new_parent
+    bone.use_connect = False  # Use this line if you want to make sure the bone is not connected to its parent
+
+bone_nameL = "mixamorig:LeftArm"  # replace with the name of the bone you want to reparent
+bone_nameR = "mixamorig:RightArm"
+new_parent_nameL = "mixamorig:LeftShoulder"  # replace with the name of the new parent bone
+new_parent_nameR = "mixamorig:RightShoulder"
+
+
+armature = bpy.data.objects[armature_name]
+
+bpy.context.view_layer.objects.active = armature
+bpy.ops.object.mode_set(mode='EDIT')
+
+# Get the EditBones collection
+edit_bones = armature.data.edit_bones
+
+# Check if the bone and the new parent exist in the armature
+if bone_nameL in edit_bones and new_parent_name in edit_bones:
+    bone = edit_bones[bone_nameL]
+    new_parent = edit_bones[new_parent_nameL]
+    # Set the parent of the bone
+    bone.parent = new_parent
+    bone.use_connect = True # Use this line if you want to make sure the bone is not connected to its parent
+
+# Check if the bone and the new parent exist in the armature
+if bone_nameR in edit_bones and new_parent_name in edit_bones:
+    bone = edit_bones[bone_nameR]
+    new_parent = edit_bones[new_parent_nameR]
+    # Set the parent of the bone
+    bone.parent = new_parent
+    bone.use_connect = True
+
+
+
+bpy.ops.object.mode_set(mode='POSE')
+bpy.ops.pose.select_all(action='DESELECT')
+
+
+
+bpy.ops.object.mode_set(mode='OBJECT')
+
+bpy.context.object.als.turn_on = True
+bpy.ops.object.select_all(action='DESELECT')
+
+bpy.data.objects["Armature"].select_set(True)
+
+
+
+
+bpy.ops.export_scene.fbx(filepath=NoMeshPathMixamo,check_existing=True, use_selection=True, object_types={'ARMATURE'},add_leaf_bones=False, bake_anim=True, bake_anim_use_all_bones=True, bake_anim_use_nla_strips=True, bake_anim_use_all_actions=True)
+
+
+
+
+#We now repeat the pose magic workflow, to save the pose under Mixamo names,
+#This lets you append signs to a Mixamo rig
+
+sorted_markers = sorted(bpy.context.scene.timeline_markers, key=lambda marker: marker.frame)
+
+
+
+pose_names = ["Pose 1", "Pose 2", "Pose 3", "Pose 4", "Pose 5",
+            "Pose 6", "Pose 7", "Pose 8", "Pose 9", "Pose 10"]  # Add more pose names as needed
+
+# Sort the markers in the scene by their frame number
+
+# Iterate through the sorted markers and assign pose names
+marker_pose_map = {}
+
+# Iterate through the sorted markers and assign pose names
+for i, marker in enumerate(sorted_markers):
+    if i < len(pose_names):
+        pose_name = pose_names[i]
+        marker_pose_map[marker] = pose_name
+        print(f"Marker for {pose_name}: {marker}")
+    else:
+        break 
+    
+print(marker_pose_map)
+
+print(len(marker_pose_map))
+posecount=len(marker_pose_map)
+
+
+GaltisRig = bpy.data.objects['Armature']
+
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.context.view_layer.objects.active = GaltisRig
+
+
+bpy.context.scene.frame_set(0)
+jump_to_next_marker()
+
+# Filter actions that are marked as assets
+action_assets = [action for action in bpy.data.actions if action.asset_data]
+
+# Count the number of action assets
+AssetCount = len(action_assets)
+
+print(f"Number of action assets in the current file: {AssetCount}")
+AC= str((AssetCount)+1)
+
+Posename = Stamp + " Mixamo P"+AC
+
+
+
+bpy.context.object.data.collections["Limbs Corrections"].is_visible = True
+bpy.context.object.data.collections["Limbs FK"].is_visible = True
+bpy.context.object.data.collections["Limbs IK"].is_visible = True
+bpy.context.object.data.collections["Limbs IK Correction"].is_visible = True
+bpy.context.object.data.collections["Spine Input"].is_visible = True
+bpy.context.object.data.collections["Fingers FK"].is_visible = True
+bpy.context.object.data.collections["Fingers IK"].is_visible = True
+bpy.context.object.data.collections["Fingers Intermediate"].is_visible = True
+bpy.context.object.data.collections["Unreal (Deform Rig)"].is_visible = True
+bpy.context.object.data.collections["Intermediate Rig"].is_visible = True
+
+
+num_iterations = posecount  # Adjust this number based on your needs
+
+for i in range(num_iterations):
+    GaltisRig = bpy.data.objects['Armature']
+    armature_object = bpy.data.objects.get('Armature')
+    bpy.ops.object.mode_set(mode='OBJECT')
+    bpy.ops.object.select_all(action='DESELECT')
+    bpy.context.view_layer.objects.active = GaltisRig
+    bpy.ops.object.mode_set(mode='POSE')
+    bpy.ops.pose.select_all(action='SELECT')
+    action_assets = [action for action in bpy.data.actions if action.asset_data]
+    print(action_assets)
+    AssetCount = len(action_assets)
+    print(f"Number of action assets in the current file: {AssetCount}")
+    AC = str((AssetCount)+1)
+    Posename = Stamp + " Mixamo P"+AC
+    PN = str(Posename)
+    if armature_object:
+        bpy.context.view_layer.objects.active = armature_object
+        bpy.ops.object.mode_set(mode='POSE')
+        try:
+            bpy.ops.poselib.create_pose_asset(pose_name=Posename, activate_new_action=True)
+        except Exception as e:
+            print("Error creating pose asset:", e)
+    else:
+        print("Armature object not found")
+    bpy.data.actions[PN].name = Posename
+    current_frame = bpy.context.scene.frame_current
+    cf = str(current_frame)
+    bpy.data.actions[PN].asset_data.author = "Studio Galt Mocap"
+    bpy.data.actions[PN].asset_data.description = cf
+    bpy.data.actions[PN].asset_data.copyright = "CC0"
+    jump_to_next_marker()
+
+
+
+armature_objects = [obj for obj in bpy.data.objects if obj.type == 'ARMATURE']
+
+for armature_obj in armature_objects:
+    print(f"Armature Object: {armature_obj.name}")
+    # Check if the armature object has an active action
+    if armature_obj.animation_data and armature_obj.animation_data.action:
+        action = armature_obj.animation_data.action
+        print(f"  Active Action: {action.name}")
+        # Iterate over all fcurves in the action
+        for fcurve in action.fcurves:
+            print(f"    Fcurve: {fcurve.data_path}, {fcurve.array_index}")
+    else:
+        print("  No active action")
+
+
+
+
+armature_objects = [obj for obj in bpy.data.objects if obj.type == 'ARMATURE']
+
+for armature_obj in armature_objects:
+    print(f"Armature Object: {armature_obj.name}")
+    # Check if the armature object has an active action
+    if armature_obj.animation_data and armature_obj.animation_data.action:
+        action = armature_obj.animation_data.action
+        print(f"  Active Action: {action.name}")
+        # Iterate over all fcurves in the action
+        fcurves_to_remove = []
+        for fcurve in action.fcurves:
+            if "mixamorig" not in fcurve.data_path.lower() and "Locator_Root" not in fcurve.data_path.lower():
+                fcurves_to_remove.append(fcurve)
+        # Remove the fcurves
+        for fcurve_to_remove in fcurves_to_remove:
+            action.fcurves.remove(fcurve_to_remove)
+        print(f"  Removed {len(fcurves_to_remove)} fcurves not containing 'mixamorig' or 'Locator_Root' in their name")
+    else:
+        print("  No active action")
+
+#done
+
+
+
+bpy.ops.pose_folder.batch_select_all(type='SELECT', obj_name="Armature")
+for action in bpy.data.actions:
+    # Again, assuming 'pose_folder' is a property of the action
+    action.pose_folder.select = True
+
+AnimStamp=Stamp +" Mixa Anim"
+bpy.data.actions[AnimStamp].pose_folder.select = False
+
+
+MixaPoses= Stamp+" Mixamo Poses.blend"
+
+
+PoseExport=Base+'\\'+Stamp+'\\'+MixaPoses
+bpy.ops.pose_folder.pose_export(filepath=PoseExport, action='')
+
+
+bpy.ops.pose_folder.batch_select_all(type='SELECT', obj_name="Armature")
+for action in bpy.data.actions:
+    # Again, assuming 'pose_folder' is a property of the action
+    action.pose_folder.select = False
+
+bpy.data.actions[AnimStamp].pose_folder.select = True
+
+
+AnimOnly= Stamp+" Mixa Only.blend"
+AnimOnlyExport=Base+'\\'+Stamp+'\\'+AnimOnly
+bpy.ops.pose_folder.pose_export(filepath=AnimOnlyExport, action='')
+
+
