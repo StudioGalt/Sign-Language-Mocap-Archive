@@ -5,14 +5,14 @@ import shutil
 import datetime
 import numpy
 
-#Last updated 2024-03-21
-#This script imports Xsens Mocap, at 240 frames, and bakes it to 60 fps.
+#Using Blender 4.2
+#Last tested July 22nd, 2024 
 
 
-#import necessary Modules
+#Grab the rig
 
 #Set your Workspace here!!
-RenderSpace=('')
+RenderSpace=('C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace')
 os.chdir(RenderSpace)  
 
 #This looks at all files ending in FBX, and picks the first one alphabetically.
@@ -49,6 +49,7 @@ armature = bpy.data.objects['root']
 bone = armature.pose.bones['Locator_Root']
 file_path = bpy.path.basename(bpy.context.blend_data.filepath)
 file_name=file_path[:-6]
+
 print(file_name)
 
 properties_to_rename = {
