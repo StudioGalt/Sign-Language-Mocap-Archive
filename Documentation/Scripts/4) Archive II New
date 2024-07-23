@@ -1,0 +1,301 @@
+#BAKE ANIMATION LAYER BEFORE RUNNING
+
+#Using Blender 4.2
+#Last tested July 22nd, 2024 
+
+import bpy
+import os
+import shutil 
+
+def get_custom_properties(armature_name, bone_name):
+    armature = bpy.data.objects.get(armature_name)
+    if armature and bone_name in armature.pose.bones:
+        bone = armature.pose.bones[bone_name]
+        return {prop: bone[prop] for prop in bone.keys() if prop not in {'_RNA_UI'}}
+    else:
+        return {}
+
+armature_name = 'root'  # Replace with your armature name
+bone_name = 'Locator_Root'     
+
+
+
+actions = bpy.data.actions
+
+# Iterate through actions
+for action in actions:
+    # Check if the action name does not start with "SG ASL"
+    if action.name.endswith(("Layer", "Mocap")):
+        # Remove the action
+        bpy.data.actions.remove(action)
+        
+
+#Sometimes the reference action name is too long, so a second filter hits Reference       
+for action in actions:
+    # Check if the action name does not start with "SG ASL"
+    if action.name.startswith(("Reference")):
+        # Remove the action
+        bpy.data.actions.remove(action)                
+        
+        
+armatures = bpy.data.armatures
+
+# Iterate through actions
+for armature in armatures:
+    # Check if the action name does not start with "SG ASL"
+    if not armature.name.startswith("root"):
+        # Remove the action
+        bpy.data.armatures.remove(armature)
+
+Base='C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace'
+file_name = bpy.path.basename(bpy.context.blend_data.filepath)
+
+fnsplit = file_name.split()
+Stamp = " ".join(fnsplit[:-1])
+
+Base='C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace'
+ArchivePathblend1=Base+'\\'+Stamp+'\\' + Stamp + ' Cleaned.blend'
+bpy.ops.wm.save_as_mainfile(filepath=ArchivePathblend1)
+
+
+Stamptxt=Stamp+" ShapeKeys.txt"
+ShapekeyPath = Base+'\\' + Stamptxt
+print(ShapekeyPath)
+
+scene = bpy.context.scene
+output_file = ShapekeyPath  # specify the desired output file name here
+# Open the file with write mode
+with open(output_file, 'w') as f:
+    # Iterate over all objects in the scene
+    for obj in bpy.data.objects:
+        # Check if the object has shape keys
+        if hasattr(obj.data, "shape_keys") and obj.data.shape_keys:
+            shape_keys = obj.data.shape_keys.key_blocks
+            f.write(f"Object: {obj.name}\n")
+            # Initialize the shape key counter
+            shape_key_counter = 1
+            # Iterate over all shape keys of the object
+            for key in shape_keys:
+                if key.name != 'Basis':  # usually the 'Basis' shape key is the base shape, so we skip it
+                    f.write(f"  {shape_key_counter}. {key.name}\n") 
+                    # Search fcurves for shape key
+                    for fc in obj.data.shape_keys.animation_data.action.fcurves:
+                        if fc.data_path == f'key_blocks["{key.name}"].value':
+                            # Iterate over all keyframe points of the fcurve
+                            for kfp in fc.keyframe_points:
+                                frame, value = kfp.co
+                                f.write(f"    Frame: {int(frame)}, Value: {value}\n")
+                    # Increment the shape key counter
+                    shape_key_counter += 1
+
+                    
+#Shapekey done   
+# Create a ReadMe.txt file
+Readme = Stamp + " ReadMe.txt"    
+ReadmePath = Base + '\\' + Readme
+
+blender_version = bpy.app.version_string
+
+# Replace 'Armature' with the name of your armature object
+armature = bpy.data.objects['root']
+
+# Replace 'BoneName' with the name of the bone you want to inspect
+bone_name = 'Locator_Root'
+custom_props = get_custom_properties(armature_name, bone_name)
+
+Lines = [
+    "Stamp", 
+    "Submitted by:", 
+    "Audited by:", 
+    "Parent Motion:", 
+    f"Blender Version: {bpy.app.version_string}"
+]
+
+if custom_props:
+    Lines.append("\nModel:, \nDate:, \nOriginal Motion:")
+    for prop, value in custom_props.items():
+        Lines.append(f"{prop}")
+
+# Write the initial part of the README
+with open(ReadmePath, 'w') as f:
+    for line in Lines:
+        f.write(line)
+        f.write('\n')
+
+# Append timeline marker notes
+with open(ReadmePath, "a") as readme_file:
+    readme_file.write("\n---\n")
+    readme_file.write("Notes:\n")
+    for i, marker in enumerate(bpy.context.scene.timeline_markers):
+        readme_file.write("KeyPose {}:\n".format(i + 1))
+        readme_file.write("Frame: {}\n".format(marker.frame))
+        readme_file.write("Notes: {}\n")
+        readme_file.write("\n")
+
+print("Marker information has been appended to 'Readme.txt'")
+
+# Check if the ReadMe.txt file is closed
+if f.closed:
+    print("ReadMe file is closed")
+else:
+    print("ReadMe file is open")
+
+ReadmePath2=Base+'\\'+Stamp+'\\'+ Readme
+shutil.move(ReadmePath, ReadmePath2)
+
+ShapekeyPath2 = Base+'\\' + Stamp+'\\'+Stamptxt
+shutil.move(ShapekeyPath, ShapekeyPath2)
+
+
+armature = bpy.data.objects['root']
+
+action = armature.animation_data.action
+
+frame_range = action.frame_range
+
+last_frame = action.frame_range[1]
+lf = int(last_frame)
+bpy.ops.nla.bake(frame_start=1, frame_end=lf, only_selected=False, visual_keying=True, use_current_action=True, bake_types={'POSE'})
+
+bpy.ops.object.mode_set(mode='POSE')
+bpy.ops.pose.select_all(action='SELECT')
+
+
+# Define the object name you want to select and set as active
+object_name = "root"
+
+# Get the object reference by its name
+obj = bpy.data.objects.get(object_name)
+if obj is not None:
+    # Select the object
+    obj.select_set(True)
+    # Set the object as active
+    bpy.context.view_layer.objects.active = obj
+else:
+    print(f"Object '{object_name}' not found.")
+
+def remove_keyframes_for_bone(armature, bone_name):
+    if bone_name in armature.pose.bones:
+        pose_bone = armature.pose.bones[bone_name]
+        if armature.animation_data:
+            fcurves_to_remove = []
+            for fcurve in armature.animation_data.action.fcurves:
+                if fcurve.data_path.startswith(f'pose.bones["{pose_bone.name}"]'):
+                    fcurves_to_remove.append(fcurve)
+            for fcurve in fcurves_to_remove:
+                armature.animation_data.action.fcurves.remove(fcurve)
+
+
+# Replace 'Armature' with the name of your armature object
+armature_name = 'root'
+
+# Get the armature object by name
+armature = bpy.data.objects.get('root')
+
+Deformbones = []
+
+if armature and armature.type == 'ARMATURE':
+    # Access the armature's data
+    armature_data = armature.data
+    # Iterate through the bones and add them to the list
+    for bone in armature_data.bones:
+        Deformbones.append(bone)
+else:
+    print(f"Armature object '{armature_name}' not found or is not of type 'ARMATURE'.")
+
+galtis_rig = bpy.data.objects.get("root")
+if galtis_rig and galtis_rig.type == "ARMATURE":
+    bpy.ops.object.mode_set(mode="POSE")  
+    bpy.context.view_layer.objects.active = galtis_rig  # Corrected line
+    specific_bones = [
+        'headanchor', 'FKIK Switch', 
+        'thumbinte_01_L','thumbinte_02_L','thumbinte_03_L',
+        'thumbinte_01_R','thumbinte_02_R','thumbinte_03_R',
+        'indexinte_01_L','indexinte_02_L','indexinte_03_L',
+        'indexinte_01_R','indexinte_02_R','indexinte_03_R',
+        'middleinte_01_L','middleinte_02_L','middleinte_03_L',
+        'middleinte_01_R','middleinte_02_R','middleinte_03_R',
+        'ringinte_01_L','ringinte_02_L','ringinte_03_L',
+        'ringinte_01_R','ringinte_02_R','ringinte_03_R',
+        'pinkyinte_01_L','pinkyinte_02_L','pinkyinte_03_L',
+        'pinkyinte_01_R','pinkyinte_02_R','pinkyinte_03_R',
+        'thumb_01_l','thumb_02_l','thumb_03_l',
+        'thumb_01_r','thumb_02_r','thumb_03_r',
+        'index_01_l','index_02_l','index_03_l',
+        'index_01_r','index_02_r','index_03_r',
+        'middle_01_l','middle_02_l','middle_03_l',
+        'middle_01_r','middle_02_r','middle_03_r',
+        'ring_01_l','ring_02_l','ring_03_l',
+        'ring_01_r','ring_02_r','ring_03_r',
+        'pinky_01_l','pinky_02_l','pinky_03_l',
+        'pinky_01_r','pinky_,02_r','pinky_03_r',
+        'index_metacarpal_l', 'middle_metacarpal_l', 'ring_metacarpal_l',
+        'pinky_metacarpal_l', 'hand_l',
+        'wrist_l', 'lowerarm_twist_01_l', 'lowerarm_twist_02_l', 'lowerarm_l',
+        'elbow_l', 'upperarm_twist_02_l', 'upperarm_twist_01_l', 'upperarm_l',
+        'shoulder_l', 'clavicle_l', 'trapius_l', 'deltoid_l', 'serratus_l',
+        'boob_l', 'hip_middle_l', 'pelvisback_l', 'thigh_l', 'thigh_twist_01_l',
+        'thigh_twist_02_l', 'cthigh_l', 'cshin_l', 'knee_l', 'calf_l',
+        'calf_twist_01_l', 'calf_twist_02_l', 'ik_foot_l', 'foot_l', 'ball_l',
+        'index_metacarpal_r', 'middle_metacarpal_r', 'ring_metacarpal_r',
+        'pinky_metacarpal_r', 'hand_r', 
+        'wrist_r', 'lowerarm_twist_01_r', 'lowerarm_twist_02_r', 'lowerarm_r',
+        'elbow_r', 'upperarm_twist_02_r', 'upperarm_twist_01_r', 'upperarm_r',
+        'shoulder_r', 'clavicle_r', 'trapius_r', 'deltoid_r', 'serratus_r',
+        'boob_r', 'hip_middle_r', 'pelvisback_r', 'thigh_r', 'thigh_twist_01_r',
+        'thigh_twist_02_r', 'cthigh_r', 'cshin_r', 'knee_r', 'calf_r',
+        'calf_twist_01_r', 'calf_twist_02_r', 'ik_foot_r', 'foot_r', 'ball_r',
+        'head', 'neck_02', 'neck_01', 'spine_05', 'spine_04', 'spine_03', 
+        'spine_02', 'spine_01', 'pelvis', 'ik_hand_root', 'ik_foot_root', 
+        'HeadTarget','EyeController_R', 'EyeController_L', 'EyeController',
+        'interaction','center_of_mass', 
+        'handinte_L', 'wristinte_L', 'lowerarminte_L', 'elbowinte_L', 
+        'upperarminte_L', 'shoulderinte_L', 'shouldermch_L',
+        'boobmch_L', 'trapiusinte_L', 'upperarmmch_L',
+        'boobinte_L', 'serratusinte_L',
+        'clavicleinte_L', 'pectoralis_01_L', 'pectoralis_02_L',
+        'deltoidinte_L', 'pelvisbackinte_L', 'thighinte_L',
+        'cthighinte_L', 'kneeinte_L', 'cshininte_L',
+        'calfinte_L', 'calfinte_L', 'footinte_L','ballinte_L',
+        'handinte_R', 'wristinte_R', 'lowerarminte_R', 'elbowinte_R', 
+        'upperarminte_R', 'shoulderinte_R', 'shouldermch_R',
+        'boobmch_R', 'trapiusinte_R', 'upperarmmch_R',
+        'boobinte_R', 'serratusinte_R',
+        'clavicleinte_R', 'pectoralis_01_R', 'pectoralis_02_R',
+        'deltoidinte_R', 'pelvisbackinte_R', 'thighinte_R',
+        'cthighinte_R', 'kneeinte_R', 'cshininte_R',
+        'calfinte_R', 'calfinte_R', 'footinte_R', 'ballinte_R',
+        'headinte', 'neckinte_02', 'neckinte_01',
+        'spineinte_05', 'spineinte_04', 'spineinte_03',
+        'spineinte_02', 'spineinte_01', 'pelvisinte','thighgap',
+        'lowerarminte_twist_01_L', 'lowerarminte_twist_02_L',
+        'upperarminte_twist_02_L', 'upperarminte_twist_01_L',
+        'elbow_pin_L', 'hip_upper_L', 'hip_middleinte_L', 
+        'hip_lower_L', 'thighinte_twist_01_L',  'thighinte_twist_02_L',
+        'calfinte_twist_02_L', 'calfinte_twist_01_L', 'thighstretch_L'
+        'lowerarminte_twist_01_R', 'lowerarminte_twist_02_R',
+        'upperarminte_twist_02_R', 'upperarminte_twist_01_R',
+        'elbow_pin_R', 'hip_upper_R', 'hip_middleinte_R', 
+        'hip_lower_R', 'thighinte_twist_01_R',  'thighinte_twist_02_R',
+        'calfinte_twist_02_R', 'calfinte_twist_01_R', 'thighstretch_R'
+    ]
+    for bone_name in specific_bones:
+        remove_keyframes_for_bone(galtis_rig, bone_name)
+###
+
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.data.objects["root"].select_set(True)
+bpy.ops.object.mode_set(mode='POSE')
+
+
+
+bpy.ops.pose.select_all(action='SELECT')
+
+
+Base='C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace'
+ArchivePathblend2=Base+'\\'+Stamp+'\\' + Stamp + ' Finished.blend'
+
+bpy.ops.wm.save_as_mainfile(filepath=ArchivePathblend2)
+
+
+#done
