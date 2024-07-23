@@ -1,8 +1,8 @@
 import bpy
 import os
 
-#Using Blender 4.1
-#Last tested April 20th, 2024 
+#Using Blender 4.2
+#Last tested July 22nd, 2024 
 #Necessary Addon Animation Layer by Tal
 
 #After you have used autorig pro for retargeting, use this script.
@@ -28,7 +28,31 @@ bpy.context.object.data.collections["Unreal (Deform Rig)"].is_visible = True
 bpy.context.object.data.collections["Intermediate Rig"].is_visible = True
 
 #This adds an animation layer, from Animation Layers.
+    
+bpy.data.objects["root"].pose.bones["FKIK Switch"]["ArmIKFK_L"] = 1
+bpy.data.objects["root"].pose.bones["FKIK Switch"]["ArmIKFK_R"] = 1
+bpy.data.objects["root"].pose.bones["FKIK Switch"]["LegIKFK_L"] = 1
+bpy.data.objects["root"].pose.bones["FKIK Switch"]["LegIKFK_R"] = 1
+
+
+##
 bpy.ops.anim.add_anim_layer()
+bpy.ops.anim.remove_anim_layer()
+bpy.context.object.als.layer_index = 0
+bpy.context.object.Anim_Layers[0].name = "Base_Layer"
+bpy.ops.anim.duplicate_anim_layer()
+bpy.context.object.animation_data.nla_tracks["Base_Layer.001"].strips["Base_Layer.001"].blend_type = 'REPLACE'
+bpy.context.object.als.layer_index = 0
+
+bpy.context.object.Anim_Layers[0].influence_mute = True
+bpy.context.object.Anim_Layers[0].influence = 0
+
+bpy.context.object.als.layer_index = 1
+bpy.context.object.Anim_Layers[1].name = "Subtractive_Layer"
+
+
+bpy.ops.anim.add_anim_layer()
+bpy.context.object.Anim_Layers[2].name = "Correction_Layer"
 bpy.context.scene.frame_set(0)
 bpy.ops.pose.select_all(action='SELECT')
 bpy.ops.anim.keyframe_insert()
@@ -251,6 +275,7 @@ if root and root.type == "ARMATURE":
 
 
 bpy.ops.anim.add_anim_layer()
+bpy.context.object.Anim_Layers[3].name = "Working_Layer"
 bpy.context.scene.frame_set(0)
 bpy.ops.pose.select_all(action='SELECT')
 bpy.ops.anim.keyframe_insert()
@@ -309,11 +334,7 @@ if bpy.context.active_object and bpy.context.active_object.type == 'ARMATURE':
     bpy.ops.object.mode_set(mode='POSE')
 else:
     print("No armature selected.")
-    
-bpy.data.objects["root"].pose.bones["FKIK Switch"]["ArmIKFK_L"] = 1
-bpy.data.objects["root"].pose.bones["FKIK Switch"]["ArmIKFK_R"] = 1
-bpy.data.objects["root"].pose.bones["FKIK Switch"]["LegIKFK_L"] = 1
-bpy.data.objects["root"].pose.bones["FKIK Switch"]["LegIKFK_R"] = 1
+
 
 
 bpy.context.scene.frame_set(1)
@@ -356,7 +377,7 @@ Base='C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace'
 
 #we add blinking to the rig, my having the rig oscilate between Eye Close 0, 1. 
 #The Rig starts and ends on eyes open, to allow looping, and make sure mixing motions is good.
-object_name = "Galtismesh"  # replace with the name of your object
+object_name = "GaltisHead"  # replace with the name of your object
 
 shape_key_nameL = "EyesCloseL_AU43_L"
 shape_key_nameR = "EyesCloseR_AU43_R"
