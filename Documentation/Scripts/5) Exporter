@@ -1,0 +1,380 @@
+import bpy
+import subprocess
+
+import bpy
+import shutil
+import os
+
+from PIL import Image, ImageDraw, ImageFont
+import numpy as np
+import moviepy.editor as mpy
+from moviepy.editor import *
+import time
+
+
+#Using Blender 4.2
+#Last tested July 22nd, 2024 
+#Many of these modules are not in default blender, install before running
+#Use U) Download Movie, Numpy, and Pillow
+
+#Because this is the longest script it is useful practice to take time so you can see if it is slow.
+
+start_time = time.time()
+
+#Set working folder
+bpy.context.scene.render.filepath = "C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace\\"
+
+
+
+#Grab all hair strands
+#These hair strands were created with Pro Stylized Hair v3 by Dean Zarkov.
+#You can buy it on Gumroad.
+
+bpy.data.objects["Strand.001"].select_set(True)
+bpy.data.objects["Strand.002"].select_set(True)
+bpy.data.objects["Strand.003"].select_set(True)
+bpy.data.objects["Strand.006"].select_set(True)
+bpy.data.objects["Strand.007"].select_set(True)
+bpy.data.objects["Strand.008"].select_set(True)
+
+
+#Convert them to a Mesh
+bpy.ops.object.convert(target='MESH')
+
+# List of object names you want to apply the material to
+object_names = ["Strand.001", "Strand.002", "Strand.003","Strand.006", "Strand.007","Strand.008"]
+     
+
+material_name = "Blender_Orange"
+if material_name in bpy.data.materials:
+    material = bpy.data.materials[material_name]
+else:
+    material = bpy.data.materials.new(name=material_name)
+    material.diffuse_color = (0.8, 0.1, 0.1, 1)  # RGBA: Red color for demonstration
+
+# Ensure we're in Object mode
+bpy.ops.object.mode_set(mode='OBJECT')
+
+for object_name in object_names:
+    # Ensure the object exists
+    if object_name in bpy.data.objects:
+        bpy.data.objects[object_name].select_set(True)
+        # Make it the active object
+        bpy.context.view_layer.objects.active = bpy.data.objects[object_name]
+        obj = bpy.context.active_object
+        # Assign the material to the first material slot or create a new slot
+        if obj.data.materials:
+            obj.data.materials[0] = material
+        else:
+            obj.data.materials.append(material) 
+        bpy.ops.object.mode_set(mode='EDIT')
+        bpy.ops.mesh.select_all(action='SELECT')
+        bpy.ops.object.material_slot_assign()
+        bpy.ops.object.mode_set(mode='OBJECT')
+        bpy.data.objects[object_name].select_set(False)
+
+# Return to the default active object or deselect all, if desired
+
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.ops.object.select_all(action='DESELECT')
+
+
+bpy.data.objects["Strand.001"].select_set(True)
+bpy.data.objects["Strand.002"].select_set(True)
+bpy.data.objects["Strand.003"].select_set(True)
+bpy.data.objects["Strand.006"].select_set(True)
+bpy.data.objects["Strand.007"].select_set(True)
+bpy.data.objects["Strand.008"].select_set(True)
+#the last selected as active object
+
+bpy.ops.object.join()
+
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.ops.object.select_all(action='DESELECT')
+
+
+object_name = "Strand.008"
+
+#Reduce the mesh size. 0.05 is chosen to ensure outputted files are under 25mbs for reposting on github.
+decimation_ratio = 0.05
+
+# Get a reference to the mesh object by name
+obj = bpy.data.objects.get(object_name)
+
+if obj is not None and obj.type == 'MESH':
+    bpy.context.view_layer.objects.active = obj
+    obj.select_set(True)
+    bpy.ops.object.mode_set(mode='EDIT')
+    bpy.ops.mesh.select_all(action='SELECT')
+    bpy.ops.mesh.decimate(ratio=decimation_ratio)
+    bpy.ops.object.mode_set(mode='OBJECT')
+else:
+    print(f"Mesh object '{object_name}' not found in the scene.")
+
+#Create name cliche
+file_name = bpy.path.basename(bpy.context.blend_data.filepath)
+fnsplit = file_name.split()
+Stamp = " ".join(fnsplit[:-1])
+print(Stamp)
+
+
+Mesh=Stamp + " Mesh.fbx"
+Base='C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace'
+Meshfbx=Base+'\\'+ Stamp +'\\'+ Mesh
+
+
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.ops.object.select_all(action='DESELECT')
+#Deselect everything, then select body, Head, Hair, and Armature for export. 
+
+bpy.data.objects["Strand.008"].select_set(True)
+bpy.data.objects["GaltisBody"].select_set(True)
+bpy.data.objects["GaltisHead"].select_set(True)
+bpy.data.objects["root"].select_set(True)
+
+bpy.ops.export_scene.fbx(filepath=Meshfbx, check_existing=True, use_selection=True, use_visible=False, object_types={'ARMATURE', 'MESH'}, add_leaf_bones=False, use_armature_deform_only=False, armature_nodetype='NULL', bake_anim=True, path_mode='COPY')
+
+#Now we create and export a video.
+bpy.context.scene.frame_set(0)
+
+armature = bpy.data.objects['root']
+action = armature.animation_data.action
+
+frame_range = action.frame_range
+print(frame_range)
+
+lf = int(action.frame_range[1])
+bpy.context.scene.render.resolution_x = 1920
+bpy.context.scene.render.resolution_y = 1080
+
+#We add 15 frames to make looping appear smoother
+last_frame=lf+15
+
+
+bpy.context.scene.render.image_settings.file_format = 'FFMPEG'
+
+
+
+bpy.context.scene.camera = bpy.data.objects['Camera']
+VideoMKV=Base+'\\'+ Stamp +'\\'+ Stamp + ".mkv"
+
+scene = bpy.context.scene
+scene.frame_end += 15
+bpy.ops.render.render(animation=True)
+
+
+RenderSpace=('C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace')
+
+
+MKV="0001-0"+str(last_frame)+".mkv"
+MKV1=RenderSpace+'\\'+MKV
+MKV2=RenderSpace+'\\'+Stamp+'\\'+MKV
+shutil.move(MKV1, MKV2)
+
+StampMKV=RenderSpace+'\\'+Stamp+'\\'+Stamp+".mkv"
+os.rename(MKV2, StampMKV)
+
+#Does not hurt to save the file, we grab the finished blend file and store in a pose storage, folder so we can grab poses more easily
+ArchivePathblend=Base+'\\'+Stamp+'\\' + Stamp + ' Finished.blend'
+
+PoseStorage='C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Storage'
+PoseStamp=PoseStorage+'\\'+ Stamp + ' Finished.blend'
+
+shutil.copyfile(ArchivePathblend, PoseStamp)
+scene.frame_end -= 15
+
+
+#Now we work on updating the video, and adding captions
+
+MKV = Stamp + ".mkv" 
+CC = Stamp +" CC.mp4"
+
+MKV1 = os.path.join(Base, Stamp, MKV)
+MP41 = os.path.join(Base, Stamp, CC)
+
+input_file2 = MKV1
+output_file2 = MP41
+caption_text = Stamp
+
+#Captions could be anything but using Stamp is good, descriptive and keeps track of everything.
+
+def add_captions(input_file2, output_file2, caption_text):
+    video = mpy.VideoFileClip(input_file2)
+    captions = mpy.TextClip(caption_text, fontsize=90, color='white')
+    captions = captions.set_duration(video.duration)
+    captions = captions.set_position(('center', 'top'))
+    video_with_captions = mpy.CompositeVideoClip([video, captions])
+    video_with_captions.write_videofile(output_file2, codec="libx264")
+
+
+add_captions(input_file2, output_file2, caption_text)
+
+#Once captions have been added we move to resize the window for easier distribution.
+
+Resized = Stamp +" Resized CC.mp4"
+
+
+Resized1 = os.path.join(Base, Stamp, Resized)
+
+
+
+input_file_path = output_file2
+output_file_path = Resized1
+
+
+
+video_clip = VideoFileClip(input_file_path)
+
+# Resize the video by 40%
+new_width = int(video_clip.size[0] * 0.4)
+new_height = int(video_clip.size[1] * 0.4)
+
+
+ffmpeg_cmd = [
+    "ffmpeg",
+    "-i", input_file_path,
+    "-vf", f"scale={new_width}:{new_height}",
+    "-c:a", "copy",
+    output_file_path
+]
+
+# Run FFmpeg command
+subprocess.run(ffmpeg_cmd)
+
+try:
+    subprocess.Popen(["taskkill", "/f", "/im", "ffmpeg.exe"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+except Exception as e:
+    print(f"Error closing FFmpeg process: {e}")
+
+print(f"Resized video saved to: {output_file_path}")
+
+
+
+clip = VideoFileClip(Resized1)
+GIF = Stamp +" GIF.gif"
+GIF1=RenderSpace+'\\'+GIF
+GIF2=RenderSpace+'\\'+Stamp+'\\'+GIF
+
+#Now we take the video with captions, that has been resized and convert it to a GIF.
+#GIF are larger file size than videos, so the reduction of size is done to ensure it does not go over limits
+
+
+clip.write_gif(GIF2, fps=15, program='ffmpeg')  
+
+#15 fps was found to be the best by trial and error but it can be changed,
+
+
+#The following use Pose Exporter by Bookyakuno
+bpy.ops.pose_folder.batch_select_all(type='SELECT', obj_name="root")
+for action in bpy.data.actions:
+    action.pose_folder.select = True
+
+AnimStamp=Stamp +" Animation"
+ShapekeyStamp=Stamp +" ShapeKeys"
+bpy.data.actions[AnimStamp].pose_folder.select = False
+bpy.data.actions[ShapekeyStamp].pose_folder.select = False
+
+#
+Poses= Stamp+" Poses.blend"
+PoseExport=RenderSpace+'\\'+Stamp+'\\'+Poses
+bpy.ops.pose_folder.pose_export(filepath=PoseExport, action='')
+
+bpy.ops.pose_folder.batch_select_all(type='SELECT', obj_name="root")
+for action in bpy.data.actions:
+    action.pose_folder.select = False
+
+bpy.data.actions[AnimStamp].pose_folder.select = True
+
+#This exports the animation to a individual blend file for appending purposes.
+AnimOnly= Stamp+" Anim Only.blend"
+AnimOnlyExport=RenderSpace+'\\'+Stamp+'\\'+AnimOnly
+bpy.ops.pose_folder.pose_export(filepath=AnimOnlyExport, action='')
+
+actions = bpy.data.actions
+
+# Create a list of actions to be removed
+actions_to_remove = [action for action in actions if not action.name.endswith("Animation")]
+
+for action in actions_to_remove:
+    bpy.data.actions.remove(action)
+    
+    
+#We are done with meshes at this point so, delete them
+bpy.ops.object.mode_set(mode='OBJECT')
+bpy.ops.object.select_all(action='DESELECT')
+bpy.data.objects["GaltisBody"].select_set(True)
+bpy.data.objects["GaltisHead"].select_set(True)
+bpy.data.objects["Strand.008"].select_set(True)
+bpy.ops.object.delete(use_global=False)
+
+
+armature = bpy.data.objects['root']
+
+
+bpy.data.objects["root"].select_set(True)
+object_name = 'root'
+object_to_set_active = bpy.data.objects.get(object_name)
+if object_to_set_active:
+    bpy.context.view_layer.objects.active = object_to_set_active
+else:
+    print(f"Object '{object_name}' not found in the scene.")
+
+
+object_name = 'root'
+object_to_set_active = bpy.data.objects.get(object_name)
+if object_to_set_active:
+    bpy.context.view_layer.objects.active = object_to_set_active
+else:
+    print(f"Object '{object_name}' not found in the scene.")
+
+
+#We update root to animation name then mark as asset and save in animation folder
+
+old_armature_name = 'root'
+new_armature_name = AnimStamp
+armature_object = bpy.data.objects.get(old_armature_name)
+if armature_object and armature_object.type == 'ARMATURE':
+    armature_object.name = new_armature_name
+    armature_object.data.name = new_armature_name
+    print(f"Armature '{old_armature_name}' renamed to '{new_armature_name}'.")
+else:
+    print(f"Armature '{old_armature_name}' not found or is not of type 'ARMATURE'.")
+
+
+bpy.data.objects[AnimStamp].asset_mark()
+
+PoseStorage='C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Storage\\Animation'
+PoseStamp=PoseStorage+'\\'+ Stamp + ' Animation.blend'
+
+bpy.ops.wm.save_as_mainfile(filepath=PoseStamp)
+
+
+object_name = AnimStamp
+object_to_set_active = bpy.data.objects.get(object_name)
+if object_to_set_active:
+    bpy.context.view_layer.objects.active = object_to_set_active
+else:
+    print(f"Object '{object_name}' not found in the scene.")
+
+#Don't fdrget to convert it back
+old_armature_name = AnimStamp
+new_armature_name = 'root'
+armature_object = bpy.data.objects.get(old_armature_name)
+if armature_object and armature_object.type == 'ARMATURE':
+    # Change the armature object's name
+    armature_object.name = new_armature_name
+    # Change the armature data's name (if it's different from the object's name)
+    armature_object.data.name = new_armature_name
+    print(f"Armature '{old_armature_name}' renamed to '{new_armature_name}'.")
+else:
+    print(f"Armature '{old_armature_name}' not found or is not of type 'ARMATURE'.")
+
+#Take the time to see how long the it all took.
+end_time = time.time()
+
+elapsed_time = end_time - start_time
+
+print(f"Time taken: {elapsed_time:.5f} seconds")
+
+
+#DONE
