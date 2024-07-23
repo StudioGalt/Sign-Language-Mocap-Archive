@@ -1,11 +1,9 @@
 import bpy
 
-#Using Blender 4.1
-#Last tested April 26th, 2024 
 
-#This script is to be used after baking the motion with Animation Layers
-#It remains action to Motion XXX Animation
-
+#Using Blender 4.2
+#Last tested July 22nd, 2024  
+#Assumes Animation Layers by Tal
 
 Base='C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace'
 file_name = bpy.path.basename(bpy.context.blend_data.filepath)
@@ -15,8 +13,6 @@ fnsplit = file_name.split()
 Stamp = " ".join(fnsplit[:-1])
 
 ArchivePathblend=Base+'\\'+Stamp+'\\' + file_name
-
-bpy.ops.anim.layers_merge_down()
 
 StampAni=Stamp+" Animation"
 
