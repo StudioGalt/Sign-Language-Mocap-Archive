@@ -1,0 +1,224 @@
+import bpy
+import os
+import glob
+import shutil 
+import datetime
+import numpy
+
+#Using Blender 4.2
+#Last tested July 22nd, 2024 
+
+
+#Grab the rig
+
+#Set your Workspace here!!
+RenderSpace=('C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace')
+os.chdir(RenderSpace)  
+
+#This looks at all files ending in FBX, and picks the first one alphabetically.
+directory = glob.glob('*.fbx')
+print(directory[0])
+
+RAWFBX=directory[0]
+
+
+RAWFBXless=RAWFBX[:-4]
+Split= RAWFBX.split('_')
+Motion=Split[0]
+current_time = datetime.datetime.now()
+Year=current_time.year
+Month=current_time.month
+Day=current_time.day
+
+print(RAWFBX)
+RAWFBXless=RAWFBX[:-4]
+print(RAWFBXless)
+Today=str(Year) + '-' + str(Month) + '-' + str(Day)
+print(Today)
+
+#All the Motion Capture files are labelled similarly, this removes unneeded information. And adds a the file is being worked on.
+
+
+# The Galtis Rig, goes by 'root' to match with Unreal's Mannequin.
+
+bpy.ops.object.mode_set(mode='OBJECT')
+armature = bpy.data.objects['root']
+
+#The Galtis Rig has a Locator
+#Let's add key info to it
+bone = armature.pose.bones['Locator_Root']
+file_path = bpy.path.basename(bpy.context.blend_data.filepath)
+file_name=file_path[:-6]
+
+print(file_name)
+
+properties_to_rename = {
+    'Test': file_name,
+    'Date': Today,
+    'Source': RAWFBXless
+}
+
+for old_prop_name, new_prop_name in properties_to_rename.items():
+    # Check if the old property exists
+    if old_prop_name in bone.keys():
+        bone[new_prop_name] = bone[old_prop_name]
+        del bone[old_prop_name]
+    else:
+        print(f"No property named '{old_prop_name}' found on {bone.name}")
+
+
+#We just added Blender Version, Date, and Source motion to Locator Root's custom properties.
+#This helps with version control, and should a motion go bad, it can be investigate easily.
+
+bpy.ops.object.mode_set(mode='POSE')
+
+#Now we create a folder, using the Motion name, and today's date.
+
+Today=str(Year) + '-' + str(Month) + '-' + str(Day)
+print(Today)
+Stamp=Motion+ ' ' + Today
+print(Stamp)
+
+
+ArchivePath = RenderSpace + '\\' + Stamp
+print(ArchivePath)
+
+os.makedirs(ArchivePath,exist_ok=True)
+
+RenderSpaceFBX=RenderSpace+'\\'+RAWFBX
+ArchivePathFBX=ArchivePath+'\\'+RAWFBX
+print(RenderSpaceFBX)
+print(ArchivePathFBX)
+shutil.move(RenderSpaceFBX, ArchivePathFBX)
+
+#We now save the working file into the recently created folder
+
+ArchivePathblend=ArchivePath+'\\'+Stamp+' Unedited.blend'
+print(ArchivePathblend)
+
+
+#This purges any existing actions in the scene.
+actions = bpy.data.actions
+for action in actions:
+    bpy.data.actions.remove(action)
+
+
+#This imports the desired motion, Automatic bone orientation makes the bones fall blender standard
+bpy.ops.import_scene.fbx(filepath=ArchivePathFBX,automatic_bone_orientation=True)
+
+
+#Reference is the name all Xsens Motion Capture files, named "Reference"
+bpy.data.objects["Reference"].select_set(True)
+#This sets blender scene frame rate to 60.
+bpy.context.scene.render.fps = 60
+
+#This pulls the frame range from the imported Motion.
+armature = bpy.data.objects['Reference']
+action = armature.animation_data.action
+frame_range = action.frame_range
+print(frame_range)
+last_frame = action.frame_range[1]
+print(last_frame)
+
+
+#The following script bakes imported motion data to 60 fps
+BakeTime=last_frame//4
+print(BakeTime)
+BT=int(numpy.floor(BakeTime))
+print(BT)
+bpy.ops.object.mode_set(mode='POSE')
+
+bpy.context.scene.frame_end = BT
+scene_end = bpy.context.scene.frame_end
+print(scene_end)
+bpy.ops.nla.bake(frame_start=1, frame_end=int(last_frame), step=4, clean_curves=True, bake_types={'POSE'})
+
+
+#We add a locator root to the imported motion. This make it easier to move, with out disrupting anyother data.
+armature = bpy.data.objects["Reference"]
+
+
+bpy.ops.object.mode_set(mode='EDIT')
+
+new_bone = armature.data.edit_bones.new("Locator")
+
+new_bone.head = (0, 0, 0)
+new_bone.tail = (0, 25, 0)
+
+
+bpy.ops.object.mode_set(mode='EDIT')
+arm = bpy.data.objects['Reference']
+arm.data.edit_bones['Hips'].parent = arm.data.edit_bones['Locator']
+
+
+
+bpy.context.scene.frame_set(0)
+
+bpy.ops.object.mode_set(mode='POSE')
+
+bpy.ops.pose.select_all(action='SELECT')
+
+
+#The following Script changes the blender scene to match the imported motion that is now at 60 fps.
+obj = bpy.context.active_object
+anim_data = obj.animation_data
+action = anim_data.action
+
+
+new_start_frame = bpy.context.scene.frame_start
+new_end_frame = bpy.context.scene.frame_end
+
+for fcurve in action.fcurves:
+    for kf in fcurve.keyframe_points:
+        kf.co[0] = ((kf.co[0] - action.frame_range[0]) / (action.frame_range[1] - action.frame_range[0])) * (new_end_frame - new_start_frame) + new_start_frame
+
+action.frame_range = (1, BT)
+
+
+
+#This twists the thumbs of imported motion. Xsens thumbs are directly parellal to other fingers, which does not match the model.
+
+#
+bpy.data.objects["Reference"].select_set(True)
+
+bpy.ops.object.mode_set(mode='POSE')
+bpy.ops.pose.select_all(action='DESELECT')
+
+
+bpy.data.objects['Reference'].data.bones['RightHandThumb3'].select = True
+bpy.data.objects['Reference'].data.bones['RightHandThumb2'].select = True
+bpy.data.objects['Reference'].data.bones['RightHandThumb1'].select = True
+
+bpy.context.scene.tool_settings.transform_pivot_point = 'ACTIVE_ELEMENT'
+
+bpy.ops.object.mode_set(mode='EDIT')
+bpy.ops.transform.rotate(value=0.523599, orient_axis='Y', orient_type='LOCAL', orient_matrix=((1, 0, 0), (0, 7.54979e-08, 1), (0, -1, 7.54979e-08)), orient_matrix_type='LOCAL', constraint_axis=(False, True, False), mirror=False, snap=False, snap_elements={'INCREMENT'}, use_snap_project=False, snap_target='CLOSEST', use_snap_self=True, use_snap_edit=True, use_snap_nonedit=True, use_snap_selectable=False)
+bpy.ops.transform.transform(mode='BONE_ROLL', value=(1.15472, 0, 0, 0), orient_axis='Z', orient_type='LOCAL', orient_matrix=((1, 0, 0), (0, 0, 1), (0, -1, 0)), orient_matrix_type='LOCAL', mirror=False, snap=False, snap_elements={'INCREMENT'}, use_snap_project=False, snap_target='CLOSEST', use_snap_self=True, use_snap_edit=True, use_snap_nonedit=True, use_snap_selectable=False)
+
+
+bpy.ops.object.mode_set(mode='POSE')
+bpy.ops.pose.select_all(action='DESELECT')
+
+bpy.data.objects['Reference'].data.bones['LeftHandThumb3'].select = True
+bpy.data.objects['Reference'].data.bones['LeftHandThumb2'].select = True
+bpy.data.objects['Reference'].data.bones['LeftHandThumb1'].select = True
+
+
+bpy.ops.object.mode_set(mode='EDIT')
+bpy.ops.transform.rotate(value=-0.523599, orient_axis='Y', orient_type='LOCAL', orient_matrix=((1, 0, 0), (0, 7.54979e-08, 1), (0, -1, 7.54979e-08)), orient_matrix_type='LOCAL', constraint_axis=(False, True, False), mirror=False, snap=False, snap_elements={'INCREMENT'}, use_snap_project=False, snap_target='CLOSEST', use_snap_self=True, use_snap_edit=True, use_snap_nonedit=True, use_snap_selectable=False)
+bpy.ops.transform.transform(mode='BONE_ROLL', value=(1.15472, 0, 0, 0), orient_axis='Z', orient_type='LOCAL', orient_matrix=((1, 0, 0), (0, 0, 1), (0, -1, 0)), orient_matrix_type='LOCAL', mirror=False, snap=False, snap_elements={'INCREMENT'}, use_snap_project=False, snap_target='CLOSEST', use_snap_self=True, use_snap_edit=True, use_snap_nonedit=True, use_snap_selectable=False)
+
+
+bpy.context.scene.tool_settings.transform_pivot_point = 'MEDIAN_POINT'
+
+bpy.ops.object.mode_set(mode='POSE')
+bpy.ops.pose.select_all(action='DESELECT')
+
+scene = bpy.context.scene
+last_frame = scene.frame_end
+
+#Lastly save the file.
+bpy.ops.wm.save_as_mainfile(filepath=ArchivePathblend)
+
+
+
