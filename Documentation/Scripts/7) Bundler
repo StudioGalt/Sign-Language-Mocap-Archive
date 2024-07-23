@@ -1,0 +1,299 @@
+import bpy
+import bpy
+import shutil
+import os
+
+
+#This bundles everything into an upload folder to put on Github.
+
+#Using Blender 4.2
+#Last tested July 22nd, 2024 
+
+file_name = bpy.path.basename(bpy.context.blend_data.filepath)
+fnsplit = file_name.split()
+Stamp = " ".join(fnsplit[:-1])
+print(Stamp)
+
+Base='C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace'
+
+BaseUpload= Base+'\\'+Stamp+'\\'+ Stamp + ' Upload'
+
+if not os.path.exists(BaseUpload):
+    os.makedirs(BaseUpload)
+
+NoMeshMini=Stamp+ " No Mesh Mini.fbx" 
+
+NoMeshMini1=Base+'\\'+Stamp+'\\'+ NoMeshMini
+NoMeshMini2=BaseUpload+'\\'+NoMeshMini
+
+
+if os.path.exists(NoMeshMini1):
+    shutil.move(NoMeshMini1, NoMeshMini2)
+    print(f"File moved from {NoMeshMini1} to {NoMeshMini2}")
+else:
+    print(f"File does not exist: {NoMeshMini1}")
+
+
+
+NoMeshFull=Stamp+ " No Mesh Full.fbx" 
+
+NoMeshFull1=Base+'\\'+Stamp+'\\'+ NoMeshFull
+NoMeshFull2=BaseUpload+'\\'+NoMeshFull
+
+if os.path.exists(NoMeshFull1):
+    shutil.move(NoMeshFull1, NoMeshFull2)
+    print(f"File moved from {NoMeshFull1} to {NoMeshFull2}")
+else:
+    print(f"File does not exist: {NoMeshFull1}")
+
+
+
+MKV=Stamp+ ".mkv" 
+
+MKV1=Base+'\\'+Stamp+'\\'+ MKV
+MKV2=BaseUpload+'\\'+MKV
+
+if os.path.exists(MKV1):
+    shutil.move(MKV1, MKV2)
+    print(f"File moved from {MKV1} to {MKV2}")
+else:
+    print(f"File does not exist: {MKV1}")
+
+
+Mesh=Stamp+ " Mesh.fbx" 
+
+Mesh1=Base+'\\'+Stamp+'\\'+ Mesh
+Mesh2=BaseUpload+'\\'+Mesh
+
+if os.path.exists(Mesh1):
+    shutil.move(Mesh1, Mesh2)
+    print(f"File moved from {Mesh1} to {Mesh2}")
+else:
+    print(f"File does not exist: {Mesh1}")
+
+
+Readme=Stamp+ " ReadMe.txt" 
+
+Readme1=Base+'\\'+Stamp+'\\'+ Readme
+Readme2=BaseUpload+'\\'+Readme
+
+if os.path.exists(Readme1):
+    shutil.move(Readme1, Readme2)
+    print(f"File moved from {Readme1} to {Readme2}")
+else:
+    print(f"File does not exist: {Readme1}")
+
+
+ShapeKeys=Stamp+ " ShapeKeys.txt" 
+
+ShapeKeys1=Base+'\\'+Stamp+'\\'+ ShapeKeys
+ShapeKeys2=BaseUpload+'\\'+ShapeKeys
+
+if os.path.exists(ShapeKeys1):
+    shutil.move(ShapeKeys1, ShapeKeys2)
+    print(f"File moved from {ShapeKeys1} to {ShapeKeys2}")
+else:
+    print(f"File does not exist: {ShapeKeys2}")
+
+MP4=Stamp+ " CC.mp4" 
+
+MP41=Base+'\\'+Stamp+'\\'+ MP4
+MP42=BaseUpload+'\\'+MP4
+
+if os.path.exists(MP41):
+    shutil.move(MP41, MP42)
+    print(f"File moved from {MP41} to {MP42}")
+else:
+    print(f"File does not exist: {MP42}")
+    
+
+Mix=Stamp+ " No Mesh Mixamo.fbx" 
+
+Mix1=Base+'\\'+Stamp+'\\'+ Mix
+Mix2=BaseUpload+'\\'+Mix
+
+if os.path.exists(Mix1):
+    shutil.move(Mix1, Mix2)
+    print(f"File moved from {Mix1} to {Mix2}")
+else:
+    print(f"File does not exist: {Mix2}")
+    
+
+UEman=Stamp+ " No Mesh UE Mannequin.fbx"
+
+UEman1=Base+'\\'+Stamp+'\\'+ UEman
+UEman2=BaseUpload+'\\'+UEman
+
+if os.path.exists(UEman1):
+    shutil.move(UEman1, UEman2)
+    print(f"File moved from {UEman1} to {UEman2}")
+else:
+    print(f"File does not exist: {UEman2}")
+
+
+UEplus=Stamp+ " No Mesh UEPlus.fbx"
+
+UEplus1=Base+'\\'+Stamp+'\\'+ UEplus
+UEplus2=BaseUpload+'\\'+UEplus
+
+
+if os.path.exists(UEplus1):
+    shutil.move(UEplus1, UEplus2)
+    print(f"File moved from {UEplus1} to {UEplus2}")
+else:
+    print(f"File does not exist: {UEplus2}")
+
+
+GIF=Stamp+ " GIF.gif"
+
+GIF1=Base+'\\'+Stamp+'\\'+ GIF
+GIF2=BaseUpload+'\\'+GIF
+
+if os.path.exists(GIF1):
+    shutil.move(GIF1, GIF2)
+    print(f"File moved from {GIF1} to {GIF2}")
+else:
+    print(f"File does not exist: {GIF2}")
+
+Pose=Stamp+ " Poses.blend"
+
+Pose1=Base+'\\'+Stamp+'\\'+ Pose
+Pose2=BaseUpload+'\\'+Pose
+
+if os.path.exists(Pose1):
+    shutil.move(Pose1, Pose2)
+    print(f"File moved from {Pose1} to {Pose2}")
+else:
+    print(f"File does not exist: {Pose2}")
+
+PoseSplit1=Stamp+ " Poses 1.blend"
+
+SplitPose11=Base+'\\'+Stamp+'\\'+ PoseSplit1
+SplitPose12=BaseUpload+'\\'+PoseSplit1
+
+
+if os.path.exists(SplitPose11):
+    shutil.move(SplitPose11, SplitPose12)
+    print(f"File moved from {Pose1} to {Pose2}")
+else:
+    print(f"File does not exist: {Pose1}")
+
+
+PoseSplit2=Stamp+ " Poses 2.blend"
+
+SplitPose21=Base+'\\'+Stamp+'\\'+ PoseSplit2
+SplitPose22=BaseUpload+'\\'+PoseSplit2
+
+if os.path.exists(SplitPose11):
+    shutil.move(SplitPose11, SplitPose12)
+    print(f"File moved from {Pose1} to {Pose2}")
+else:
+    print(f"File does not exist: {Pose1}")
+
+MixaPose=Stamp+ " Mixamo Poses.blend"
+
+MixaPose1=Base+'\\'+Stamp+'\\'+ MixaPose
+MixaPose2=BaseUpload+'\\'+MixaPose
+
+if os.path.exists(MixaPose1):
+    shutil.move(MixaPose1, MixaPose2)
+    print(f"File moved from {MixaPose1} to {MixaPose2}")
+else:
+    print(f"File does not exist: {MixaPose2}")
+
+
+
+target_folder=BaseUpload+'\\'+'FBX Files'
+os.makedirs(target_folder, exist_ok=True)
+
+target_folder_research=os.path.join(target_folder, "Research")
+target_folder_game_ready=os.path.join(target_folder, "Game Ready")
+os.makedirs(target_folder_research, exist_ok=True)
+os.makedirs(target_folder_game_ready, exist_ok=True)
+
+
+
+all_files = os.listdir(BaseUpload)
+
+# Filter out only the .fbx files
+fbx_files = [file for file in all_files if file.endswith(".fbx")]
+
+# Move each .fbx file to the "FBX files" folder
+for fbx_file in fbx_files:
+    source_path = os.path.join(BaseUpload, fbx_file)
+    if any(substring in fbx_file for substring in ["Full", "Mini", "Plus"]):
+        target_path = os.path.join(target_folder_research, fbx_file)
+    else:
+        target_path = os.path.join(target_folder_game_ready, fbx_file)
+    shutil.move(source_path, target_path)
+    
+text_folder = os.path.join(BaseUpload, "Documentation")
+os.makedirs(text_folder, exist_ok=True)
+
+# Filter out only the .fbx files
+txt_files = [file for file in all_files if file.endswith(".txt")]
+
+# Move each .fbx file to the "FBX files" folder
+for txt_file in txt_files:
+    source_path = os.path.join(BaseUpload, txt_file)
+    target_path = os.path.join(text_folder, txt_file)
+    shutil.move(source_path, target_path)
+
+gif_files = [file for file in all_files if file.endswith(".gif")]
+
+for gif_file in gif_files:
+    source_path = os.path.join(BaseUpload, gif_file)
+    target_path = os.path.join(text_folder, gif_file)
+    shutil.move(source_path, target_path)
+
+
+MP4_files = [file for file in all_files if file.endswith(".mp4")]
+
+for MP4_file in MP4_files:
+    source_path = os.path.join(BaseUpload, MP4_file)
+    target_path = os.path.join(text_folder, MP4_file)
+    shutil.move(source_path, target_path)
+
+
+MKV_files = [file for file in all_files if file.endswith(".mkv")]
+
+for MKV_file in MKV_files:
+    source_path = os.path.join(BaseUpload, MKV_file)
+    target_path = os.path.join(text_folder, MKV_file)
+    shutil.move(source_path, target_path)
+
+pose_folder = os.path.join(BaseUpload, "Poses")
+os.makedirs(pose_folder, exist_ok=True)
+
+# Filter out only the .fbx files
+pose_files = [file for file in all_files if file.endswith(".blend")]
+
+# Move each .fbx file to the "FBX files" folder
+for pose_file in pose_files:
+    source_path = os.path.join(BaseUpload, pose_file)
+    target_path = os.path.join(pose_folder, pose_file)
+    shutil.move(source_path, target_path)
+    
+source_dir = Base+'\\'+Stamp
+target_dir = BaseUpload+'\\'+"Poses"+'\\'+"JSON"
+os.makedirs(target_dir, exist_ok=True)
+
+files = os.listdir(source_dir)
+
+# Filter JSON files
+json_files = [f for f in files if f.endswith('.json')]
+
+for file_name in json_files:
+    source_file = os.path.join(source_dir, file_name)
+    target_file = os.path.join(target_dir, file_name)
+    shutil.move(source_file, target_file)
+
+print(f"Moved {len(json_files)} JSON files to '{target_dir}'.")
+
+print(BaseUpload)
+
+CopyFolder2= Base + '\\' +'Ready for Upload'+'\\'+Stamp+' Upload'
+ 
+shutil.copytree(BaseUpload, CopyFolder2, dirs_exist_ok=True)
+##
+
