@@ -1,0 +1,189 @@
+import bpy
+import csv
+import os
+
+#Using Blender 4.2
+#Last tested July 22nd, 2024 
+
+#Use after you completed animating the motion
+
+obj = bpy.context.object
+
+# Iterate over all collections in the object's data
+for collection in obj.data.collections_all.values():
+    collection.is_solo = False
+
+
+
+#Set your working directory
+Base='C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace'
+file_name = bpy.path.basename(bpy.context.blend_data.filepath)
+
+
+fnsplit = file_name.split()
+Stamp = " ".join(fnsplit[:-1])
+
+ArchivePathblend=Base+'\\'+Stamp+'\\' + file_name
+bpy.ops.wm.save_as_mainfile(filepath=ArchivePathblend)
+
+
+
+#Snap all fk limbs to ik
+def snap_fk_to_ik(armature_name, fk_bones, ik_bones, frame_range):
+    armature = bpy.data.objects.get(armature_name)
+    if armature is None or armature.type != 'ARMATURE':
+        print(f"Object '{armature_name}' not found or not an armature")
+        return
+    for frame in frame_range:
+        bpy.context.scene.frame_set(frame)
+        for fk_bone, ik_bone in zip(fk_bones, ik_bones):
+            fk_bone_obj = armature.pose.bones.get(fk_bone)
+            ik_bone_obj = armature.pose.bones.get(ik_bone)
+            if fk_bone_obj is None or ik_bone_obj is None:
+                print(f"Bones '{fk_bone}' or '{ik_bone}' not found in armature '{armature_name}'")
+                continue
+            fk_bone_obj.matrix = ik_bone_obj.matrix
+            for channel in ['location', 'rotation_quaternion', 'scale']:
+                armature.keyframe_insert(data_path=f'pose.bones["{fk_bone}"].{channel}', frame=frame)
+        bpy.context.view_layer.update()
+
+
+armature_name = 'root'
+
+fkarm_bonesR = ['bicepfk_R', 'forearmfk_R', 'handfk_R']
+ikarm_bonesR = ['bicepik_R', 'forearmik_R', 'handik_R']
+fkarm_bonesL = ['bicepfk_L', 'forearmfk_L', 'handfk_L']
+ikarm_bonesL = ['bicepik_L', 'forearmik_L', 'handik_L']
+
+
+scene_end = bpy.context.scene.frame_end
+
+frame_range = range(0, scene_end) 
+
+snap_fk_to_ik(armature_name, fkarm_bonesR, ikarm_bonesR, frame_range)
+snap_fk_to_ik(armature_name, fkarm_bonesL, ikarm_bonesL, frame_range)
+
+fkleg_bonesR = ['thighfk_R', 'shinfk_R', 'footfk_R']
+ikleg_bonesR = ['thighik_R', 'shinik_R', 'footik_R']
+fkleg_bonesL = ['thighfk_L', 'shinfk_L', 'footfk_L']
+ikleg_bonesL = ['thighik_L', 'shinik_L', 'footik_L']
+
+snap_fk_to_ik(armature_name, fkleg_bonesR, ikleg_bonesR, frame_range)
+snap_fk_to_ik(armature_name, fkleg_bonesL, ikleg_bonesL, frame_range)
+
+
+
+bpy.context.scene.transform_orientation_slots[0].type = 'LOCAL'
+
+
+#Turn all layers visible
+bpy.context.object.data.collections["Limbs Corrections"].is_visible = True
+bpy.context.object.data.collections["Limbs FK"].is_visible = True
+bpy.context.object.data.collections["Limbs IK"].is_visible = True
+bpy.context.object.data.collections["Limbs IK Correction"].is_visible = True
+bpy.context.object.data.collections["Spine Input"].is_visible = True
+bpy.context.object.data.collections["Fingers FK"].is_visible = True
+bpy.context.object.data.collections["Fingers IK"].is_visible = True
+bpy.context.object.data.collections["Fingers Intermediate"].is_visible = True
+bpy.context.object.data.collections["Unreal (Deform Rig)"].is_visible = True
+bpy.context.object.data.collections["Intermediate Rig"].is_visible = True
+bpy.context.object.data.collections["HeadCTRL"].is_visible = True
+
+OriginalMocap=Stamp +" Original Mocap"
+Base_Layer=Stamp +" Base_Layer"
+Subtractive_Layer=Stamp +" Subtractive_Layer"
+Correction_Layer=Stamp +" Correction_Layer"
+Working_Layer=Stamp +" Working_Layer"
+
+# Dictionary mapping old names to new names
+rename_map = {
+    "Action": OriginalMocap,
+    "Base_Layer": Base_Layer,
+    "Subtractive_Layer": Subtractive_Layer,
+    "Correction_Layer": Correction_Layer,
+    "Working_Layer": Working_Layer,
+    # Add more mappings as needed
+}
+
+
+for action in bpy.data.actions:
+    if action.name in rename_map:
+        action.name = rename_map[action.name]
+
+
+#Use Pose Exporter by Bookyakuno, the layers from Animations as seperate CSV
+#This is to potentially allow better research, and AI automation
+#The AI automation is purely speculation at this point, but worth building in
+
+bpy.data.actions[OriginalMocap].pose_folder.select = True
+bpy.data.actions[Base_Layer].pose_folder.select = True
+bpy.data.actions[Subtractive_Layer].pose_folder.select = True
+bpy.data.actions[Correction_Layer].pose_folder.select = True
+bpy.data.actions[Working_Layer].pose_folder.select = True
+
+
+#
+Decompose= Stamp+" Decompose.blend"
+DecomposeExport=Base+'\\'+Stamp+'\\'+Decompose
+bpy.ops.pose_folder.pose_export(filepath=DecomposeExport, action='')
+
+bpy.ops.pose_folder.batch_select_all(type='SELECT', obj_name="root")
+for action in bpy.data.actions:
+    action.pose_folder.select = False
+
+
+Base='C:\\Users\\Dhwoo\\OneDrive\\Desktop\\Galt Workspace'
+
+
+BaseUpload= Base+'\\'+Stamp+'\\'+ Stamp + ' CSV'
+
+if not os.path.exists(BaseUpload):
+    os.makedirs(BaseUpload)
+
+#This adds labels to CSV for easier reading
+axis_labels = {0: "X", 1: "Y", 2: "Z", 3: "W"}
+
+scene = bpy.context.scene
+
+filtered_actions = []
+
+actions_to_filter = [OriginalMocap, Base_Layer, Subtractive_Layer, Correction_Layer, Working_Layer]
+
+for action in bpy.data.actions:
+    if action.name in actions_to_filter:
+        filtered_actions.append(action)
+
+for action in filtered_actions:
+    action_name = action.name
+    csv_path = os.path.join(BaseUpload, f"{action_name}.csv")
+    
+    with open(csv_path, mode='w', newline='') as csvfile:
+        csv_writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        header_row = ["Frame"]
+        for fcurve in action.fcurves:
+            bone_name = fcurve.data_path.split('"')[1]
+            fcurve_name = fcurve.data_path.split('"')[2]
+            if fcurve.array_index in axis_labels:
+                label = axis_labels[fcurve.array_index]
+            else:
+                label = f"{fcurve.array_index}"
+            header_row.append(f"{bone_name}-{fcurve_name}-{label}")
+        csv_writer.writerow(header_row)
+        
+        for frame in range(int(action.frame_range[0]), int(action.frame_range[1]) + 1):
+            row_data = [frame]
+            
+            for fcurve in action.fcurves:
+                value = fcurve.evaluate(frame)
+                row_data.append(value)
+            
+            csv_writer.writerow(row_data)
+
+print("CSV export complete.")
+
+#Now go use "Merge / Bake" in animation layers
+#I recommend Anim layers, Merge, Down, and Merge/cyclic being checked.
+
+
+
+#Done
