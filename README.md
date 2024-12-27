@@ -184,4 +184,6 @@ The other folder is research, still useable for other purpose but are heavier. N
 
 5) Do I have to download the entire XXXGB archive to get the file I want?
 
-Me personally, I use downgit (https://downgit.github.io/#/home)
+Me personally, I use downgit (https://downgit.github.io/#/home) 
+Link to workflow:
+https://github.com/StudioGalt/Sign-Language-Mocap-Archive/blob/main/Documentation/Workflows/DownGit%20Workflow%20(How%20to%20download%20specific%20files).docx 
