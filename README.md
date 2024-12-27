@@ -182,3 +182,6 @@ Next is blend files, these include the nothing but the pose assets. You can appe
 Two sets of folders, game ready, and research. Game ready includes the mesh assets with all bones (that is almost 400 at time of writing). This is probably overkill but its there. Next is No Mesh Mixamo, matchinbg the Mixamo rig, with the addition of a locator root. Lastly is UE mannequin, designed to match Unreal Engines Mannequins.
 The other folder is research, still useable for other purpose but are heavier. No Mesh Full, has every bone the full version does but no mesh. The UEplus is the Unreal Mannequin with additional correction bones. And the No Mesh Mini is very similar to the Mixamo one, with different names (in case Adobe requests we stop mapping in Mixamo, we will transition to No Mesh Mini). 
 
+5) Do I have to download the entire XXXGB archive to get the file I want?
+
+Me personally, I use downgit (https://downgit.github.io/#/home)
