@@ -1,0 +1,10496 @@
+[
+ {
+  "addon": "jpm",
+  "name": "SG ASL Compensate Alt 2025-4-12 P2",
+  "def_limbs": [
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  "bones": [
+   {
+    "name": "pelvis",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "spine_01",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "spine_02",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "spine_03",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "spine_04",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "spine_05",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "neck_01",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "neck_02",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "head",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "eye_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "eye_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "clavicle_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "upperarm_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "lowerarm_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "lowerarm_twist_02_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "lowerarm_twist_01_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "hand_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middle_metacarpal_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middle_01_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middle_02_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middle_03_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ring_metacarpal_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ring_01_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ring_02_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ring_03_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumb_01_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumb_02_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumb_03_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "index_metacarpal_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "index_01_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "index_02_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "index_03_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinky_metacarpal_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinky_01_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinky_02_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinky_03_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "wrist_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "upperarm_twist_01_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "upperarm_twist_02_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "elbow_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "serratus_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "trapius_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "shoulder_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "clavicle_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "upperarm_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "lowerarm_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "hand_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middle_metacarpal_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middle_01_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middle_02_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middle_03_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinky_metacarpal_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinky_01_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinky_02_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinky_03_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ring_metacarpal_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ring_01_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ring_02_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ring_03_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumb_01_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumb_02_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumb_03_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "index_metacarpal_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "index_01_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "index_02_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "index_03_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "lowerarm_twist_02_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "lowerarm_twist_01_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "wrist_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "upperarm_twist_01_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "upperarm_twist_02_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "elbow_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "shoulder_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "trapius_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "serratus_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "boob_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "deltoid_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "boob_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "deltoid_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "latissimus_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "latissimus_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thigh_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "calf_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "foot_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ball_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "calf_twist_02_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "calf_twist_01_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "cshin_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thigh_twist_01_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thigh_twist_02_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "cthigh_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "knee_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thigh_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "calf_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "foot_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ball_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "calf_twist_02_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "calf_twist_01_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "cshin_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thigh_twist_01_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thigh_twist_02_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "knee_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "cthigh_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "hip_middle_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "hip_middle_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pelvisback_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pelvisback_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ik_foot_root",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ik_foot_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ik_foot_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ik_hand_root",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ik_hand_gun",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ik_hand_r",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ik_hand_l",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "interaction",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "center_of_mass",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "Locator_Root",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "hip",
+    "location": {
+     "vector": [
+      -0.03480251133441925,
+      0.007367225363850594,
+      -0.001373089849948883
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9999998807907104,
+      0.00032491047750227153,
+      0.00036435152287594974,
+      -9.985827091441024e-06
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.000000238418579
+     ]
+    }
+   },
+   {
+    "name": "chest_1",
+    "location": {
+     "vector": [
+      3.4946341997965646e-07,
+      -7.62939453125e-06,
+      2.071718085971952e-07
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9999999403953552,
+      -0.0003221608931198716,
+      -8.712625458429102e-06,
+      0.0001238778786500916
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999999403953552,
+      0.9999999403953552,
+      0.9999999403953552
+     ]
+    }
+   },
+   {
+    "name": "chest_2",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999997019767761,
+      0.9999998807907104,
+      0.9999998211860657
+     ]
+    }
+   },
+   {
+    "name": "chest_3",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0000001192092896
+     ]
+    }
+   },
+   {
+    "name": "chest_4",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999997615814209,
+      0.9999998211860657,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "chest_5",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "collar_L",
+    "location": {
+     "vector": [
+      5.267433152766898e-06,
+      4.201210231258301e-06,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.993012547492981,
+      0.09048711508512497,
+      0.048000313341617584,
+      0.05860147252678871
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000001192092896,
+      0.9999999403953552,
+      0.9999999403953552
+     ]
+    }
+   },
+   {
+    "name": "serratusinte_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "bicepfk_L",
+    "location": {
+     "vector": [
+      5.7220458984375e-06,
+      -5.7220458984375e-06,
+      1.52587890625e-05
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.8074796199798584,
+      0.52360600233078,
+      0.05124463513493538,
+      0.2668096125125885
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000001192092896,
+      0.9999997019767761,
+      0.9999999403953552
+     ]
+    }
+   },
+   {
+    "name": "forearmfk_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.7682843208312988,
+      -0.03999680280685425,
+      -0.049660589545965195,
+      0.6369248628616333
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000007152557373,
+      0.999999463558197,
+      1.0000004768371582
+     ]
+    }
+   },
+   {
+    "name": "handfk_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.8136452436447144,
+      -0.19425567984580994,
+      -0.5448640584945679,
+      0.05804585665464401
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999992251396179,
+      0.9999995827674866,
+      0.9999986290931702
+     ]
+    }
+   },
+   {
+    "name": "bicepik_L",
+    "location": {
+     "vector": [
+      2.86102294921875e-06,
+      -4.76837158203125e-06,
+      1.52587890625e-05
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0000003576278687,
+      0.9999999403953552
+     ]
+    }
+   },
+   {
+    "name": "forearmik_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000001192092896,
+      1.000000238418579,
+      1.0000003576278687
+     ]
+    }
+   },
+   {
+    "name": "neckfk",
+    "location": {
+     "vector": [
+      -2.1395862859208137e-08,
+      9.531702744425274e-06,
+      7.047608505672542e-07
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9999999403953552,
+      3.514848867780529e-05,
+      -0.00018833363719750196,
+      0.0002872356562875211
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0000001192092896,
+      1.0000001192092896
+     ]
+    }
+   },
+   {
+    "name": "headfk",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9999998807907104,
+      0.00010573807958280668,
+      -0.0001695398532319814,
+      0.00044552693725563586
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999999403953552,
+      0.9999999403953552,
+      1.000000238418579
+     ]
+    }
+   },
+   {
+    "name": "headanchor",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "collar_R",
+    "location": {
+     "vector": [
+      -7.250341695907991e-07,
+      -3.6251708479539957e-07,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9926654100418091,
+      0.05261792242527008,
+      0.10607077181339264,
+      -0.02440759539604187
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000001192092896,
+      1.0000001192092896,
+      0.9999999403953552
+     ]
+    }
+   },
+   {
+    "name": "bicepik_R",
+    "location": {
+     "vector": [
+      -2.86102294921875e-06,
+      9.5367431640625e-07,
+      -1.52587890625e-05
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      0.9999999403953552,
+      1.0000001192092896
+     ]
+    }
+   },
+   {
+    "name": "forearmik_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.000000238418579,
+      1.0000001192092896,
+      0.9999998211860657
+     ]
+    }
+   },
+   {
+    "name": "bicepfk_R",
+    "location": {
+     "vector": [
+      -3.814697265625e-06,
+      3.814697265625e-06,
+      -1.52587890625e-05
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.8375231027603149,
+      0.4676205813884735,
+      0.05463966727256775,
+      -0.2773095369338989
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000003576278687,
+      0.9999995231628418,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "forearmfk_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.7391228079795837,
+      -0.04274803400039673,
+      0.05062461271882057,
+      -0.6703038215637207
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.000001311302185,
+      0.999999463558197,
+      0.9999998211860657
+     ]
+    }
+   },
+   {
+    "name": "handfk_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9449788928031921,
+      -0.18655942380428314,
+      -0.24579864740371704,
+      0.10859783738851547
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999990463256836,
+      1.0000003576278687,
+      0.9999998211860657
+     ]
+    }
+   },
+   {
+    "name": "serratusinte_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thighfk_L",
+    "location": {
+     "vector": [
+      -9.34600830078125e-05,
+      0.0001373291015625,
+      -9.703636169433594e-05
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.999656081199646,
+      -0.01085742749273777,
+      -0.023867959156632423,
+      0.0003950372338294983
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.999999463558197,
+      0.9999998807907104,
+      1.0000003576278687
+     ]
+    }
+   },
+   {
+    "name": "shinfk_L",
+    "location": {
+     "vector": [
+      0.22231578826904297,
+      -0.2085723876953125,
+      0.011847257614135742
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9995849132537842,
+      0.027088461443781853,
+      0.008875017054378986,
+      0.004177400842308998
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999998211860657,
+      0.9999995827674866,
+      0.9999997615814209
+     ]
+    }
+   },
+   {
+    "name": "footfk_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.028841504827141762,
+      -0.026659583672881126,
+      0.9990508556365967,
+      0.0188386682420969
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999998211860657,
+      0.9999997615814209,
+      0.9999997615814209
+     ]
+    }
+   },
+   {
+    "name": "toefk_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999999403953552,
+      0.9999999403953552,
+      0.9999999403953552
+     ]
+    }
+   },
+   {
+    "name": "thighfk_R",
+    "location": {
+     "vector": [
+      -0.00010395050048828125,
+      -9.918212890625e-05,
+      -9.572505950927734e-05
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9996364116668701,
+      -0.010945272631943226,
+      0.024642346426844597,
+      -3.0394571695069317e-06
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999996423721313,
+      1.0000003576278687,
+      1.0000007152557373
+     ]
+    }
+   },
+   {
+    "name": "shinfk_R",
+    "location": {
+     "vector": [
+      -0.21739673614501953,
+      -0.2082672119140625,
+      0.007406711578369141
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9995840191841125,
+      0.027041859924793243,
+      -0.00908977072685957,
+      -0.004231136757880449
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999995231628418,
+      0.9999998211860657,
+      0.9999999403953552
+     ]
+    }
+   },
+   {
+    "name": "footfk_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.02896471507847309,
+      -0.025999369099736214,
+      -0.9990687966346741,
+      -0.018615800887346268
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999997615814209,
+      0.9999996423721313,
+      1.0000004768371582
+     ]
+    }
+   },
+   {
+    "name": "toefk_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      0.9999999403953552,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "elbow_target_L",
+    "location": {
+     "vector": [
+      1.960676670074463,
+      2.264939212182071e-06,
+      59.96795654296875
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "handik_L",
+    "location": {
+     "vector": [
+      -29.368444442749023,
+      -53.60618209838867,
+      23.419832229614258
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.17594991624355316,
+      0.6703993678092957,
+      -0.680321455001831,
+      0.23826265335083008
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999990463256836,
+      0.9999995231628418,
+      0.9999992251396179
+     ]
+    }
+   },
+   {
+    "name": "knee_target_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "elbow_pin_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "elbow_pin_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "FKIK Switch",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "elbow_target_R",
+    "location": {
+     "vector": [
+      -1.960676670074463,
+      2.264939212182071e-06,
+      59.96795654296875
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "handik_R",
+    "location": {
+     "vector": [
+      36.36212921142578,
+      -44.52777099609375,
+      4.911460876464844
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.5878586769104004,
+      -0.011661294847726822,
+      0.4911348223686218,
+      -0.6427074074745178
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999990463256836,
+      0.9999997615814209,
+      0.9999994039535522
+     ]
+    }
+   },
+   {
+    "name": "knee_target_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pelvisinte",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thighik_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "shinik_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "footik_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "toeik_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thighstretch_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "spineinte_01",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "spineinte_02",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "spineinte_03",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "spineinte_04",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "spineinte_05",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "neckinte_01",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "neckinte_02",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "headinte",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "trapiusinte_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "trapiusinte_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "clavicleinte_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "upperarminte_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      -0.07800000160932541
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "upperarminte_twist_01_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "upperarminte_twist_02_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "elbowinte_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "lowerarminte_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "handinte_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbfk_01_L",
+    "location": {
+     "vector": [
+      9.17983561521396e-06,
+      2.010743264690973e-05,
+      -1.8676782929105684e-06
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9938576221466064,
+      0.08907104283571243,
+      -0.03898930549621582,
+      -0.052850816398859024
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999997019767761,
+      1.0,
+      0.9999998211860657
+     ]
+    }
+   },
+   {
+    "name": "thumbfk_02_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9943104386329651,
+      0.056579671800136566,
+      -0.049713995307683945,
+      -0.07532604783773422
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000001192092896,
+      0.9999999403953552,
+      0.9999999403953552
+     ]
+    }
+   },
+   {
+    "name": "thumbfk_03_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9935020208358765,
+      0.0635591670870781,
+      -0.054624442011117935,
+      -0.07700736820697784
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000001192092896,
+      1.0,
+      0.9999999403953552
+     ]
+    }
+   },
+   {
+    "name": "thumbfk_04_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9943432211875916,
+      0.07250332832336426,
+      -0.03540494292974472,
+      -0.06907472014427185
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999999403953552,
+      1.0,
+      0.9999999403953552
+     ]
+    }
+   },
+   {
+    "name": "thumbik_01_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbik_02_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbik_03_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyik_01_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyik_02_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyik_03_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyCTRL_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbinte_01_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbinte_02_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbinte_03_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyinte_metacarpal_L",
+    "location": {
+     "vector": [
+      -0.06396237760782242,
+      0.0,
+      -0.006396237760782242
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9999974966049194,
+      0.0,
+      0.0,
+      -0.002238683169707656
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyinte_01_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyinte_02_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyinte_03_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyfk_01_L",
+    "location": {
+     "vector": [
+      -0.06396237760782242,
+      -5.342280360309815e-07,
+      -0.021508555859327316
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9955782294273376,
+      0.061453018337488174,
+      0.06197979673743248,
+      -0.0347277894616127
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999998807907104,
+      1.0,
+      0.9999998211860657
+     ]
+    }
+   },
+   {
+    "name": "pinkyfk_02_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9997206330299377,
+      0.01810712367296219,
+      0.011065195314586163,
+      -0.0104090990498662
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000001192092896,
+      1.0000001192092896,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyfk_03_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9992476105690002,
+      0.018011759966611862,
+      0.002715695183724165,
+      0.03424053639173508
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999999403953552,
+      1.0000001192092896,
+      0.9999998807907104
+     ]
+    }
+   },
+   {
+    "name": "pinkyfk_04_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexinte_metacarpal_L",
+    "location": {
+     "vector": [
+      0.03235132247209549,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9997383952140808,
+      2.2733622981069984e-13,
+      0.016175661236047745,
+      -0.016175661236047745
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999999403953552,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexCTRL_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexik_01_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexik_02_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexik_03_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexinte_01_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexinte_02_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexinte_03_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexfk_01_L",
+    "location": {
+     "vector": [
+      0.24263492226600647,
+      -8.524080840288661e-06,
+      -4.4655917008640245e-06
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9533913135528564,
+      0.1400032788515091,
+      0.2669293284416199,
+      -0.01388576440513134
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999997615814209,
+      0.9999997615814209,
+      0.9999998807907104
+     ]
+    }
+   },
+   {
+    "name": "indexfk_02_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.999772310256958,
+      0.017375463619828224,
+      0.012248176150023937,
+      -0.0018447298789396882
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999999403953552,
+      0.9999999403953552,
+      0.9999999403953552
+     ]
+    }
+   },
+   {
+    "name": "indexfk_03_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9964742660522461,
+      -0.0827222689986229,
+      0.010611167177557945,
+      0.009135962463915348
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999998807907104,
+      0.9999998807907104,
+      0.9999999403953552
+     ]
+    }
+   },
+   {
+    "name": "indexfk_04_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middleinte_metacarpal_L",
+    "location": {
+     "vector": [
+      0.0559718981385231,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9999987483024597,
+      0.0,
+      0.0011194379767403007,
+      -0.0011194379767403007
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middleinte_01_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middleinte_02_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middleinte_03_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middleik_01_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middleik_02_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middleik_03_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middlefk_01_L",
+    "location": {
+     "vector": [
+      0.0671662762761116,
+      -4.765174708154518e-06,
+      -3.993899554188829e-06
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9906332492828369,
+      0.10956951975822449,
+      0.08031418919563293,
+      -0.013781024143099785
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      0.9999999403953552,
+      1.0000001192092896
+     ]
+    }
+   },
+   {
+    "name": "middlefk_02_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.999593198299408,
+      0.020172785967588425,
+      -0.01925213821232319,
+      0.005987635813653469
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999999403953552,
+      1.0000001192092896,
+      1.000000238418579
+     ]
+    }
+   },
+   {
+    "name": "middlefk_03_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9954623579978943,
+      -0.0874456986784935,
+      -0.0002103708975482732,
+      -0.03752198442816734
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999999403953552,
+      0.9999999403953552,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middlefk_04_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringinte_metacarpal_L",
+    "location": {
+     "vector": [
+      -0.033391501754522324,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9999925494194031,
+      -1.1343958541618071e-12,
+      -0.0032314355485141277,
+      0.0021542904432862997
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      0.9999999403953552,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringik_01_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringik_02_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringik_03_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringinte_01_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringinte_02_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringinte_03_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringfk_01_L",
+    "location": {
+     "vector": [
+      -0.0646287128329277,
+      -2.0516488348221174e-06,
+      2.773302583136683e-07
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9920825362205505,
+      0.10612577199935913,
+      0.06631892174482346,
+      -0.010552765801548958
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000001192092896,
+      0.9999999403953552,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringfk_02_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9994707703590393,
+      0.02870575524866581,
+      0.005519191734492779,
+      -0.01427226047962904
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000001192092896,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringfk_03_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9933494925498962,
+      -0.11156855523586273,
+      -0.0001982033281819895,
+      0.028446516022086143
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000001192092896,
+      0.9999998807907104,
+      0.9999999403953552
+     ]
+    }
+   },
+   {
+    "name": "ringfk_04_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringCTRL_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbCTRL_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "fake_hand_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middleCTRL_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbpoleanchor_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbPole_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkypoleanchor_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkypole_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexpoleanchor_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexpole_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middlepoleanchor_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middlepole_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringpoleanchor_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringpole_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "lowerarminte_twist_02_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "lowerarminte_twist_01_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "wristinte_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9805495142936707,
+      -0.1156434565782547,
+      -0.1156434565782547,
+      -0.1156434565782547
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "shoulderinte_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "upperarmmch_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "shouldermch_L",
+    "location": {
+     "vector": [
+      -0.4000000059604645,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "deltoidinte_L",
+    "location": {
+     "vector": [
+      0.12259836494922638,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "boobmch_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "clavicleinte_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "upperarminte_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "deltoidinte_R",
+    "location": {
+     "vector": [
+      2.6916911602020264,
+      0.0,
+      -1.6150147914886475
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.8383034467697144,
+      0.0,
+      0.5415232181549072,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999998807907104,
+      1.0,
+      0.9999998807907104
+     ]
+    }
+   },
+   {
+    "name": "elbowinte_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "lowerarminte_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "handinte_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbfk_01_R",
+    "location": {
+     "vector": [
+      7.62939453125e-06,
+      0.0,
+      7.62939453125e-06
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.8002339601516724,
+      0.42296940088272095,
+      -0.39786672592163086,
+      -0.14974825084209442
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999998807907104,
+      1.0000001192092896,
+      1.0000001192092896
+     ]
+    }
+   },
+   {
+    "name": "thumbfk_02_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9892643690109253,
+      0.10570760071277618,
+      0.030366187915205956,
+      0.09622788429260254
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999998807907104,
+      0.9999998807907104,
+      0.9999998807907104
+     ]
+    }
+   },
+   {
+    "name": "thumbfk_03_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9989667534828186,
+      0.042939018458127975,
+      0.00800296664237976,
+      0.012554646469652653
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000001192092896,
+      1.0000001192092896,
+      1.0000004768371582
+     ]
+    }
+   },
+   {
+    "name": "thumbfk_04_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000007152557373,
+      1.0000008344650269,
+      0.9999998211860657
+     ]
+    }
+   },
+   {
+    "name": "pinkyinte_metacarpal_R",
+    "location": {
+     "vector": [
+      0.28578418493270874,
+      0.0,
+      0.05715683847665787
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.999799907207489,
+      0.0,
+      0.0,
+      -0.020004892721772194
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999999403953552,
+      0.9999999403953552,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyinte_01_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyinte_02_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyinte_03_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyfk_01_R",
+    "location": {
+     "vector": [
+      0.5715683698654175,
+      1.52587890625e-05,
+      0.1862332969903946
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.8342629075050354,
+      0.5320951342582703,
+      0.09897591918706894,
+      -0.1052803173661232
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000001192092896,
+      1.0000007152557373,
+      0.9999998807907104
+     ]
+    }
+   },
+   {
+    "name": "pinkyfk_02_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.7073231935501099,
+      0.7062678933143616,
+      1.6284098819596693e-05,
+      0.029657302424311638
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000001192092896,
+      1.0000004768371582,
+      0.9999996423721313
+     ]
+    }
+   },
+   {
+    "name": "pinkyfk_03_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.6460728049278259,
+      0.7539660334587097,
+      0.07240904867649078,
+      -0.09424511343240738
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999997019767761,
+      0.9999998807907104,
+      0.999999463558197
+     ]
+    }
+   },
+   {
+    "name": "pinkyfk_04_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999993443489075,
+      1.0,
+      0.9999997019767761
+     ]
+    }
+   },
+   {
+    "name": "indexinte_metacarpal_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexinte_01_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexinte_02_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexinte_03_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexfk_01_R",
+    "location": {
+     "vector": [
+      0.1603708267211914,
+      3.0517578125e-05,
+      -7.62939453125e-06
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9881129860877991,
+      -0.11008698493242264,
+      -0.029279764741659164,
+      0.10322923958301544
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999997615814209,
+      0.9999998807907104,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexfk_02_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9999999403953552,
+      0.0002805554249789566,
+      -0.00019822725153062493,
+      3.469720104476437e-05
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.000000238418579,
+      0.9999998807907104,
+      0.9999999403953552
+     ]
+    }
+   },
+   {
+    "name": "indexfk_03_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9999989867210388,
+      -0.0014036594657227397,
+      -0.00018004837329499424,
+      -0.00015452927618753165
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000001192092896,
+      0.9999998807907104,
+      0.9999996423721313
+     ]
+    }
+   },
+   {
+    "name": "indexfk_04_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.000000238418579,
+      1.0000001192092896,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middleinte_metacarpal_R",
+    "location": {
+     "vector": [
+      -0.313180536031723,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9999607801437378,
+      -2.2733101208774475e-13,
+      -0.006263610906898975,
+      0.006263610906898975
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middleinte_01_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middleinte_02_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middleinte_03_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middlefk_01_R",
+    "location": {
+     "vector": [
+      -0.3758166432380676,
+      1.52587890625e-05,
+      -7.62939453125e-06
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.8090499043464661,
+      0.5844481587409973,
+      0.056648138910532,
+      0.02548619545996189
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999998807907104,
+      1.0000003576278687,
+      0.9999996423721313
+     ]
+    }
+   },
+   {
+    "name": "middlefk_02_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.735165536403656,
+      0.6775957345962524,
+      0.018093934282660484,
+      -0.00826261192560196
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.000000238418579,
+      1.0000007152557373,
+      0.9999997019767761
+     ]
+    }
+   },
+   {
+    "name": "middlefk_03_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.7313452363014221,
+      0.680412232875824,
+      0.02872784435749054,
+      0.036716196686029434
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.000000238418579,
+      1.0000003576278687
+     ]
+    }
+   },
+   {
+    "name": "middlefk_04_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999996423721313,
+      1.0000008344650269,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middleCTRL_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringinte_metacarpal_R",
+    "location": {
+     "vector": [
+      0.18658694624900818,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9997645020484924,
+      -5.636989833246453e-11,
+      0.018056800588965416,
+      -0.012037867680191994
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999999403953552,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringinte_01_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringinte_02_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringinte_03_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringfk_01_R",
+    "location": {
+     "vector": [
+      0.3611360192298889,
+      1.52587890625e-05,
+      -1.52587890625e-05
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.8235701322555542,
+      0.5637437701225281,
+      0.06226358935236931,
+      0.0069580585695803165
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0000001192092896,
+      1.0000004768371582,
+      0.9999999403953552
+     ]
+    }
+   },
+   {
+    "name": "ringfk_02_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.7140467762947083,
+      0.6999468207359314,
+      0.0005422935937531292,
+      0.014540237374603748
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.000000238418579,
+      0.9999997615814209
+     ]
+    }
+   },
+   {
+    "name": "ringfk_03_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.7837242484092712,
+      0.6159290671348572,
+      0.034700602293014526,
+      -0.0721355602145195
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      0.9999997019767761,
+      1.0000003576278687,
+      0.9999995231628418
+     ]
+    }
+   },
+   {
+    "name": "ringfk_04_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      0.9999997019767761,
+      0.9999996423721313
+     ]
+    }
+   },
+   {
+    "name": "thumbik_01_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbik_02_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbik_03_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyik_01_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyik_02_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyik_03_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkyCTRL_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexCTRL_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexik_01_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexik_02_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexik_03_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middleik_01_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middleik_02_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middleik_03_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringik_01_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringik_02_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringik_03_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringCTRL_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbCTRL_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbinte_01_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbinte_02_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbinte_03_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "fake_hand_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbpoleanchor_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thumbPole_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkypoleanchor_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pinkypole_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexpoleanchor_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "indexpole_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middlepoleanchor_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "middlepole_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringpoleanchor_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ringpole_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "wristinte_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      0.9762219786643982,
+      -0.11783609539270401,
+      -0.16152682900428772,
+      0.061734750866889954
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      0.9999999403953552,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "lowerarminte_twist_02_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "lowerarminte_twist_01_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "shoulderinte_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "upperarmmch_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "shouldermch_R",
+    "location": {
+     "vector": [
+      -0.4000000059604645,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "upperarminte_twist_01_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "upperarminte_twist_02_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "boobmch_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pectoralis_01_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pectoralis_02_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "boobinte_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "latissimusinte_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pectoralis_01_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pectoralis_02_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "boobinte_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "latissimusinte_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "hip_upper_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "hip_upper_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thighinte_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "cthighinte_L",
+    "location": {
+     "vector": [
+      -0.0,
+      -0.0031595162581652403,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thighinte_twist_01_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thighinte_twist_02_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "kneeinte_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "calfinte_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "cshininte_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.00592409260571003,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "footinte_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ballinte_L",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "calfinte_twist_02_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "calfinte_twist_01_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "hip_lower_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "hip_middleinte_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pelvisbackinte_L",
+    "location": {
+     "vector": [
+      -0.0,
+      -0.00014839170034974813,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thighik_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "shinik_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "footik_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "toeik_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thighstretch_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thighinte_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "cthighinte_R",
+    "location": {
+     "vector": [
+      -0.0,
+      -0.0031556973699480295,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "kneeinte_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "calfinte_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "cshininte_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.005916932597756386,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "footinte_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "ballinte_R",
+    "location": {
+     "vector": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "calfinte_twist_02_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "calfinte_twist_01_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thighinte_twist_01_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thighinte_twist_02_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "hip_lower_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "hip_middleinte_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "pelvisbackinte_R",
+    "location": {
+     "vector": [
+      -0.0,
+      -0.0001497083285357803,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "thighgap",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "footCTRL_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "foot_target_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "toe_target_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "archCTRL_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "heelik_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "footCTRL_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "archCTRL_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "heelik_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "foot_target_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "toe_target_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "MCH-shoulder_CTRL_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "MCH-shoulder_CTRL_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "HeadTarget",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "EyeController",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "EyeController_R",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   },
+   {
+    "name": "EyeController_L",
+    "location": {
+     "vector": [
+      -0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "rotation": {
+     "vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "mode": "QUATERNION"
+    },
+    "scale": {
+     "vector": [
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  ]
+ }
+]
