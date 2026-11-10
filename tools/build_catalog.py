@@ -393,14 +393,14 @@ def main(argv=None) -> int:
     out.mkdir(parents=True, exist_ok=True)
     fields = list(rows[0].keys()) if rows else []
     with open(out / "catalog.csv", "w", newline="", encoding="utf-8") as fh:
-        w = csv.DictWriter(fh, fieldnames=fields)
+        w = csv.DictWriter(fh, fieldnames=fields, lineterminator="\n")
         w.writeheader()
         w.writerows(rows)
     with open(out / "catalog.json", "w", encoding="utf-8") as fh:
         json.dump(rows, fh, ensure_ascii=False, indent=1)
         fh.write("\n")
     with open(out / "issues.csv", "w", newline="", encoding="utf-8") as fh:
-        w = csv.DictWriter(fh, fieldnames=["folder", "issue", "detail"])
+        w = csv.DictWriter(fh, fieldnames=["folder", "issue", "detail"], lineterminator="\n")
         w.writeheader()
         w.writerows(sorted(issues, key=lambda i: (i["issue"], i["folder"])))
     write_summary(out / "SUMMARY.md", rows, issues)
