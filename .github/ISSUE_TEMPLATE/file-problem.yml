@@ -1,0 +1,32 @@
+name: File problem
+description: A file is missing, won't load, or imports wrong in your software
+title: "[File] "
+labels: ["file problem"]
+body:
+  - type: input
+    id: folder
+    attributes:
+      label: Motion
+      description: The folder name, or the `id` from catalog/catalog.csv
+      placeholder: SG ASL Cabinet 2025-2-12
+    validations:
+      required: true
+  - type: input
+    id: file
+    attributes:
+      label: File
+      placeholder: "SG ASL Cabinet 2025-2-12 No Mesh Mixamo.fbx"
+  - type: input
+    id: software
+    attributes:
+      label: Software and version
+      placeholder: "Unreal Engine 5.4, Blender 4.3, Unity 6…"
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What happened?
+      description: Error messages, screenshots, or what looked wrong (scale, rotation, bones, timing…)
+    validations:
+      required: true
