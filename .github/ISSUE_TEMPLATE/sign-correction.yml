@@ -1,0 +1,50 @@
+name: Sign correction
+description: A motion shows a sign incorrectly (handshape, movement, location, facial expression…)
+title: "[Sign] "
+labels: ["sign correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping. Corrections are re-recorded under a new date, and the old version is kept for reproducibility.
+  - type: input
+    id: folder
+    attributes:
+      label: Motion
+      description: The folder name, or the `id` from catalog/catalog.csv
+      placeholder: SG ASL Cabinet 2025-2-12
+    validations:
+      required: true
+  - type: dropdown
+    id: part
+    attributes:
+      label: What's wrong?
+      multiple: true
+      options:
+        - Handshape
+        - Movement
+        - Location / placement
+        - Palm orientation
+        - Facial expression / non-manual markers
+        - Wrong sign for this word
+        - Regional or older variant (still valid, but worth noting)
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What should it look like? Frame numbers, a reference video link, or a description all help.
+    validations:
+      required: true
+  - type: dropdown
+    id: background
+    attributes:
+      label: Your ASL background (optional)
+      options:
+        - Deaf / Hard of Hearing signer
+        - CODA / heritage signer
+        - Interpreter or teacher
+        - Learner
+        - Prefer not to say

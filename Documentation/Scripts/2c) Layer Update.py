@@ -1,0 +1,42 @@
+import os
+
+# --- Folders -----------------------------------------------------------
+# Change these to your own folders, or set the GALT_WORKSPACE environment
+# variable before starting Blender. The defaults are the original author's paths.
+WORKSPACE = os.environ.get("GALT_WORKSPACE", r"C:\Users\Dhwoo\OneDrive\Desktop\Galt Workspace")
+# -----------------------------------------------------------------------
+
+import bpy
+
+
+#Using Blender 4.2
+#Last tested July 22nd, 2024  
+#Assumes Animation Layers by Tal
+
+Base=WORKSPACE
+file_name = bpy.path.basename(bpy.context.blend_data.filepath)
+
+
+fnsplit = file_name.split()
+Stamp = " ".join(fnsplit[:-1])
+
+ArchivePathblend=Base+'\\'+Stamp+'\\' + file_name
+
+StampAni=Stamp+" Animation"
+
+
+armature_name = 'root'
+armature = bpy.data.objects.get(armature_name)
+if armature is None or armature.type != 'ARMATURE':
+    print(f"Object '{armature_name}' not found or not an armature")
+else:
+    animation_data = armature.animation_data
+    if animation_data is not None and animation_data.action is not None:
+        action = animation_data.action
+        action.name = StampAni
+        print(f"Action renamed to: {action.name}")
+    else:
+        print("No action is currently assigned to the armature")
+        
+
+
