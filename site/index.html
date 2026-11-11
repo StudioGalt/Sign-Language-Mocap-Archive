@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sign Language Mocap Archive</title>
 <meta name="description" content="Free motion capture of American Sign Language signs, ready for Blender, Unreal Engine, Mixamo and Rigify. Released under CC0.">
+<link rel="canonical" href="{{BASE_URL}}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sign Language Mocap Archive">
+<meta property="og:title" content="Sign Language Mocap Archive">
+<meta property="og:description" content="Free motion capture of American Sign Language for Blender, Unreal Engine, Mixamo and Rigify. Search, watch and download every sign.">
+<meta property="og:url" content="{{BASE_URL}}">
+<meta property="og:image" content="{{BASE_URL}}social.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -238,6 +248,7 @@
 <footer class="wrap">
   <p>Recorded by Studio Galt with an Xsens suit and StretchSense gloves, cleaned in Blender. Every file is CC0: use it however you like.</p>
   <p>Signs are made by a hearing signer and are not a substitute for a Deaf-led translation. If one looks wrong, use “Report a problem” on that sign and it will be re-recorded.</p>
+  <p>Missing a sign? <a id="request" href="#">Request it</a>, or add a 👍 to one that's <a id="requested" href="#">already been requested</a>. The most-wanted signs get recorded first.</p>
 </footer>
 
 <dialog id="detail" aria-labelledby="dname">
@@ -265,6 +276,8 @@
   const GROUP_ORDER = ["Blender and Galtis", "Unreal Engine", "Mixamo and Unity", "Blender Rigify",
     "Research", "Raw take", "Key poses", "Video and notes", "Other files"];
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Still images only for people who asked for less motion or less data; previews play on hover.
+  const animate = !reduceMotion && !(navigator.connection && navigator.connection.saveData);
   const $ = (id) => document.getElementById(id);
   const state = { q: "", letter: "", tool: "", old: false, shown: PAGE };
   let DATA = null, byId = new Map(), list = [];
@@ -273,6 +286,9 @@
   const raw = (path) => `https://raw.githubusercontent.com/${DATA.repo}/${DATA.branch}/${enc(path)}`;
   const tree = (path) => `https://github.com/${DATA.repo}/tree/${DATA.branch}/${enc(path)}`;
   const full = (m, rel) => `${m.f}/${rel.replaceAll("~", m.i)}`;
+  const requestUrl = (word) => `https://github.com/${DATA.repo}/issues/new?template=request-sign.yml` +
+    (word ? `&sign=${encodeURIComponent(word)}&title=${encodeURIComponent("[Request] " + word)}` : "");
+  const requestedUrl = () => `https://github.com/${DATA.repo}/issues?q=${encodeURIComponent('is:issue is:open label:"sign request" sort:reactions-+1-desc')}`;
   const norm = (s) => s.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, " ").trim();
   const prettyDate = (d) => d ? new Date(d + "T12:00:00").toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }) : "No date";
   const sectionLetter = (m) => m.c === "F" ? "Fingerspelling" : (m.s.match(/ASL (\w)/) || [, "?"])[1];
@@ -288,15 +304,16 @@
   }
 
   // Preview media: video first, then the GIF, then a plain note.
+  const still = (m) => m.th ? `thumbs/${m.u}.jpg` : undefined;
   function media(m, { tile }) {
     if (!m.p && !m.gif) return el("div", { class: "none", text: "No preview for this sign" });
-    if (!m.p) return el("img", { src: tile ? undefined : raw(full(m, m.gif)), "data-src": raw(full(m, m.gif)), alt: tile ? "" : `${m.n}, signed`, loading: "lazy" });
+    if (!m.p) return el("img", { src: tile ? still(m) : raw(full(m, m.gif)), "data-src": raw(full(m, m.gif)), alt: tile ? "" : `${m.n}, signed`, loading: "lazy" });
     const v = el("video", { muted: true, loop: true, playsinline: true, preload: tile ? "none" : "auto",
       crossorigin: "anonymous", "aria-hidden": tile ? "true" : undefined, controls: tile ? undefined : true,
-      "aria-label": tile ? undefined : `${m.n}, signed` });
+      poster: still(m), "aria-label": tile ? undefined : `${m.n}, signed` });
     v.muted = true;
     v.dataset.src = raw(full(m, m.p));
-    if (!tile) { v.src = v.dataset.src; if (!reduceMotion) v.autoplay = true; }
+    if (!tile) { v.src = v.dataset.src; if (animate) v.autoplay = true; }
     v.addEventListener("error", () => {
       const fallback = m.gif ? el("img", { src: raw(full(m, m.gif)), alt: tile ? "" : `${m.n}, signed` })
         : el("div", { class: "none", text: "Preview could not load. The files below still work." });
@@ -311,8 +328,11 @@
       const v = it.target.querySelector("video, img[data-src]");
       if (!v) continue;
       if (it.isIntersecting) {
-        if (!v.getAttribute("src")) v.src = v.dataset.src;
-        if (v.tagName === "VIDEO" && !reduceMotion) v.play().catch(() => {});
+        // GIFs are 2-8 MB, so a GIF tile with a still keeps the still until hovered.
+        if (v.tagName === "IMG") { if (!v.getAttribute("src")) v.src = v.dataset.src; continue; }
+        if (!animate) { if (!v.getAttribute("poster") && !v.getAttribute("src")) { v.preload = "metadata"; v.src = v.dataset.src; } continue; }
+        if (v.getAttribute("src") !== v.dataset.src) v.src = v.dataset.src;
+        v.play().catch(() => {});
       } else if (v.tagName === "VIDEO") v.pause();
     }
   }, { rootMargin: "200px 0px" });
@@ -345,8 +365,15 @@
       const b = el("button", { class: "tile", type: "button", "aria-label": `${m.n}${m.old ? ", older version" : ""}` },
         frame, el("span", { class: "name", text: m.n }), meta);
       b.addEventListener("click", () => openSign(m.i));
-      if (reduceMotion) {
-        b.addEventListener("mouseenter", () => { const v = b.querySelector("video"); if (v) { if (!v.src) v.src = v.dataset.src; v.play().catch(() => {}); } });
+      const gif = b.querySelector("img[data-src]");
+      if (gif && m.th) {
+        const show = () => { if (gif.getAttribute("src") !== gif.dataset.src) gif.src = gif.dataset.src; };
+        const hide = () => { gif.src = `thumbs/${m.u}.jpg`; };
+        b.addEventListener("mouseenter", show); b.addEventListener("focus", show);
+        b.addEventListener("mouseleave", hide); b.addEventListener("blur", hide);
+      }
+      if (!animate) {
+        b.addEventListener("mouseenter", () => { const v = b.querySelector("video"); if (v) { if (!v.getAttribute("src")) v.src = v.dataset.src; v.play().catch(() => {}); } });
         b.addEventListener("mouseleave", () => b.querySelector("video")?.pause());
       }
       const li = el("li", {}, b);
@@ -357,9 +384,12 @@
     const empty = $("empty");
     empty.hidden = list.length > 0;
     if (!list.length) {
-      empty.replaceChildren(el("h2", { text: state.q ? `No sign matches “${state.q}”` : "No signs match these filters" }),
-        el("p", { text: "Try a shorter word, clear the letter, or turn off the filters. If the sign you need isn't recorded yet, you can request it on GitHub." }),
-        el("p", {}, el("a", { href: `https://github.com/${DATA.repo}/issues/new`, text: "Request a sign" })));
+      const word = state.q.trim();
+      empty.replaceChildren(el("h2", { text: word ? `No sign matches “${word}”` : "No signs match these filters" }),
+        el("p", { text: "Try a shorter word, clear the letter, or turn off the filters. If the sign you need isn't recorded yet, request it and it goes on the recording list." }),
+        el("div", { class: "actions" },
+          el("a", { class: "primary", href: requestUrl(word), target: "_blank", rel: "noopener", text: word ? `Request “${word}”` : "Request a sign" }),
+          el("a", { href: requestedUrl(), target: "_blank", rel: "noopener", text: "See requested signs" })));
     }
     for (const b of $("letters").querySelectorAll("button")) b.setAttribute("aria-pressed", String(b.dataset.l === state.letter));
   }
@@ -414,9 +444,16 @@
       try { await navigator.clipboard.writeText(cmd); copyBtn.after(el("span", { class: "copied", text: "Copied" })); setTimeout(() => copyBtn.nextSibling?.remove(), 2000); }
       catch { prompt("Copy this command:", cmd); }
     });
+    const linkBtn = el("button", { type: "button", text: "Copy link" });
+    linkBtn.addEventListener("click", async () => {
+      const url = `${DATA.base}sign/${m.u}/`;
+      try { await navigator.clipboard.writeText(url); linkBtn.after(el("span", { class: "copied", text: "Copied" })); setTimeout(() => linkBtn.nextSibling?.remove(), 2000); }
+      catch { prompt("Copy this link:", url); }
+    });
     $("dactions").replaceChildren(
       el("a", { class: "primary", href: `https://downgit.github.io/#/home?url=${encodeURIComponent(tree(m.f))}`, target: "_blank", rel: "noopener", text: "Download all files (zip)" }),
       el("a", { href: tree(m.f), target: "_blank", rel: "noopener", text: "Open on GitHub" }),
+      linkBtn,
       copyBtn,
       el("a", { href: issue, target: "_blank", rel: "noopener", text: "Report a problem" }));
 
@@ -477,6 +514,8 @@
     for (const m of DATA.motions) { m._k = norm(m.n); byId.set(m.i, m); }
     $("repo").href = `https://github.com/${DATA.repo}`;
     $("howto").href = `https://github.com/${DATA.repo}#quick_start`;
+    $("request").href = requestUrl("");
+    $("requested").href = requestedUrl();
     const signs = new Set(DATA.motions.filter((m) => !m.old).map((m) => m.g.toLowerCase())).size;
     $("q").placeholder = `Find a sign among ${signs.toLocaleString()}`;
     buildLetters();
