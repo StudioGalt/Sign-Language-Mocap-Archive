@@ -3,6 +3,8 @@ Collected Sign Language Motion Capture
 
 Hello, this is Studio Galt. Since 2020 we have been recording motion capture, primarily of American Sign Language (ASL). Everything here is free under CC0.
 
+**[Browse the signs](https://studiogalt.github.io/Sign-Language-Mocap-Archive/)** Search the archive, watch each sign, and download its files without cloning anything.
+
 **At a glance:** about 2,700 motions covering 2,100+ signs, plus the ASL fingerspelling alphabet and numbers. Each motion comes as FBX for Blender, Unreal and Mixamo-style rigs (and loads in Unity and Maya), with a rendered video and a ReadMe. See [catalog/SUMMARY.md](catalog/SUMMARY.md) for current counts and coverage.
 
 1. [Quick start](#quick_start)
@@ -18,7 +20,7 @@ Hello, this is Studio Galt. Since 2020 we have been recording motion capture, pr
 <a name="quick_start"></a>
 ## Quick start
 
-1. Find your sign in the [catalog](#finding). Use the row whose `status` is `current`.
+1. Find your sign in the [gallery](https://studiogalt.github.io/Sign-Language-Mocap-Archive/), or in the [catalog](#finding) (use the row whose `status` is `current`).
 2. Download just that folder ([how](#downloading)).
 3. Pick the FBX for your target:
 
@@ -50,7 +52,7 @@ Useful columns:
 | `raw_mocap_file` | The raw take it was cleaned from, when known |
 | `raw_mocap_source` | How that link was found: `readme` (the ReadMe's Original Motion), `bundled` (the copy in *FBX Files/Original*), or `name match` (a Raw Mocap file with the sign's name; checked against the ReadMe links, it agrees over 99% of the time) |
 | `keypose_frames` | Key pose frame numbers from the ReadMe |
-| `facial_animation` | `yes` if face shape keys move beyond blinking |
+| `facial_animation` | `yes` if face shape keys move beyond blinking, `no` if only blinks, `unknown` for motions whose ShapeKeys file has no key names (mostly 2023) |
 | `has_…` columns | Which file types exist for that motion |
 
 The catalog is rebuilt automatically on every push by [`tools/build_catalog.py`](tools/build_catalog.py). Anything that looks misnamed or incomplete goes to [`catalog/issues.csv`](catalog/issues.csv).

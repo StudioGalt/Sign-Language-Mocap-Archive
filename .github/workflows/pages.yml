@@ -1,0 +1,54 @@
+# Publishes the sign gallery to GitHub Pages on every push to main.
+# One-time setup: Settings > Pages > Build and deployment > Source: "GitHub Actions".
+# Only small text files are downloaded; videos and FBX files are linked
+# straight from the repository, so the site itself stays a few megabytes.
+name: Publish gallery
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/
+            /site/
+            /SG ASL Dictionary/**/*.txt
+            /SG ASL Fingerspelling/**/*.txt
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build gallery
+        run: python tools/build_site.py --repo "${{ github.repository }}" --branch "${{ github.ref_name }}"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
