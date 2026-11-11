@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign Language Mocap Archive</title>
+<meta name="description" content="Free motion capture of American Sign Language signs, ready for Blender, Unreal Engine, Mixamo and Rigify. Released under CC0.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #EEF1F4;
+    --ink: #14213D;
+    --slate: #5B6B82;
+    --line: #C9D2DC;
+    --signal: #F2B807;
+    --white: #FFFFFF;
+    --stage: #4A4A4C;
+    --font: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 400 1rem/1.5 var(--font);
+  }
+  a { color: var(--ink); text-underline-offset: 0.18em; }
+  a:hover { text-decoration-thickness: 2px; }
+  :focus-visible { outline: 3px solid var(--signal); outline-offset: 2px; }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+
+  /* Header */
+  .top {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+    padding-top: 20px; padding-bottom: 8px;
+  }
+  .brand { font-weight: 700; font-size: 0.95rem; text-decoration: none; }
+  .brand span { color: var(--slate); font-weight: 400; }
+  .top nav { display: flex; gap: 20px; font-size: 0.95rem; }
+
+  /* Search */
+  .finder { padding-top: clamp(28px, 6vw, 64px); padding-bottom: 20px; }
+  .finder h1 {
+    margin: 0 0 6px;
+    font-size: clamp(2.4rem, 7vw, 5.2rem);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    max-width: 14ch;
+  }
+  .finder p { margin: 14px 0 26px; color: var(--slate); max-width: 60ch; font-size: 1.05rem; }
+  .search {
+    display: flex; align-items: center;
+    border-bottom: 3px solid var(--ink);
+    max-width: 760px;
+  }
+  .search input {
+    flex: 1; min-width: 0;
+    border: 0; background: transparent; color: var(--ink);
+    font: 700 clamp(1.5rem, 4vw, 2.4rem)/1.2 var(--font);
+    letter-spacing: -0.02em;
+    padding: 8px 0;
+  }
+  .search input::placeholder { color: #9AA6B6; font-weight: 500; }
+  .search input:focus { outline: none; }
+  .search:focus-within { border-bottom-color: var(--signal); }
+  .search button {
+    border: 0; background: none; color: var(--slate); font: 500 0.95rem var(--font);
+    cursor: pointer; padding: 8px 4px;
+  }
+
+  /* Letter index */
+  .index {
+    display: flex; flex-wrap: wrap; gap: 2px;
+    margin: 26px 0 0; padding: 0; list-style: none;
+  }
+  .index button {
+    min-width: 2.3rem; height: 2.3rem; padding: 0 0.55rem;
+    border: 0; border-radius: 4px; background: transparent;
+    font: 700 1rem var(--font); color: var(--ink); cursor: pointer;
+  }
+  .index button:hover { background: var(--white); }
+  .index button[aria-pressed="true"] { background: var(--signal); }
+  .index button:disabled { color: #A9B3C1; cursor: default; background: none; font-weight: 500; }
+
+  /* Filters */
+  .filters {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px;
+    padding: 16px 0 18px; border-bottom: 1px solid var(--line); margin-bottom: 22px;
+    font-size: 0.95rem;
+  }
+  .filters label { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+  .filters select {
+    font: 500 0.95rem var(--font); color: var(--ink);
+    background: var(--white); border: 1px solid var(--line); border-radius: 4px; padding: 6px 8px;
+  }
+  .filters input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--ink); }
+  .count { margin-left: auto; color: var(--slate); }
+
+  /* Grid */
+  .grid {
+    display: grid; gap: 14px 12px;
+    grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+    margin: 0; padding: 0; list-style: none;
+  }
+  .tile {
+    display: block; width: 100%; padding: 0; border: 0; background: none;
+    text-align: left; color: inherit; font: inherit; cursor: pointer;
+  }
+  .frame {
+    display: block; position: relative; aspect-ratio: 4 / 5; overflow: hidden;
+    background: var(--stage); border-radius: 6px;
+  }
+  .frame video, .frame img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: 50% 38%;
+  }
+  .frame .none {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    color: #C9CCD2; font-size: 0.85rem; padding: 12px; text-align: center;
+  }
+  .tile:hover .frame, .tile:focus-visible .frame { outline: 3px solid var(--ink); outline-offset: -3px; }
+  .tile .name {
+    display: block; margin-top: 8px;
+    font-weight: 700; font-size: 1.05rem; line-height: 1.2; letter-spacing: -0.01em;
+  }
+  .tile .meta { display: block; color: var(--slate); font-size: 0.85rem; margin-top: 2px; }
+  .older { color: #8A5A00; }
+  .more {
+    display: block; margin: 32px auto 0; padding: 12px 22px;
+    font: 700 1rem var(--font); color: var(--white); background: var(--ink);
+    border: 0; border-radius: 4px; cursor: pointer;
+  }
+  .empty { padding: 48px 0; max-width: 52ch; }
+  .empty h2 { margin: 0 0 8px; font-size: 1.5rem; }
+
+  /* Detail */
+  dialog {
+    width: min(1040px, 100vw - 24px); max-height: calc(100vh - 24px);
+    padding: 0; border: 0; border-radius: 8px;
+    background: var(--white); color: var(--ink);
+    box-shadow: 0 30px 80px rgba(20, 33, 61, 0.35);
+  }
+  dialog::backdrop { background: rgba(20, 33, 61, 0.55); }
+  .sheet { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+  .lead { align-self: start; }
+  .stage { background: var(--stage); }
+  .about { padding: 22px 26px 26px; }
+  .stage video, .stage img { width: 100%; display: block; aspect-ratio: 16 / 9; object-fit: contain; background: var(--stage); }
+  .info { padding: 8px 26px 26px; overflow-y: auto; max-height: calc(100vh - 24px); border-left: 1px solid var(--line); }
+  .files h3:first-child { margin-top: 14px; }
+  .close {
+    float: right; margin: 6px -8px 0 12px;
+    border: 0; background: none; font: 500 0.95rem var(--font); color: var(--slate);
+    padding: 6px 8px; cursor: pointer;
+  }
+  .about h2 {
+    margin: 0; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 900;
+    line-height: 1; letter-spacing: -0.03em;
+  }
+  .facts { margin: 12px 0 0; color: var(--slate); font-size: 0.92rem; }
+  .facts b { color: var(--ink); font-weight: 500; }
+  .notice {
+    margin: 14px 0 0; padding: 10px 12px; border-left: 4px solid var(--signal);
+    background: #FFF8E1; font-size: 0.92rem;
+  }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 6px; }
+  .actions a, .actions button {
+    display: inline-block; padding: 9px 14px; border-radius: 4px;
+    font: 700 0.92rem var(--font); text-decoration: none; cursor: pointer;
+    border: 1px solid var(--ink); background: var(--white); color: var(--ink);
+  }
+  .actions .primary { background: var(--ink); color: var(--white); }
+  .files h3 { margin: 22px 0 6px; font-size: 1rem; }
+  .files ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .files li { border-bottom: 1px solid var(--line); }
+  .files a { display: block; padding: 7px 0; font-size: 0.92rem; text-decoration: none; overflow-wrap: anywhere; }
+  .files a:hover { text-decoration: underline; }
+  .files .dir { color: var(--slate); }
+  .small { font-size: 0.85rem; color: var(--slate); margin-top: 22px; }
+  .copied { color: #1E7A3C; font-size: 0.85rem; margin-left: 4px; }
+
+  footer { margin-top: 72px; padding: 28px 0 40px; border-top: 1px solid var(--line); color: var(--slate); font-size: 0.92rem; }
+  footer p { margin: 0 0 6px; max-width: 70ch; }
+
+  @media (max-width: 760px) {
+    .sheet { grid-template-columns: 1fr; }
+    .info { max-height: none; border-left: 0; border-top: 1px solid var(--line); }
+    .close { position: absolute; top: 8px; right: 12px; float: none; margin: 0; background: var(--white); border-radius: 4px; }
+    dialog { max-height: calc(100vh - 12px); overflow-y: auto; }
+    .count { margin-left: 0; width: 100%; }
+    .top nav { gap: 14px; }
+  }
+</style>
+</head>
+<body>
+<header class="wrap top">
+  <a class="brand" href="./">Sign Language Mocap Archive <span>by Studio Galt</span></a>
+  <nav>
+    <a id="howto" href="#">Using the files</a>
+    <a id="repo" href="#">GitHub</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="finder" aria-labelledby="title">
+    <h1 id="title">Every sign, ready to animate.</h1>
+    <p id="lede">Motion capture of American Sign Language for Blender, Unreal Engine, Mixamo and Rigify. Free for anything, under CC0.</p>
+    <form class="search" role="search" onsubmit="return false">
+      <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Find a sign" aria-label="Find a sign">
+      <button id="clear" type="button" hidden>Clear</button>
+    </form>
+    <ul class="index" id="letters" aria-label="Browse by letter"></ul>
+  </section>
+
+  <div class="filters">
+    <label>Works in
+      <select id="tool">
+        <option value="">Any software</option>
+        <option value="blender">Blender (Galtis)</option>
+        <option value="unreal">Unreal Engine</option>
+        <option value="mixamo">Mixamo and Unity</option>
+        <option value="rigify">Blender Rigify</option>
+      </select>
+    </label>
+    <label><input id="old" type="checkbox"> Include older versions</label>
+    <span class="count" id="count" aria-live="polite"></span>
+  </div>
+
+  <ul class="grid" id="grid"></ul>
+  <div id="empty" class="empty" hidden></div>
+  <button class="more" id="more" type="button" hidden>Show more signs</button>
+</main>
+
+<footer class="wrap">
+  <p>Recorded by Studio Galt with an Xsens suit and StretchSense gloves, cleaned in Blender. Every file is CC0: use it however you like.</p>
+  <p>Signs are made by a hearing signer and are not a substitute for a Deaf-led translation. If one looks wrong, use “Report a problem” on that sign and it will be re-recorded.</p>
+</footer>
+
+<dialog id="detail" aria-labelledby="dname">
+  <div class="sheet">
+    <div class="lead">
+      <div class="stage" id="dstage"></div>
+      <div class="about">
+        <h2 id="dname"></h2>
+        <p class="facts" id="dfacts"></p>
+        <div id="dnotice"></div>
+        <div class="actions" id="dactions"></div>
+      </div>
+    </div>
+    <div class="info">
+      <button class="close" id="dclose" type="button">Close</button>
+      <div class="files" id="dfiles"></div>
+      <p class="small" id="dsmall"></p>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(() => {
+  const PAGE = 48;
+  const GROUP_ORDER = ["Blender and Galtis", "Unreal Engine", "Mixamo and Unity", "Blender Rigify",
+    "Research", "Raw take", "Key poses", "Video and notes", "Other files"];
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (id) => document.getElementById(id);
+  const state = { q: "", letter: "", tool: "", old: false, shown: PAGE };
+  let DATA = null, byId = new Map(), list = [];
+
+  const enc = (p) => p.split("/").map(encodeURIComponent).join("/");
+  const raw = (path) => `https://raw.githubusercontent.com/${DATA.repo}/${DATA.branch}/${enc(path)}`;
+  const tree = (path) => `https://github.com/${DATA.repo}/tree/${DATA.branch}/${enc(path)}`;
+  const full = (m, rel) => `${m.f}/${rel.replaceAll("~", m.i)}`;
+  const norm = (s) => s.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, " ").trim();
+  const prettyDate = (d) => d ? new Date(d + "T12:00:00").toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }) : "No date";
+  const sectionLetter = (m) => m.c === "F" ? "Fingerspelling" : (m.s.match(/ASL (\w)/) || [, "?"])[1];
+
+  function el(tag, attrs = {}, ...kids) {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) {
+      if (v === undefined || v === null || v === false) continue;
+      if (k === "text") n.textContent = v; else n.setAttribute(k, v === true ? "" : v);
+    }
+    for (const k of kids) if (k) n.append(k);
+    return n;
+  }
+
+  // Preview media: video first, then the GIF, then a plain note.
+  function media(m, { tile }) {
+    if (!m.p && !m.gif) return el("div", { class: "none", text: "No preview for this sign" });
+    if (!m.p) return el("img", { src: tile ? undefined : raw(full(m, m.gif)), "data-src": raw(full(m, m.gif)), alt: tile ? "" : `${m.n}, signed`, loading: "lazy" });
+    const v = el("video", { muted: true, loop: true, playsinline: true, preload: tile ? "none" : "auto",
+      crossorigin: "anonymous", "aria-hidden": tile ? "true" : undefined, controls: tile ? undefined : true,
+      "aria-label": tile ? undefined : `${m.n}, signed` });
+    v.muted = true;
+    v.dataset.src = raw(full(m, m.p));
+    if (!tile) { v.src = v.dataset.src; if (!reduceMotion) v.autoplay = true; }
+    v.addEventListener("error", () => {
+      const fallback = m.gif ? el("img", { src: raw(full(m, m.gif)), alt: tile ? "" : `${m.n}, signed` })
+        : el("div", { class: "none", text: "Preview could not load. The files below still work." });
+      v.replaceWith(fallback);
+    }, { once: true });
+    return v;
+  }
+
+  // Only play previews that are on screen.
+  const io = new IntersectionObserver((items) => {
+    for (const it of items) {
+      const v = it.target.querySelector("video, img[data-src]");
+      if (!v) continue;
+      if (it.isIntersecting) {
+        if (!v.getAttribute("src")) v.src = v.dataset.src;
+        if (v.tagName === "VIDEO" && !reduceMotion) v.play().catch(() => {});
+      } else if (v.tagName === "VIDEO") v.pause();
+    }
+  }, { rootMargin: "200px 0px" });
+
+  function filter() {
+    const q = norm(state.q);
+    let out = DATA.motions.filter((m) =>
+      (state.old || !m.old) &&
+      (!state.letter || sectionLetter(m) === state.letter) &&
+      (!state.tool || m.t.includes(state.tool)) &&
+      (!q || m._k.includes(q)));
+    if (q) {
+      const rank = (m) => m._k === q ? 0 : m._k.startsWith(q) ? 1 : m._k.split(" ").some((w) => w.startsWith(q)) ? 2 : 3;
+      out = out.map((m) => [rank(m), m]).sort((a, b) => a[0] - b[0]).map((x) => x[1]);
+    }
+    return out;
+  }
+
+  function render() {
+    list = filter();
+    const grid = $("grid");
+    io.disconnect();
+    grid.replaceChildren();
+    const signs = new Set(list.map((m) => m.g.toLowerCase())).size;
+    $("count").textContent = list.length === 1 ? "1 motion" : `${list.length.toLocaleString()} motions, ${signs.toLocaleString()} signs`;
+    for (const m of list.slice(0, state.shown)) {
+      const frame = el("span", { class: "frame" }, media(m, { tile: true }));
+      const meta = el("span", { class: "meta" }, document.createTextNode(prettyDate(m.d)));
+      if (m.old) meta.append(" ", el("span", { class: "older", text: "older version" }));
+      const b = el("button", { class: "tile", type: "button", "aria-label": `${m.n}${m.old ? ", older version" : ""}` },
+        frame, el("span", { class: "name", text: m.n }), meta);
+      b.addEventListener("click", () => openSign(m.i));
+      if (reduceMotion) {
+        b.addEventListener("mouseenter", () => { const v = b.querySelector("video"); if (v) { if (!v.src) v.src = v.dataset.src; v.play().catch(() => {}); } });
+        b.addEventListener("mouseleave", () => b.querySelector("video")?.pause());
+      }
+      const li = el("li", {}, b);
+      grid.append(li);
+      io.observe(frame);
+    }
+    $("more").hidden = list.length <= state.shown;
+    const empty = $("empty");
+    empty.hidden = list.length > 0;
+    if (!list.length) {
+      empty.replaceChildren(el("h2", { text: state.q ? `No sign matches “${state.q}”` : "No signs match these filters" }),
+        el("p", { text: "Try a shorter word, clear the letter, or turn off the filters. If the sign you need isn't recorded yet, you can request it on GitHub." }),
+        el("p", {}, el("a", { href: `https://github.com/${DATA.repo}/issues/new`, text: "Request a sign" })));
+    }
+    for (const b of $("letters").querySelectorAll("button")) b.setAttribute("aria-pressed", String(b.dataset.l === state.letter));
+  }
+
+  function buildLetters() {
+    const have = new Set(DATA.motions.filter((m) => !m.old).map(sectionLetter));
+    const ul = $("letters");
+    const items = [["", "All"], ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map((l) => [l, l]), ["Fingerspelling", "Fingerspelling"]];
+    for (const [l, label] of items) {
+      const b = el("button", { type: "button", "data-l": l, disabled: Boolean(l) && !have.has(l), "aria-pressed": "false",
+        title: Boolean(l) && !have.has(l) ? `No signs starting with ${l} yet` : undefined, text: label });
+      b.addEventListener("click", () => { state.letter = l; state.shown = PAGE; render(); });
+      ul.append(el("li", {}, b));
+    }
+  }
+
+  function openSign(id, push = true) {
+    const m = byId.get(id);
+    if (!m) return;
+    const d = $("detail");
+    $("dstage").replaceChildren(media(m, { tile: false }));
+    $("dname").textContent = m.n;
+
+    const facts = $("dfacts");
+    facts.replaceChildren();
+    const add = (label, value) => { if (!value) return; if (facts.childNodes.length) facts.append(document.createElement("br")); facts.append(label + " ", el("b", { text: value })); };
+    add("Recorded", prettyDate(m.d));
+    add("Rig", m.rig);
+    add("Blender", m.bv);
+    add("Key poses", m.kp ? String(m.kp) : "");
+    const keys = (m.sk || "").split(" ").filter(Boolean);
+    const facial = keys.filter((k) => !/^EyesClose[LR]_/i.test(k)).map((k) => k.replace(/_AU\d+.*$/, "").replace(/_/g, " "));
+    add("Face", facial.length ? facial.join(", ") : keys.length ? "Blinks only" : "");
+
+    const notice = $("dnotice");
+    notice.replaceChildren();
+    if (m.old) {
+      const newer = typeof m.old === "string" ? DATA.motions.find((x) => x.f === m.old) : null;
+      const p = el("p", { class: "notice" }, document.createTextNode("This is an older version. "));
+      if (newer) {
+        const a = el("a", { href: `#sign=${encodeURIComponent(newer.i)}`, text: `Use the ${prettyDate(newer.d)} version instead.` });
+        a.addEventListener("click", (e) => { e.preventDefault(); openSign(newer.i); });
+        p.append(a);
+      } else p.append("A newer recording replaces it.");
+      notice.append(p);
+    }
+
+    const issue = `https://github.com/${DATA.repo}/issues/new?template=sign-correction.yml&folder=${encodeURIComponent(m.i)}&title=${encodeURIComponent("[Sign] " + m.n)}`;
+    const copyBtn = el("button", { type: "button", text: "Copy git command" });
+    copyBtn.addEventListener("click", async () => {
+      const cmd = `git clone --filter=blob:none --sparse https://github.com/${DATA.repo}.git\ncd ${DATA.repo.split("/")[1]}\ngit sparse-checkout set "${m.f}"`;
+      try { await navigator.clipboard.writeText(cmd); copyBtn.after(el("span", { class: "copied", text: "Copied" })); setTimeout(() => copyBtn.nextSibling?.remove(), 2000); }
+      catch { prompt("Copy this command:", cmd); }
+    });
+    $("dactions").replaceChildren(
+      el("a", { class: "primary", href: `https://downgit.github.io/#/home?url=${encodeURIComponent(tree(m.f))}`, target: "_blank", rel: "noopener", text: "Download all files (zip)" }),
+      el("a", { href: tree(m.f), target: "_blank", rel: "noopener", text: "Open on GitHub" }),
+      copyBtn,
+      el("a", { href: issue, target: "_blank", rel: "noopener", text: "Report a problem" }));
+
+    const files = $("dfiles");
+    files.replaceChildren();
+    const groups = Object.keys(m.files).sort((a, b) => GROUP_ORDER.indexOf(a) - GROUP_ORDER.indexOf(b));
+    for (const g of groups) {
+      const ul = el("ul");
+      for (const rel of m.files[g]) {
+        const path = full(m, rel);
+        const parts = rel.split("/");
+        const name = parts.pop().replace(/^~\s*/, "") || rel;
+        const a = el("a", { href: raw(path), download: true },
+          parts.length ? el("span", { class: "dir", text: parts.join(" / ") + " / " }) : null, document.createTextNode(name));
+        ul.append(el("li", {}, a));
+      }
+      files.append(el("h3", { text: g }), ul);
+    }
+    if (m.raw && !m.raw.startsWith(m.f) && !m.files["Raw take"]) {
+      files.append(el("h3", { text: "Raw take" }), el("ul", {}, el("li", {}, el("a", { href: raw(m.raw), download: true, text: m.raw.split("/").slice(-2).join(" / ") }))));
+    }
+    $("dsmall").textContent = "Files download straight from GitHub. File names start with the motion's name and date.";
+
+    if (push) history.replaceState(null, "", `#sign=${encodeURIComponent(m.i)}`);
+    if (!d.open) d.showModal();
+    d.querySelector(".info").scrollTop = 0;
+  }
+
+  function closeSign() {
+    const d = $("detail");
+    d.querySelector("video")?.pause();
+    $("dstage").replaceChildren();
+    if (d.open) d.close();
+    if (location.hash.startsWith("#sign=")) history.replaceState(null, "", location.pathname + location.search);
+  }
+
+  function fromHash() {
+    const m = location.hash.match(/^#sign=(.+)$/);
+    if (m) openSign(decodeURIComponent(m[1]), false); else if ($("detail").open) closeSign();
+  }
+
+  let t;
+  $("q").addEventListener("input", (e) => {
+    clearTimeout(t);
+    t = setTimeout(() => { state.q = e.target.value; state.shown = PAGE; if (state.q) state.letter = ""; $("clear").hidden = !state.q; render(); }, 120);
+  });
+  $("clear").addEventListener("click", () => { $("q").value = ""; state.q = ""; $("clear").hidden = true; render(); $("q").focus(); });
+  $("tool").addEventListener("change", (e) => { state.tool = e.target.value; state.shown = PAGE; render(); });
+  $("old").addEventListener("change", (e) => { state.old = e.target.checked; state.shown = PAGE; render(); });
+  $("more").addEventListener("click", () => { state.shown += PAGE; render(); });
+  $("dclose").addEventListener("click", closeSign);
+  $("detail").addEventListener("close", () => { if ($("dstage").childNodes.length) closeSign(); });
+  $("detail").addEventListener("click", (e) => { if (e.target === $("detail")) closeSign(); });
+  window.addEventListener("hashchange", fromHash);
+
+  fetch("data.json").then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); }).then((data) => {
+    DATA = data;
+    for (const m of DATA.motions) { m._k = norm(m.n); byId.set(m.i, m); }
+    $("repo").href = `https://github.com/${DATA.repo}`;
+    $("howto").href = `https://github.com/${DATA.repo}#quick_start`;
+    const signs = new Set(DATA.motions.filter((m) => !m.old).map((m) => m.g.toLowerCase())).size;
+    $("q").placeholder = `Find a sign among ${signs.toLocaleString()}`;
+    buildLetters();
+    render();
+    fromHash();
+  }).catch(() => {
+    $("empty").hidden = false;
+    $("empty").replaceChildren(el("h2", { text: "The sign list didn't load" }),
+      el("p", { text: "Reload the page. If it keeps failing, the archive is still available on GitHub." }),
+      el("p", {}, el("a", { href: "https://github.com/StudioGalt/Sign-Language-Mocap-Archive", text: "Open the archive on GitHub" })));
+  });
+})();
+</script>
+</body>
+</html>

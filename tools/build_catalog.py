@@ -40,9 +40,9 @@ VARIANT_RE = re.compile(
     r"(?:\s+(?:\((?:alt|alternate)\)|alt|alternate|var|variant|redo|v\d+|\d+))+$", re.I
 )
 FRAME_RE = re.compile(r"^\s*Frame:\s*(\d+)\s*$")
-SHAPEKEY_RE = re.compile(r"^\s*\d+\.\s*(\S+)\s*$")
+SHAPEKEY_RE = re.compile(r"^\s*\d+\.\s*(\S+)\s*$", re.M)
 SHAPEKEY_FRAME_RE = re.compile(r"^\s*Frame:\s*\d+,\s*Value:\s*([-\d.eE]+)\s*$")
-BLINK_KEYS = {"EyesCloseL_AU43_L", "EyesCloseR_AU43_R"}
+BLINK_RE = re.compile(r"^EyesClose[LR]_", re.I)  # EyesCloseL_AU43_L and EyesCloseL_AU43L both occur
 
 # Friendly column names for the file types people ask for most. Any other file
 # type still shows up in the "files" column, so nothing is hidden.
@@ -315,7 +315,10 @@ def main(argv=None) -> int:
         readme_path = next((f for f in rel if f.endswith("ReadMe.txt")), None)
         shapekey_path = next((f for f in rel if f.endswith("ShapeKeys.txt")), None)
         info = parse_readme(reader.read(f"{folder}/{readme_path}")) if readme_path else parse_readme("")
-        animated = parse_shapekeys(reader.read(f"{folder}/{shapekey_path}")) if shapekey_path else []
+        shapekey_text = reader.read(f"{folder}/{shapekey_path}") if shapekey_path else ""
+        animated = parse_shapekeys(shapekey_text)
+        # The 2023 ShapeKeys files are an unlabeled grid of numbers, so the face can't be read from them.
+        labeled = bool(SHAPEKEY_RE.search(shapekey_text)) if shapekey_text else False
         if not readme_path:
             issue(folder, "no ReadMe.txt", "")
 
@@ -349,7 +352,8 @@ def main(argv=None) -> int:
             "raw_mocap_source": raw_source,
             "keypose_count": len(info["keypose_frames"]),
             "keypose_frames": " ".join(map(str, info["keypose_frames"])),
-            "facial_animation": "yes" if any(k not in BLINK_KEYS for k in animated) else "no",
+            "facial_animation": ("yes" if any(not BLINK_RE.match(k) for k in animated)
+                                 else "no" if labeled else "unknown"),
             "animated_shape_keys": " ".join(animated),
             "submitted_by": info["submitted_by"],
             "audited_by": info["audited_by"],
