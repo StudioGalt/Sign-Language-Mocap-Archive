@@ -199,6 +199,12 @@ def parse_shapekeys(text: str) -> list[str]:
     return animated
 
 
+def sign_key(name: str) -> str:
+    """Comparable form of a sign name: no "SG ASL" prefix, letters and digits only."""
+    name = re.sub(r"^\s*SG ASL\s+", "", name, flags=re.I)
+    return re.sub(r"[^a-z0-9]", "", name.lower())
+
+
 def iso_date(y: str, m: str, d: str) -> str:
     return f"{int(y):04d}-{int(m):02d}-{int(d):02d}"
 
@@ -272,9 +278,13 @@ def main(argv=None) -> int:
     entries, stray = find_entries(files)
 
     raw_index = {}
+    raw_by_name = collections.defaultdict(list)
     for p in files:
         if p.startswith(RAW_MOCAP + "/") and p.lower().endswith(".fbx"):
-            raw_index.setdefault(Path(p).stem.strip().lower(), p)
+            stem = Path(p).stem.strip()
+            raw_index.setdefault(stem.lower(), p)
+            # "SG ASL Battery (Alt)_1958-2867" -> "batteryalt"
+            raw_by_name[sign_key(re.sub(r"(?:_frames)?_?\d+-\d+$", "", stem))].append(p)
 
     reader = TextReader(root)
     rows, issues = [], []
@@ -309,12 +319,13 @@ def main(argv=None) -> int:
         if not readme_path:
             issue(folder, "no ReadMe.txt", "")
 
-        raw = ""
+        raw, raw_source = "", ""
         if info["original_motion"]:
             raw = raw_index.get(info["original_motion"].strip().lower(), "")
+            raw_source = "readme" if raw else ""
         bundled = next((f for f in rel if f.startswith("FBX Files/Original/")), None)
         if not raw and bundled:
-            raw = f"{folder}/{bundled}"
+            raw, raw_source = f"{folder}/{bundled}", "bundled"
 
         kinds = file_kinds(folder_name, rel)
         if any(k.endswith(".blend1") for k in kinds):
@@ -335,6 +346,7 @@ def main(argv=None) -> int:
             "blender_version": info["blender_version"],
             "original_motion": info["original_motion"],
             "raw_mocap_file": raw,
+            "raw_mocap_source": raw_source,
             "keypose_count": len(info["keypose_frames"]),
             "keypose_frames": " ".join(map(str, info["keypose_frames"])),
             "facial_animation": "yes" if any(k not in BLINK_KEYS for k in animated) else "no",
@@ -360,12 +372,35 @@ def main(argv=None) -> int:
             groups_per_source[r["original_motion"]].add(r["group"].lower())
     for r in rows:
         src = r["original_motion"]
-        if src and len(groups_per_source[src]) > 1:
-            r["raw_mocap_file"] = ""
-            issue(r["folder"], "ReadMe 'Original Motion' looks copied from another sign",
-                  f"{src} (shared by {len(groups_per_source[src])} different signs)")
+        stale = bool(src) and len(groups_per_source[src]) > 1
+        if stale and r["raw_mocap_source"] == "readme":
+            r["raw_mocap_file"], r["raw_mocap_source"] = "", ""
+        problem = ""
+        if stale:
+            problem = "ReadMe 'Original Motion' looks copied from another sign"
+            detail = f"{src} (shared by {len(groups_per_source[src])} different signs)"
         elif src and not r["raw_mocap_file"]:
-            issue(r["folder"], "Original Motion not found in Raw Mocap", src)
+            problem, detail = "Original Motion not found in Raw Mocap", src
+
+        # Fall back to a raw take whose file name is this sign's name.
+        if not r["raw_mocap_file"]:
+            candidates = raw_by_name.get(sign_key(r["name"]), [])
+            # Batches 3-6 also hold a "_frames_" re-cut of many takes. ReadMes that
+            # name their source point at the plain cut almost every time, so prefer it.
+            plain = [c for c in candidates if "_frames_" not in c]
+            if len(candidates) > 1 and len(plain) == 1:
+                candidates = plain
+            if len(candidates) == 1:
+                r["raw_mocap_file"], r["raw_mocap_source"] = candidates[0], "name match"
+                if problem:
+                    issue(r["folder"], problem + "; raw take matched by name", f"{detail} -> {candidates[0]}")
+                continue
+            if len(candidates) > 1 and problem:
+                shown = "; ".join(candidates[:5]) + ("; …" if len(candidates) > 5 else "")
+                issue(r["folder"], problem + "; several raw takes match by name", f"{detail} -> {shown}")
+                continue
+        if problem:
+            issue(r["folder"], problem + ("; no raw take matches by name" if not r["raw_mocap_file"] else ""), detail)
 
     # A motion re-recorded under a newer date replaces the older one (README FAQ 12).
     # Fingerspelling "Letters-Old" / "Numbers-Old" pair with "Letters" / "Numbers".
@@ -420,7 +455,8 @@ def write_summary(path: Path, rows: list[dict], issues: list[dict]):
         f"- **Motions:** {len(rows)} ({len(current)} current, {len(rows) - len(current)} superseded)",
         f"- **Distinct signs (alternates grouped):** {len({(r['collection'], r['group'].lower()) for r in current})}",
         f"- **With facial animation beyond blinks:** {sum(r['facial_animation'] == 'yes' for r in current)}",
-        f"- **Linked to a raw mocap file:** {sum(bool(r['raw_mocap_file']) for r in rows)}",
+        f"- **Linked to a raw mocap file:** {sum(bool(r['raw_mocap_file']) for r in rows)} "
+        f"({', '.join(f'{c} by {s}' for s, c in collections.Counter(r['raw_mocap_source'] for r in rows if r['raw_mocap_source']).most_common())})",
         f"- **Marked as audited:** {sum(bool(r['audited_by']) for r in rows)}",
         "",
         "## Coverage",
