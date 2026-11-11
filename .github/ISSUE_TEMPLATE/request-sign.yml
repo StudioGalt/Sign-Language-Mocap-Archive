@@ -1,0 +1,33 @@
+name: Request a sign
+description: Ask for a sign that isn't in the archive yet
+title: "[Request] "
+labels: ["sign request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before asking, please [search the gallery](https://studiogalt.github.io/Sign-Language-Mocap-Archive/) and the [open requests](https://github.com/StudioGalt/Sign-Language-Mocap-Archive/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22sign%20request%22). If someone has already asked, add a 👍 to their request instead. The most-wanted signs are recorded first.
+  - type: input
+    id: sign
+    attributes:
+      label: Sign
+      description: The English word or phrase
+      placeholder: "Library"
+    validations:
+      required: true
+  - type: textarea
+    id: meaning
+    attributes:
+      label: Which meaning?
+      description: Many English words have more than one sign. Tell us which one you mean, e.g. "bank (money), not river bank".
+  - type: input
+    id: reference
+    attributes:
+      label: Reference video (optional)
+      description: A link to the sign in an online ASL dictionary or video helps get it right.
+      placeholder: "https://…"
+  - type: textarea
+    id: use
+    attributes:
+      label: What will you use it for? (optional)
+      description: A game, an app, research, teaching… It helps decide what to record next.

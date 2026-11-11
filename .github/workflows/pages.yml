@@ -1,7 +1,7 @@
 # Publishes the sign gallery to GitHub Pages on every push to main.
 # One-time setup: Settings > Pages > Build and deployment > Source: "GitHub Actions".
-# Only small text files are downloaded; videos and FBX files are linked
-# straight from the repository, so the site itself stays a few megabytes.
+# Only small text files and the preview videos (for thumbnails) are downloaded;
+# videos and FBX files are linked straight from the repository.
 name: Publish gallery
 
 on:
@@ -35,6 +35,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      # Thumbnails are kept between runs, so only new signs are processed.
+      - uses: actions/cache@v4
+        with:
+          path: .thumbs
+          key: thumbs-${{ github.run_id }}
+          restore-keys: thumbs-
+
+      - name: Make thumbnails
+        run: |
+          command -v ffmpeg >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg)
+          python tools/build_thumbs.py
 
       - name: Build gallery
         run: python tools/build_site.py --repo "${{ github.repository }}" --branch "${{ github.ref_name }}"

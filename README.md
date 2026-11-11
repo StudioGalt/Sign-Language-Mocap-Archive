@@ -11,7 +11,7 @@ Hello, this is Studio Galt. Since 2020 we have been recording motion capture, pr
 2. [Finding a sign](#finding)
 3. [Downloading only what you need](#downloading)
 4. [What's in a motion folder](#motion_folder)
-5. [Reporting an error](#errors)
+5. [Reporting an error or requesting a sign](#errors)
 6. [General FAQ](#general_faq)
 7. [Tech FAQ](#tech_faq)
 8. [Avatar FAQ](#avatar_faq)
@@ -106,9 +106,13 @@ The layout has improved over time. Older folders are left as they were so existi
 | v5 | Jan 2026 – now | Adds *FBX Files/Original* (raw take), MetaHuman FBX and *Poses/CSV*; Mini, UEPlus and the pose .blend libraries are no longer included |
 
 <a name="errors"></a>
-## Reporting an error
+## Reporting an error or requesting a sign
 
 If a sign is wrong or a file doesn't load, please [open an issue](../../issues/new/choose) using the **Sign correction** or **File problem** template. Corrections are re-recorded under a new date ([General FAQ 12](#general_faq)), and the catalog marks the old one as superseded.
+
+Missing a sign? Use the **Request a sign** template, or add a 👍 to an [existing request](../../issues?q=is%3Aissue%20is%3Aopen%20label%3A%22sign%20request%22%20sort%3Areactions-%2B1-desc). The most-wanted signs are recorded first.
+
+Every sign has its own page you can link to, for example [Cabinet](https://studiogalt.github.io/Sign-Language-Mocap-Archive/sign/cabinet-2025-2-12/). Use **Copy link** in the gallery to get it.
 
 If you use the archive in research, please cite it. GitHub's **Cite this repository** button uses [CITATION.cff](CITATION.cff).
 
