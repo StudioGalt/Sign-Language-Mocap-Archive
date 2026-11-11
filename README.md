@@ -48,6 +48,7 @@ Useful columns:
 | `layout` | Which [folder layout](#layouts) it uses |
 | `rig`, `blender_version` | Galtis rig version and Blender version it was made with |
 | `raw_mocap_file` | The raw take it was cleaned from, when known |
+| `raw_mocap_source` | How that link was found: `readme` (the ReadMe's Original Motion), `bundled` (the copy in *FBX Files/Original*), or `name match` (a Raw Mocap file with the sign's name; checked against the ReadMe links, it agrees over 99% of the time) |
 | `keypose_frames` | Key pose frame numbers from the ReadMe |
 | `facial_animation` | `yes` if face shape keys move beyond blinking |
 | `has_…` columns | Which file types exist for that motion |
@@ -303,7 +304,7 @@ No. See [Downloading only what you need](#downloading).
 
 6) What is the Raw Mocap folder?
 
-The uncleaned recordings, in numbered batches. The file name is the take name plus its frame range, e.g. `SG ASL Cabinet_2078-2645.fbx`. A motion's ReadMe ("Original Motion") and the catalog's `raw_mocap_file` column point to the take it came from.
+The uncleaned recordings, in numbered batches. The file name is the take name plus its frame range, e.g. `SG ASL Cabinet_2078-2645.fbx`. Batches 3–6 also contain `_frames_` re-cuts of many takes (e.g. `SG ASL Black_frames_521-1294.fbx`); the cleaned motions were almost always made from the plain cut. A motion's ReadMe ("Original Motion") and the catalog's `raw_mocap_file` column point to the take it came from.
 
 7) What are the scripts in Documentation/Scripts?
 
