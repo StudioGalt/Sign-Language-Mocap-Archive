@@ -1,0 +1,4 @@
+# Keep generated catalog files with Unix line endings on every machine,
+# so the catalog workflow and Windows commits don't fight over them.
+catalog/** text eol=lf
+tools/** text eol=lf
