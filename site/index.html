@@ -210,6 +210,7 @@
 <header class="wrap top">
   <a class="brand" href="./">Sign Language Mocap Archive <span>by Studio Galt</span></a>
   <nav>
+    <a id="packs" href="#">Download packs</a>
     <a id="howto" href="#">Using the files</a>
     <a id="repo" href="#">GitHub</a>
   </nav>
@@ -515,6 +516,7 @@
     for (const m of DATA.motions) { m._k = norm(m.n); byId.set(m.i, m); }
     $("repo").href = `https://github.com/${DATA.repo}`;
     $("howto").href = `https://github.com/${DATA.repo}#quick_start`;
+    $("packs").href = `https://github.com/${DATA.repo}/releases/latest`;
     $("request").href = requestUrl("");
     $("requested").href = requestedUrl();
     const signs = new Set(DATA.motions.filter((m) => !m.old).map((m) => m.g.toLowerCase())).size;

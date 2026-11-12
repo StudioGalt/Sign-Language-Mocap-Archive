@@ -11,7 +11,7 @@ Hello, this is Studio Galt. Since 2020 we have been recording motion capture, pr
 
 1. [Quick start](#quick_start)
 2. [Finding a sign](#finding)
-3. [Downloading only what you need](#downloading)
+3. [Downloading only what you need](#downloading) (or [a whole pack](#packs))
 4. [What's in a motion folder](#motion_folder)
 5. [Reporting an error or requesting a sign](#errors)
 6. [General FAQ](#general_faq)
@@ -73,6 +73,21 @@ git sparse-checkout set "SG ASL Dictionary/ASL C/SG ASL Cabinet 2025-2-12 Upload
 Copy the folder path from the `folder` column of the catalog. To add more folders later, run `git sparse-checkout add "<folder>"`.
 
 Without git: [DownGit](https://downgit.github.io/#/home) downloads a single folder as a zip. Paste in the folder's GitHub URL. There is a [DownGit walkthrough](Documentation/Workflows/DownGit%20Workflow%20%28How%20to%20download%20specific%20files%29.md) in Documentation, and more guides (Maya, Unreal, Rokoko) in the [Documentation index](Documentation/README.md).
+
+<a name="packs"></a>
+### Download packs
+
+Want every sign for one program? Each [release](../../releases/latest) has zip packs of all current signs, one file set per software:
+
+| Pack | Contents |
+|---|---|
+| `unreal` | UE5 Manny and Quinn, A-pose and T-pose (older signs: UE Mannequin) |
+| `metahuman` | MetaHuman, A-pose and T-pose (signs from 2026) |
+| `mixamo` | Mixamo skeleton, also for Unity Humanoid |
+| `rigify` | Blender Rigify, A-pose and T-pose (signs from 2025) |
+| `blender` | The full Galtis skeleton (newest signs: the Mesh FBX), plus the Galtis rig as a separate file |
+
+Big packs are split into parts by letter (e.g. `SLMA-2026-11-11-blender-part1-A-C.zip`). Each zip has a README and an `index.csv` of the signs inside, and `SLMA-<release>-pack-index.csv` on the release page says which zip holds each sign. Packs hold only the current version of each sign, with no videos or raw takes; for those, use the folders above.
 
 <a name="motion_folder"></a>
 ## What's in a motion folder

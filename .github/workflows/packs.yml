@@ -1,0 +1,62 @@
+# Builds the download packs (one zip set per software) and attaches them to a release.
+# Runs by itself when a release is published. To add packs to an existing release:
+# Actions > Build download packs > Run workflow, and type the release's tag.
+# Packs always hold the current signs on the default branch at the time it runs.
+name: Build download packs
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to attach the packs to (e.g. 2026-11-11)"
+        required: true
+      only:
+        description: "Optional: build only these packs (space-separated: unreal metahuman mixamo rigify blender)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: packs-${{ github.event.release.tag_name || inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  packs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+      ONLY: ${{ inputs.only }}
+      BRANCH: ${{ github.event.repository.default_branch }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL || true
+          df -h /
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/
+            /catalog/
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build and upload packs
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          RIG=$(git ls-files Rigs | grep -E '\.blend$' | sort | tail -1)
+          echo "Release: $TAG   Rig: $RIG"
+          python tools/build_packs.py --tag "$TAG" --ref "$BRANCH" --out "$RUNNER_TEMP/packs" \
+            --batch 400 --upload --rig "$RIG" ${ONLY:+--only $ONLY}
