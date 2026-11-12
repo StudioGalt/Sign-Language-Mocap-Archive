@@ -314,4 +314,4 @@ The uncleaned recordings, in numbered batches. The file name is the take name pl
 
 7) What are the scripts in Documentation/Scripts?
 
-The Blender scripts used to build each motion, from import through bundling. See [Documentation/Scripts/README.md](Documentation/Scripts/README.md).
+The Blender scripts used to build each motion, from import through bundling (the 2026 versions, plus the July 2024 ones for reference). See [Documentation/Scripts/README.md](Documentation/Scripts/README.md) for set-up and order.

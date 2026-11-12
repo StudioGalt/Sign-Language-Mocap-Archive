@@ -13,4 +13,4 @@ Step-by-step guides with screenshots. Each was converted from the Word document 
 
 ## Scripts
 
-The Blender scripts behind each upload, in the order they run. See [Scripts/README.md](Scripts/README.md).
+The Blender scripts behind each upload (Blender 5.2, 2026): the numbered pipeline, the helper modules it loads, and clean-up utilities. See [Scripts/README.md](Scripts/README.md) for set-up and order, and the [changelog](Scripts/CHANGELOG.md) for what changed when. The July 2024 versions are in [Scripts/Legacy (2024)](Scripts/Legacy%20%282024%29).
