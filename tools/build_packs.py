@@ -130,7 +130,29 @@ class Fetcher:
 
 def letter(name: str) -> str:
     c = name.strip()[:1].upper()
-    return c if c.isalpha() else "#"
+    return c if "A" <= c <= "Z" else "0-9"
+
+
+def span(rows) -> tuple[str, str, str]:
+    """First and last letter of a part, for its README, plus a file-name label.
+
+    Fingerspelling sorts after the Dictionary, so a part can end in it;
+    that is named as such rather than by a letter.
+    """
+    words = [r for r in rows if r[4] != "Fingerspelling"]
+    spelled = len(words) < len(rows)
+    if not words:
+        return "Fingerspelling", "Fingerspelling", "Fingerspelling"
+    first, last = letter(words[0][1]), letter(words[-1][1])
+    label = f"{first}-{last}" + ("-Fingerspelling" if spelled else "")
+    if spelled:
+        last += ", plus fingerspelling"
+    return first, last, label
+
+
+def safe_name(name: str) -> str:
+    # gh treats "#" as a label separator; keep asset names to plain characters.
+    return re.sub(r"[^A-Za-z0-9._-]+", "-", name)
 
 
 def readme_text(key, tag, count, first, last, part_no, repo, gallery):
@@ -173,7 +195,7 @@ def build_pack(key, items, tag, outdir: Path, fetcher: Fetcher, max_bytes: int, 
 
     def close_part():
         z, rows = state["z"], state["rows"]
-        first, last = letter(rows[0][1]), letter(rows[-1][1])
+        first, last, label = span(rows)
         idx = io.StringIO()
         w = csv.writer(idx, lineterminator="\n")
         w.writerow(["id", "name", "group", "date", "section", "file", "github_folder"])
@@ -182,7 +204,7 @@ def build_pack(key, items, tag, outdir: Path, fetcher: Fetcher, max_bytes: int, 
         z.writestr(f"{prefix}/README.txt",
                    readme_text(key, tag, len({r[0] for r in rows}), first, last, len(done) + 1, repo, gallery))
         z.close()
-        done.append((state["path"], first, last, len({r[0] for r in rows}), len(rows)))
+        done.append((state["path"], label, len({r[0] for r in rows}), len(rows)))
         state["z"] = None
 
     for start in range(0, len(items), batch_files):
@@ -206,8 +228,9 @@ def build_pack(key, items, tag, outdir: Path, fetcher: Fetcher, max_bytes: int, 
         close_part()
 
     final = []
-    for i, (path, first, last, signs, nfiles) in enumerate(done, 1):
-        name = f"SLMA-{tag}-{key}.zip" if len(done) == 1 else f"SLMA-{tag}-{key}-part{i}-{first}-{last}.zip"
+    for i, (path, label, signs, nfiles) in enumerate(done, 1):
+        name = f"SLMA-{tag}-{key}.zip" if len(done) == 1 else f"SLMA-{tag}-{key}-part{i}-{label}.zip"
+        name = safe_name(name)
         target = outdir / name
         path.replace(target)
         final.append(target)
