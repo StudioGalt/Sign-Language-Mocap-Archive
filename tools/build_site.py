@@ -14,6 +14,10 @@ Writes to _site/:
     thumbs/             still images made by build_thumbs.py, if present
     sitemap.xml, robots.txt, social.png
 
+With --release (latest, or a tag), each sign also lists the release's download
+pack zips that hold it, read from the release's pack index. This needs the
+GitHub CLI (gh); without it, or before the packs are built, the packs are left out.
+
 Videos and FBX files are linked straight from the repository via
 raw.githubusercontent.com, so nothing large is copied into the site.
 """
@@ -21,10 +25,13 @@ raw.githubusercontent.com, so nothing large is copied into the site.
 from __future__ import annotations
 
 import argparse
+import csv
 import html
+import io
 import json
 import re
 import shutil
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -48,6 +55,52 @@ GROUPS = [
 PREVIEW_ORDER = [r" CC\.mp4$", r"Captions\.webm$", r"\.mp4$", r"\.webm$"]
 SOFTWARE = {"blender": "Blender", "unreal": "Unreal Engine", "mixamo": "Mixamo and Unity", "rigify": "Rigify"}
 DEFAULT_REPO = "StudioGalt/Sign-Language-Mocap-Archive"
+PACK_NAMES = {"blender": "Blender (Galtis)", "unreal": "Unreal Engine", "metahuman": "MetaHuman",
+              "mixamo": "Mixamo and Unity", "rigify": "Blender Rigify"}
+
+
+def release_packs(repo: str, release: str) -> dict | None:
+    """The release's pack zips and which signs each holds, from its pack index.
+
+    Returns {"tag", "url", "zips": {zip name: [pack, size]}, "by_id": {sign id: [zip, ...]}},
+    or None when the release, its pack index or the GitHub CLI isn't available.
+    """
+    def gh(*args, binary=False):
+        r = subprocess.run(["gh", "api", *args], capture_output=True, check=True)
+        return r.stdout if binary else json.loads(r.stdout)
+
+    path = "releases/latest" if release == "latest" else f"releases/tags/{release}"
+    try:
+        rel = gh(f"repos/{repo}/{path}")
+        idx = next((a for a in rel["assets"] if a["name"].endswith("-pack-index.csv")), None)
+        if idx is None:
+            print(f"Release {rel['tag_name']} has no pack index yet; packs left out of the gallery.")
+            return None
+        text = gh("-H", "Accept: application/octet-stream", f"repos/{repo}/releases/assets/{idx['id']}",
+                  binary=True).decode("utf-8")
+    except (OSError, subprocess.CalledProcessError, json.JSONDecodeError) as e:
+        print(f"Could not read release {release} ({e}); packs left out of the gallery.")
+        return None
+    sizes = {a["name"]: a["size"] for a in rel["assets"]}
+    zips, by_id = {}, {}
+    for row in csv.DictReader(io.StringIO(text)):
+        zips.setdefault(row["zip"], [row["pack"], sizes.get(row["zip"], 0)])
+        ids = by_id.setdefault(row["id"], [])
+        if row["zip"] not in ids:
+            ids.append(row["zip"])
+    tag = rel["tag_name"]
+    print(f"Release {tag}: {len(zips)} pack zips holding {len(by_id)} signs")
+    return {"tag": tag, "url": f"https://github.com/{repo}/releases/download/{quote(tag)}/",
+            "zips": zips, "by_id": by_id}
+
+
+def pack_order(packs: dict, names: list[str]) -> list[str]:
+    order = list(PACK_NAMES)
+    return sorted(names, key=lambda z: (order.index(packs["zips"][z][0]) if packs["zips"][z][0] in order else 99, z))
+
+
+def size_text(n: int) -> str:
+    return f"{n / 1e9:.1f} GB" if n >= 1e9 else f"{max(1, round(n / 1e6))} MB"
 
 
 def group_for(rel: str) -> str:
@@ -178,6 +231,10 @@ SIGN_PAGE = """<!DOCTYPE html>
   .actions a {{ padding: 10px 16px; border-radius: 4px; border: 1px solid #14213D; background: #fff; font-weight: 700; text-decoration: none; }}
   .actions .primary {{ background: #14213D; color: #fff; }}
   p {{ max-width: 64ch; }}
+  h2 {{ margin: 32px 0 6px; font-size: 1.15rem; }}
+  .packs {{ margin: 0; padding: 0; list-style: none; border-top: 1px solid #C9D2DC; max-width: 64ch; }}
+  .packs li {{ padding: 8px 0; border-bottom: 1px solid #C9D2DC; }}
+  .packs span {{ color: #5B6B82; }}
 </style>
 </head>
 <body>
@@ -193,13 +250,26 @@ SIGN_PAGE = """<!DOCTYPE html>
     <a href="{folder}">Open on GitHub</a>
   </div>
   <p>{desc}</p>
+  {packs}
 </main>
 </body>
 </html>
 """
 
 
-def write_sign_pages(out: Path, motions: list[dict], repo: str, branch: str, base_url: str) -> list[str]:
+def packs_block(m: dict, packs: dict | None) -> str:
+    if not packs or not m.get("pk"):
+        return ""
+    items = "".join(
+        f'<li><a href="{html.escape(packs["url"] + quote(z))}">{html.escape(PACK_NAMES.get(packs["zips"][z][0], packs["zips"][z][0]))}</a>'
+        f' <span>{html.escape(z)}, {size_text(packs["zips"][z][1])}</span></li>'
+        for z in m["pk"])
+    return ("<h2>In the download packs</h2>\n  <p>Each pack holds every current sign for one program, "
+            f"from release {html.escape(packs['tag'])}. This sign is in:</p>\n  <ul class=\"packs\">{items}</ul>")
+
+
+def write_sign_pages(out: Path, motions: list[dict], repo: str, branch: str, base_url: str,
+                     packs: dict | None = None) -> list[str]:
     by_folder = {m["f"]: m for m in motions}
     raw_base = f"https://raw.githubusercontent.com/{repo}/{branch}/"
     urls = []
@@ -244,6 +314,7 @@ def write_sign_pages(out: Path, motions: list[dict], repo: str, branch: str, bas
             hash=quote(m["i"]),
             zip=html.escape(f"https://downgit.github.io/#/home?url={quote(folder_url, safe='')}"),
             folder=html.escape(folder_url),
+            packs=packs_block(m, packs),
         )
         d = out / "sign" / m["u"]
         d.mkdir(parents=True, exist_ok=True)
@@ -258,6 +329,7 @@ def main(argv=None) -> int:
     ap.add_argument("--branch", default="main")
     ap.add_argument("--base-url", default="", help="public address of the site (default: GitHub Pages address)")
     ap.add_argument("--thumbs", default=".thumbs", help="folder of thumbnails made by build_thumbs.py")
+    ap.add_argument("--release", default="", help="list download packs from this release: latest, or a tag")
     args = ap.parse_args(argv)
     base_url = (args.base_url or default_base_url(args.repo)).rstrip("/") + "/"
 
@@ -277,7 +349,17 @@ def main(argv=None) -> int:
                 shutil.copy(src, out / "thumbs" / src.name)
                 m["th"] = 1
 
+    packs = release_packs(args.repo, args.release) if args.release else None
+    if packs:
+        for m in motions:
+            if m["i"] in packs["by_id"]:
+                m["pk"] = pack_order(packs, packs["by_id"][m["i"]])
+
     data = {"repo": args.repo, "branch": args.branch, "base": base_url, "motions": motions}
+    if packs:
+        used = {z for m in motions for z in m.get("pk", [])}
+        data["packs"] = {"tag": packs["tag"], "url": packs["url"],
+                         "zips": {z: v for z, v in packs["zips"].items() if z in used}}
     (out / "data.json").write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
     page = (root / "site" / "index.html").read_text(encoding="utf-8").replace("{{BASE_URL}}", base_url)
@@ -286,7 +368,7 @@ def main(argv=None) -> int:
         shutil.copy(root / "site" / "social.png", out / "social.png")
     (out / ".nojekyll").write_text("", encoding="utf-8")
 
-    urls = write_sign_pages(out, motions, args.repo, args.branch, base_url)
+    urls = write_sign_pages(out, motions, args.repo, args.branch, base_url, packs)
     sitemap = ['<?xml version="1.0" encoding="UTF-8"?>',
                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
                f"  <url><loc>{html.escape(base_url)}</loc></url>"]

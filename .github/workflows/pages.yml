@@ -1,4 +1,5 @@
-# Publishes the sign gallery to GitHub Pages on every push to main.
+# Publishes the sign gallery to GitHub Pages on every push to main, and again once a
+# release's download packs are built, so each sign lists the packs that hold it.
 # One-time setup: Settings > Pages > Build and deployment > Source: "GitHub Actions".
 # Only small text files and the preview videos (for thumbnails) are downloaded;
 # videos and FBX files are linked straight from the repository.
@@ -7,6 +8,9 @@ name: Publish gallery
 on:
   push:
     branches: [main]
+  workflow_run:
+    workflows: ["Build download packs"]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -20,6 +24,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -49,7 +54,9 @@ jobs:
           python tools/build_thumbs.py
 
       - name: Build gallery
-        run: python tools/build_site.py --repo "${{ github.repository }}" --branch "${{ github.ref_name }}"
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/build_site.py --repo "${{ github.repository }}" --branch "${{ github.event.repository.default_branch }}" --release latest
 
       - uses: actions/upload-pages-artifact@v5
         with:

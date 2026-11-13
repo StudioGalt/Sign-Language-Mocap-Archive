@@ -191,6 +191,7 @@
   .files a:hover { text-decoration: underline; }
   .files .dir { color: var(--slate); }
   .small { font-size: 0.85rem; color: var(--slate); margin-top: 22px; }
+  .files .small { margin: 0 0 6px; }
   .copied { color: #1E7A3C; font-size: 0.85rem; margin-left: 4px; }
 
   footer { margin-top: 72px; padding: 28px 0 40px; border-top: 1px solid var(--line); color: var(--slate); font-size: 0.92rem; }
@@ -249,7 +250,7 @@
 <footer class="wrap">
   <p>Recorded by Studio Galt with an Xsens suit and StretchSense gloves, cleaned in Blender. Every file is CC0: use it however you like.</p>
   <p>Signs are made by a hearing signer and are not a substitute for a Deaf-led translation. If one looks wrong, use “Report a problem” on that sign and it will be re-recorded.</p>
-  <p>Using these in research? Cite the archive as <a href="https://doi.org/10.5281/zenodo.24149408">doi:10.5281/zenodo.24149408</a>.</p>
+  <p>Using these in research? Cite the archive as <a href="https://doi.org/10.5281/zenodo.24183343">doi:10.5281/zenodo.24183343</a>.</p>
   <p>Missing a sign? <a id="request" href="#">Request it</a>, or add a 👍 to one that's <a id="requested" href="#">already been requested</a>. The most-wanted signs get recorded first.</p>
 </footer>
 
@@ -275,6 +276,8 @@
 <script>
 (() => {
   const PAGE = 48;
+  const PACK_NAMES = { blender: "Blender (Galtis)", unreal: "Unreal Engine", metahuman: "MetaHuman",
+    mixamo: "Mixamo and Unity", rigify: "Blender Rigify" };
   const GROUP_ORDER = ["Blender and Galtis", "Unreal Engine", "Mixamo and Unity", "Blender Rigify",
     "Research", "Raw take", "Key poses", "Video and notes", "Other files"];
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -476,6 +479,17 @@
     }
     if (m.raw && !m.raw.startsWith(m.f) && !m.files["Raw take"]) {
       files.append(el("h3", { text: "Raw take" }), el("ul", {}, el("li", {}, el("a", { href: raw(m.raw), download: true, text: m.raw.split("/").slice(-2).join(" / ") }))));
+    }
+    if (m.pk && DATA.packs) {
+      const ul = el("ul");
+      for (const z of m.pk) {
+        const [pack, size] = DATA.packs.zips[z] || [z, 0];
+        const gb = size >= 1e9 ? `${(size / 1e9).toFixed(1)} GB` : `${Math.max(1, Math.round(size / 1e6))} MB`;
+        ul.append(el("li", {}, el("a", { href: DATA.packs.url + encodeURIComponent(z), download: true },
+          document.createTextNode(PACK_NAMES[pack] || pack), el("span", { class: "dir", text: ` · ${z}, ${gb}` }))));
+      }
+      files.append(el("h3", { text: "In the download packs" }),
+        el("p", { class: "small", text: `Every current sign for one program in a single zip, from release ${DATA.packs.tag}.` }), ul);
     }
     $("dsmall").textContent = "Files download straight from GitHub. File names start with the motion's name and date.";
 
