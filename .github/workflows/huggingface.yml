@@ -1,0 +1,75 @@
+# Copies each release to the Hugging Face dataset: the pack zips, pack index and rig,
+# plus the dataset card and catalog. Runs by itself once "Build download packs" has
+# finished for a published release. To publish a release by hand:
+# Actions > Publish to Hugging Face > Run workflow, and type the release's tag.
+#
+# Setup (once), in Settings > Secrets and variables > Actions:
+#   Secret   HF_TOKEN  a Hugging Face access token with write access
+#   Variable HF_REPO   the dataset, e.g. NAME/sign-language-mocap-archive
+# Until both are set, this workflow skips itself.
+name: Publish to Hugging Face
+
+on:
+  workflow_run:
+    workflows: ["Build download packs"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to publish (e.g. 2026-11-12)"
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: huggingface
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    # After the packs workflow, only when it succeeded for a published release.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'release')
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      TAG: ${{ inputs.tag || github.event.workflow_run.head_branch }}
+      HF_REPO: ${{ vars.HF_REPO }}
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check setup
+        id: setup
+        run: |
+          if [ -z "$HF_REPO" ] || [ -z "$HF_TOKEN" ]; then
+            echo "::notice::HF_TOKEN secret or HF_REPO variable not set; skipping."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - if: steps.setup.outputs.ready == 'true'
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/
+            /catalog/
+            /CITATION.cff
+
+      - if: steps.setup.outputs.ready == 'true'
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Publish release to Hugging Face
+        if: steps.setup.outputs.ready == 'true'
+        run: |
+          pip install --quiet huggingface_hub
+          echo "Release: $TAG   Dataset: $HF_REPO"
+          python tools/build_hf.py --tag "$TAG" --hf-repo "$HF_REPO" \
+            --repo "${{ github.repository }}" --out "$RUNNER_TEMP/hf"
