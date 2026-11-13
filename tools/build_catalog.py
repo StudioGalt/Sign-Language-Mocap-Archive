@@ -370,13 +370,21 @@ def main(argv=None) -> int:
     # Some ReadMe templates kept an old "Original Motion" value, so dozens of
     # unrelated signs point at the same raw take. Re-cleaning the same take
     # (same sign, new date) is fine; a value shared across different signs is not.
+    # Takes that really were used for more than one sign (checked against the working files).
+    shared_ok = set()
+    shared_file = Path(__file__).with_name("shared_takes.txt")
+    if shared_file.is_file():
+        for line in shared_file.read_text(encoding="utf-8").splitlines():
+            line = line.split("#", 1)[0].strip()
+            if line:
+                shared_ok.add(line.lower())
     groups_per_source = collections.defaultdict(set)
     for r in rows:
         if r["original_motion"]:
             groups_per_source[r["original_motion"]].add(r["group"].lower())
     for r in rows:
         src = r["original_motion"]
-        stale = bool(src) and len(groups_per_source[src]) > 1
+        stale = bool(src) and len(groups_per_source[src]) > 1 and src.lower() not in shared_ok
         if stale and r["raw_mocap_source"] == "readme":
             r["raw_mocap_file"], r["raw_mocap_source"] = "", ""
         problem = ""
@@ -389,8 +397,9 @@ def main(argv=None) -> int:
         # Fall back to a raw take whose file name is this sign's name.
         if not r["raw_mocap_file"]:
             candidates = raw_by_name.get(sign_key(r["name"]), [])
-            # Batches 3-6 also hold a "_frames_" re-cut of many takes. ReadMes that
-            # name their source point at the plain cut almost every time, so prefer it.
+            # Batches 3-6 also hold a "_frames_" re-cut of many takes. The plain cut is
+            # the more common source, so prefer it, but this is only a guess: checked
+            # against the working files, about one in six used the "_frames_" cut.
             plain = [c for c in candidates if "_frames_" not in c]
             if len(candidates) > 1 and len(plain) == 1:
                 candidates = plain
