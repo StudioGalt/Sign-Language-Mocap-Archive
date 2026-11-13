@@ -1,7 +1,7 @@
 # SLMocapArchive
 Collected Sign Language Motion Capture
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24149408.svg)](https://doi.org/10.5281/zenodo.24149408)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24183343.svg)](https://doi.org/10.5281/zenodo.24183343)
 
 Hello, this is Studio Galt. Since 2020 we have been recording motion capture, primarily of American Sign Language (ASL). Everything here is free under CC0.
 
@@ -133,9 +133,9 @@ Every sign has its own page you can link to, for example [Cabinet](https://studi
 
 If you use the archive in research, please cite it:
 
-> Studio Galt (2026). *Sign Language Mocap Archive* (Version 2026-11-11) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.24149408
+> Studio Galt (2026). *Sign Language Mocap Archive* (Version 2026-11-12) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.24183343
 
-GitHub's **Cite this repository** button gives the same citation in other formats, from [CITATION.cff](CITATION.cff). The [Zenodo record](https://zenodo.org/records/24149408) holds a permanent copy of the catalog, documentation, pipeline scripts and rig; the motions themselves are here on GitHub. Citing is appreciated, not required: everything is CC0.
+GitHub's **Cite this repository** button gives the same citation in other formats, from [CITATION.cff](CITATION.cff). The [Zenodo record](https://zenodo.org/records/24183343) holds a permanent copy of the catalog, documentation, pipeline scripts and rig; the motions themselves are here on GitHub. Citing is appreciated, not required: everything is CC0.
 
 ---
 
