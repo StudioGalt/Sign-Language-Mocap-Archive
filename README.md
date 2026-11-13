@@ -77,7 +77,7 @@ Without git: [DownGit](https://downgit.github.io/#/home) downloads a single fold
 <a name="packs"></a>
 ### Download packs
 
-Want every sign for one program? Each [release](../../releases/latest) has zip packs of all current signs, one file set per software:
+Want every sign for one program? Each [release](../../releases/latest) has zip packs of all current signs, one file set per software. The same packs and the catalog are also on [Hugging Face](https://huggingface.co/datasets/StudioGaltMocap/sign-language-mocap-archive), for download with Hugging Face's tools (`hf_hub_download`, `load_dataset`):
 
 | Pack | Contents |
 |---|---|
