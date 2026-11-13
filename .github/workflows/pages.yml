@@ -22,7 +22,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           filter: blob:none
           sparse-checkout-cone-mode: false
@@ -32,12 +32,12 @@ jobs:
             /SG ASL Dictionary/**/*.txt
             /SG ASL Fingerspelling/**/*.txt
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
       # Thumbnails are kept between runs, so only new signs are processed.
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           path: .thumbs
           key: thumbs-${{ github.run_id }}
@@ -51,9 +51,10 @@ jobs:
       - name: Build gallery
         run: python tools/build_site.py --repo "${{ github.repository }}" --branch "${{ github.ref_name }}"
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
+          include-hidden-files: true  # keeps .nojekyll
 
   deploy:
     needs: build
@@ -63,4 +64,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
