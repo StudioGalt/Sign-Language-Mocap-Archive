@@ -4,6 +4,9 @@ Audited by:
 Parent Motion:
 Blender Version: 4.0.2
 
+Original Motion:
+SG ASL Christmas Lights_5417-6602
+
 ---
 Notes:
 KeyPose 1:
