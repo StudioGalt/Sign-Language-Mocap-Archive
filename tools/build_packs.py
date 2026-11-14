@@ -10,6 +10,10 @@ Each pack holds one folder per section (ASL A, ASL B, ..., Fingerspelling) of
 FBX files, a README.txt and an index.csv listing every sign in it. A pack
 larger than --max-gb is split into parts named by the letters they cover.
 
+The glTF pack is made from the Mixamo FBX files, converted to .glb with
+Blender by fbx_to_glb.py. It needs Blender's Python module (pip install bpy)
+in the Python running this script, or --blender pointing at a Blender install.
+
 The FBX files are fetched from GitHub in batches, each into a temporary
 partial clone that is deleted after use, so only a batch or two ever sits on
 disk. Uploading needs the GitHub CLI (gh) and a token allowed to edit releases.
@@ -60,6 +64,17 @@ PACKS = {
         "about": "Blender Rigify skeleton, A-pose and T-pose. Signs made before 2025 don't have these; "
                  "use the Blender (Galtis) pack for those.",
         "groups": [["Rigify APose.fbx", "Rigify TPose.fbx"]],
+    },
+    "gltf": {
+        "title": "glTF (web)",
+        "about": "glTF binary (.glb) files on the Mixamo skeleton, for three.js, Babylon.js, "
+                 "PlayCanvas, Godot and other glTF tools. Each file holds the skeleton and one "
+                 "animation named after the sign; there is no mesh, so play it on your own "
+                 "Mixamo-rigged avatar. Bones use standard Mixamo names (mixamorig:Hips). "
+                 "Hands and fingers are included; facial animation is not. Signs without a "
+                 "Mixamo export are left out.",
+        "groups": [["Mixamo TPose.fbx"], ["No Mesh Mixamo.fbx"]],
+        "convert": ".glb",
     },
     "blender": {
         "title": "Blender (Galtis)",
@@ -157,13 +172,14 @@ def safe_name(name: str) -> str:
 
 def readme_text(key, tag, count, first, last, part_no, repo, gallery):
     spec = PACKS[key]
+    ext = spec.get("convert", ".fbx")
     part = f", part {part_no}" if part_no else ""
     return f"""Sign Language Mocap Archive - {spec['title']} pack
 Release {tag}{part}: {count} signs, {first} to {last}
 
 {spec['about']}
 
-Files are named "SG ASL <sign> <date> <format>.fbx" and sorted into one folder
+Files are named "SG ASL <sign> <date> <format>{ext}" and sorted into one folder
 per section (ASL A, ASL B, ..., Fingerspelling). index.csv lists every sign in
 this zip, with the folder it comes from on GitHub. Large packs are split into
 parts by letter; the release page lists them all.
@@ -180,13 +196,31 @@ translation. If a sign looks wrong, please report it with the
 """
 
 
+def convert_batch(batch, clone: Path, ext: str, blender: list[str]) -> set[str]:
+    """Convert the batch's files in place (x.fbx -> x.glb). Returns the repo paths that failed."""
+    pairs = clone / "_convert.tsv"
+    pairs.write_text("".join(f"{clone / p}\t{clone / (p[:-4] + ext)}\t{row['id']}\n"
+                             for row, paths in batch for p in paths), encoding="utf-8")
+    script = str(Path(__file__).resolve().with_name("fbx_to_glb.py"))
+    cmd = ([*blender, "-b", "--python", script, "--", str(pairs)] if "blender" in Path(blender[0]).name.lower()
+           else [*blender, script, str(pairs)])
+    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL)
+    failed_file = Path(str(pairs) + ".failed")
+    failed = failed_file.read_text(encoding="utf-8").splitlines() if failed_file.exists() else []
+    for line in failed:
+        print("  could not convert:", line.replace(str(clone) + "/", ""))
+    return {line.split("\t")[0][len(str(clone)) + 1:] for line in failed}
+
+
 def build_pack(key, items, tag, outdir: Path, fetcher: Fetcher, max_bytes: int, batch_files: int,
-               repo: str, gallery: str) -> list[Path]:
+               repo: str, gallery: str, blender: list[str] | None = None) -> list[Path]:
     """Write the pack's zip part(s) into outdir. Returns their paths."""
     spec = PACKS[key]
+    ext = spec.get("convert")
     prefix = f"SLMA {tag} {spec['title']}"
     done = []                                  # (path, first, last)
     state = {"z": None, "path": None, "rows": []}
+    skipped = []
 
     def open_part():
         state["path"] = outdir / f"_building_{key}_{len(done) + 1}.zip"
@@ -211,11 +245,18 @@ def build_pack(key, items, tag, outdir: Path, fetcher: Fetcher, max_bytes: int, 
         batch = items[start:start + batch_files]
         clone = fetcher.fetch([p for _, paths in batch for p in paths])
         try:
+            failed = convert_batch(batch, clone, ext, blender or [sys.executable]) if ext else set()
+            skipped += sorted(failed)
             for row, paths in batch:
+                paths = [p for p in paths if p not in failed]
+                if not paths:
+                    continue
                 if state["z"] is None:
                     open_part()
                 section = "Fingerspelling" if row["collection"] == "Fingerspelling" else row["section"]
                 for p in paths:
+                    if ext:
+                        p = p[:-4] + ext
                     name = p.split("/")[-1]
                     state["z"].write(clone / p, f"{prefix}/{section}/{name}")
                     state["rows"].append([row["id"], row["name"], row["group"], row["date"], section,
@@ -226,6 +267,8 @@ def build_pack(key, items, tag, outdir: Path, fetcher: Fetcher, max_bytes: int, 
             shutil.rmtree(clone, ignore_errors=True)
     if state["z"] is not None:
         close_part()
+    if skipped:
+        print(f"  Left out {len(skipped)} file(s) that could not be converted (listed above).")
 
     final = []
     for i, (path, label, signs, nfiles) in enumerate(done, 1):
@@ -253,6 +296,9 @@ def main(argv=None) -> int:
     ap.add_argument("--batch", type=int, default=600, help="files fetched per temporary clone")
     ap.add_argument("--plan", action="store_true", help="only list what each pack would hold")
     ap.add_argument("--upload", action="store_true", help="attach each zip to the release, then delete it locally")
+    ap.add_argument("--blender", default="",
+                    help="for the glTF pack: a Blender executable, or a Python with the bpy module "
+                         "(default: the Python running this script)")
     ap.add_argument("--rig", default="", help="also attach this rig file from the repo, e.g. \"Rigs/Galtis 8 20260401.blend\"")
     args = ap.parse_args(argv)
 
@@ -271,7 +317,7 @@ def main(argv=None) -> int:
     for key, items in packs.items():
         print(f"Building {PACKS[key]['title']} ...")
         for path in build_pack(key, items, args.tag, out, fetcher, int(args.max_gb * 1e9), args.batch,
-                               args.repo, gallery):
+                               args.repo, gallery, [args.blender] if args.blender else None):
             with zipfile.ZipFile(path) as z:
                 rows = list(csv.reader(io.StringIO(z.read(next(n for n in z.namelist()
                                                                 if n.endswith("/index.csv"))).decode())))[1:]
