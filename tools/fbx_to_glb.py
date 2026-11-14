@@ -12,8 +12,10 @@ file is converted on its own, in one Blender session:
   - bone names are made standard Mixamo ("mixamorig:Hips"), since older exports
     used "mixamorig1:" (and a few a bare "Hips");
   - helper bones some exports put inside the Mixamo chain ("Chestdissolve",
-    "Neckdissolve") are removed and the animation re-baked, so every Mixamo
-    bone keeps its exact pose on every frame (checked after baking);
+    "Neckdissolve", a "pelvisinte" root) are removed, the thighs are put back
+    under the hips, "footinte_L/R" become the feet when there are no foot
+    bones, and the animation is re-baked, so every Mixamo bone keeps its
+    exact pose on every frame (checked after baking);
   - the animation is named after the clip name given (the sign);
   - Y-up glTF, with the armature's 0.01 scale kept, as in Mixamo's own files.
 
@@ -50,9 +52,11 @@ def remove_helper_bones(arm, action) -> None:
     from mathutils import Matrix
 
     bones = arm.data.bones
-    helpers = [b.name for b in bones if not b.name.startswith("mixamorig:") and b.parent is not None
+    helpers = [b.name for b in bones if not b.name.startswith("mixamorig:") and b.name != "Locator_Root"
                and any(c.name.startswith("mixamorig:") for c in b.children)]
-    if not helpers:
+    thighs = [n for n in ("mixamorig:LeftUpLeg", "mixamorig:RightUpLeg")
+              if n in bones and "mixamorig:Hips" in bones and bones[n].parent != bones["mixamorig:Hips"]]
+    if not helpers and not thighs:
         return
     scene = bpy.context.scene
     start, end = (int(round(f)) for f in action.frame_range)
@@ -73,6 +77,10 @@ def remove_helper_bones(arm, action) -> None:
             child.use_connect = False
             child.parent = helper.parent
         edit.remove(helper)
+    for name in ("mixamorig:LeftUpLeg", "mixamorig:RightUpLeg"):
+        if name in edit and "mixamorig:Hips" in edit and edit[name].parent != edit["mixamorig:Hips"]:
+            edit[name].use_connect = False
+            edit[name].parent = edit["mixamorig:Hips"]
     bpy.ops.object.mode_set(mode="OBJECT")
 
     for fcurves in fcurve_lists(action):
@@ -136,8 +144,11 @@ def convert(src: str, dst: str, clip: str) -> None:
                 fcurves.remove(fc)
 
     # Renaming a bone also renames its F-Curve paths in the armature's action.
+    names = {b.name for b in arm.data.bones}
+    feet = {} if any(PREFIX.sub("", n) in ("LeftFoot", "RightFoot") for n in names if PREFIX.match(n)) \
+        else {"footinte_L": "mixamorig:LeftFoot", "footinte_R": "mixamorig:RightFoot"}
     for bone in arm.data.bones:
-        new = "mixamorig:Hips" if bone.name == "Hips" else PREFIX.sub("mixamorig:", bone.name)
+        new = "mixamorig:Hips" if bone.name == "Hips" else feet.get(bone.name) or PREFIX.sub("mixamorig:", bone.name)
         if new != bone.name:
             bone.name = new
     remove_helper_bones(arm, action)
