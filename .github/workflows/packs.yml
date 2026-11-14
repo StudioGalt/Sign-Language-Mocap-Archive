@@ -50,7 +50,19 @@ jobs:
 
       - uses: actions/setup-python@v7
         with:
-          python-version: "3.12"
+          python-version: "3.13"
+
+      # Blender's Python module, for converting the Mixamo FBX files of the glTF pack.
+      - name: Install Blender (bpy)
+        if: env.ONLY == '' || contains(env.ONLY, 'gltf')
+        run: |
+          sudo apt-get update -qq
+          # Libraries bpy may need; names vary between Ubuntu versions, so a missing one isn't fatal.
+          for lib in libxi6 libxxf86vm1 libxfixes3 libxrender1 libxkbcommon0 libsm6 libgl1 libegl1; do
+            sudo apt-get install -y -qq --no-install-recommends "$lib" || echo "::warning::$lib not installed"
+          done
+          pip install --quiet bpy==5.2.4
+          python -c "import bpy; print('Blender', bpy.app.version_string)"
 
       - name: Build and upload packs
         run: |

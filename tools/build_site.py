@@ -56,7 +56,7 @@ PREVIEW_ORDER = [r" CC\.mp4$", r"Captions\.webm$", r"\.mp4$", r"\.webm$"]
 SOFTWARE = {"blender": "Blender", "unreal": "Unreal Engine", "mixamo": "Mixamo and Unity", "rigify": "Rigify"}
 DEFAULT_REPO = "StudioGalt/Sign-Language-Mocap-Archive"
 PACK_NAMES = {"blender": "Blender (Galtis)", "unreal": "Unreal Engine", "metahuman": "MetaHuman",
-              "mixamo": "Mixamo and Unity", "rigify": "Blender Rigify"}
+              "mixamo": "Mixamo and Unity", "rigify": "Blender Rigify", "gltf": "glTF (web)"}
 
 
 def release_packs(repo: str, release: str) -> dict | None:

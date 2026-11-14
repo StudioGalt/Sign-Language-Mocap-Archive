@@ -85,6 +85,7 @@ Want every sign for one program? Each [release](../../releases/latest) has zip p
 | `metahuman` | MetaHuman, A-pose and T-pose (signs from 2026) |
 | `mixamo` | Mixamo skeleton, also for Unity Humanoid |
 | `rigify` | Blender Rigify, A-pose and T-pose (signs from 2025) |
+| `gltf` | glTF binary (`.glb`) on the Mixamo skeleton, for three.js, Babylon.js, Godot and other web or glTF tools: skeleton and animation only, hands included, no face |
 | `blender` | The full Galtis skeleton (newest signs: the Mesh FBX), plus the Galtis rig as a separate file |
 
 Big packs are split into parts by letter (e.g. `SLMA-2026-11-11-blender-part1-A-C.zip`; fingerspelling comes last, in a part ending `-Fingerspelling`). Each zip has a README and an `index.csv` of the signs inside, and `SLMA-<release>-pack-index.csv` on the release page says which zip holds each sign. Packs hold only the current version of each sign, with no videos or raw takes; for those, use the folders above.

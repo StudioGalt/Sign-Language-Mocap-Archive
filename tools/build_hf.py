@@ -40,6 +40,7 @@ PACK_TEXT = {
     "metahuman": "MetaHuman, A-pose and T-pose (signs from 2026)",
     "mixamo": "Mixamo skeleton, also for Unity Humanoid",
     "rigify": "Blender Rigify, A-pose and T-pose (signs from 2025)",
+    "gltf": "glTF binary (.glb) on the Mixamo skeleton, for three.js, Babylon.js and other web tools",
     "blender": "The full Galtis skeleton (newest signs: the Mesh FBX)",
 }
 
@@ -108,6 +109,7 @@ tags:
 - asl
 - motion-capture
 - mocap
+- gltf
 - animation
 - fbx
 - blender
@@ -128,7 +130,7 @@ configs:
 
 # Sign Language Mocap Archive
 
-Motion capture of American Sign Language (ASL) by Studio Galt: {len(current):,} current motions, covering {signs:,} signs (with their alternates) and {spelled} fingerspelling letters and numbers. Recorded with an Xsens Link suit and StretchSense gloves, cleaned in Blender, and released as FBX for Blender, Unreal Engine (including MetaHuman) and Mixamo-compatible rigs, which also load in Unity and Maya. Everything is CC0: no permission or credit needed.
+Motion capture of American Sign Language (ASL) by Studio Galt: {len(current):,} current motions, covering {signs:,} signs (with their alternates) and {spelled} fingerspelling letters and numbers. Recorded with an Xsens Link suit and StretchSense gloves, cleaned in Blender, and released as FBX for Blender, Unreal Engine (including MetaHuman) and Mixamo-compatible rigs, which also load in Unity and Maya, and as glTF for the web. Everything is CC0: no permission or credit needed.
 
 This dataset holds the catalog and the download packs of release **{tag}**. The full archive, with every motion's videos, poses, older versions and the raw takes, is on [GitHub](https://github.com/{repo}), and each sign can be watched and downloaded on its own in the [gallery]({gallery}).
 
