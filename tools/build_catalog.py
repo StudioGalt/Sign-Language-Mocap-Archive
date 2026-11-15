@@ -155,9 +155,17 @@ def parse_readme(text: str) -> dict:
                            ("parent_motion", "Parent Motion:"), ("blender_version", "Blender Version:")):
             if l.startswith(label) and not info[key]:
                 info[key] = l[len(label):].strip()
-    # Newer ReadMes list the labels "Model:, Date:, Original Motion:" and then
+    # ReadMes from November 2026 on put each value after its label:
+    # "Model: Galtis 8 20261114", "Date: 2026-11-14", "Original Motion: <raw take>".
+    labelled = {"Model:": "rig", "Date:": "recorded", "Original Motion:": "original_motion"}
+    for l in lines:
+        for label, key in labelled.items():
+            value = l.strip()[len(label):].strip() if l.strip().startswith(label) else ""
+            if value and value != "," and not info[key]:
+                info[key] = value
+    # Earlier ReadMes list the labels "Model:, Date:, Original Motion:" and then
     # the three values on the following lines.
-    for i, l in enumerate(lines):
+    for i, l in enumerate(lines if not info["original_motion"] else []):
         if l.strip().startswith("Original Motion:"):
             values = []
             for nxt in lines[i + 1:]:
