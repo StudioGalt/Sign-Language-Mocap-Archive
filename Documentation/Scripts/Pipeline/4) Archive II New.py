@@ -1,7 +1,7 @@
 #BAKE ANIMATION LAYER BEFORE RUNNING
 
-# Using Blender 5.1.0
-# Last tested March 18,  2025 
+# Using Blender 5.3.0
+# ReadMe header updated November 15, 2026
 
 import bpy
 import os
@@ -135,27 +135,61 @@ armature = bpy.data.objects['root']
 bone_name = 'Locator_Root'
 custom_props = get_custom_properties(armature_name, bone_name)
 
+# The header: the sign's name and date, who submitted and audited it, then one labelled
+# line per note on Locator_Root (rig file, date, raw take, and any extras such as
+# "Redo of ..."). Submitted by / Audited by / Parent Motion already filled in by hand in
+# an earlier ReadMe for this sign are kept.
+import datetime
+
+SUBMITTED_BY_DEFAULT = "Studio Galt Mocap"
+PROP_LABELS = ["Model", "Date", "Original Motion"]
+
+
+def readme_value(path, label):
+    """The value after 'label' in an existing ReadMe, or ''."""
+    try:
+        with open(path, encoding="utf-8", errors="replace") as old:
+            for old_line in old:
+                if old_line.startswith(label):
+                    return old_line[len(label):].strip()
+    except OSError:
+        pass
+    return ""
+
+
+today = datetime.date.today()
+today_text = f"{today.year}-{today.month}-{today.day}"
+submitted = readme_value(ReadmePath, "Submitted by:") or SUBMITTED_BY_DEFAULT
+audited = readme_value(ReadmePath, "Audited by:")
+if not audited or audited.lower().startswith("unaudited"):
+    audited = f"Unaudited as of {today_text}"
+parent_motion = readme_value(ReadmePath, "Parent Motion:")
+
 Lines = [
-    "Stamp", 
-    "Submitted by:", 
-    "Audited by:", 
-    "Parent Motion:", 
-    f"Blender Version: {bpy.app.version_string}"
+    Stamp,
+    f"Submitted by: {submitted}",
+    f"Audited by: {audited}",
+    f"Parent Motion: {parent_motion}".rstrip(),
+    f"Blender Version: {bpy.app.version_string}",
+    "",
 ]
 
-if custom_props:
-    Lines.append("\nModel:, \nDate:, \nOriginal Motion:")
-    for prop, value in custom_props.items():
-        Lines.append(f"{prop}")
+notes = list(custom_props) if custom_props else []
+for i, label in enumerate(PROP_LABELS):
+    Lines.append(f"{label}: {notes[i] if i < len(notes) else ''}".rstrip())
+for extra in notes[len(PROP_LABELS):]:
+    if extra.startswith("Redo of "):
+        extra = "Redo of: " + extra[len("Redo of "):]
+    Lines.append(extra)
 
 # Write the initial part of the README
-with open(ReadmePath, 'w') as f:
+with open(ReadmePath, 'w', encoding="utf-8") as f:
     for line in Lines:
         f.write(line)
         f.write('\n')
 
 # Append timeline marker notes
-with open(ReadmePath, "a") as readme_file:
+with open(ReadmePath, "a", encoding="utf-8") as readme_file:
     readme_file.write("\n---\n")
     readme_file.write("Notes:\n")
     for i, marker in enumerate(bpy.context.scene.timeline_markers):
