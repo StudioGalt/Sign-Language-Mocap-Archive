@@ -130,6 +130,8 @@ If a sign is wrong or a file doesn't load, please [open an issue](../../issues/n
 
 Missing a sign? Use the **Request a sign** template, or add a 👍 to an [existing request](../../issues?q=is%3Aissue%20is%3Aopen%20label%3A%22sign%20request%22%20sort%3Areactions-%2B1-desc). The most-wanted signs are recorded first.
 
+Questions, ideas, or something you've made with the archive? Post it in [Discussions](../../discussions). To help with the scripts, documentation or motions, see [CONTRIBUTING](.github/CONTRIBUTING.md).
+
 Every sign has its own page you can link to, for example [Cabinet](https://studiogalt.github.io/Sign-Language-Mocap-Archive/sign/cabinet-2025-2-12/). Use **Copy link** in the gallery to get it.
 
 If you use the archive in research, please cite it:
