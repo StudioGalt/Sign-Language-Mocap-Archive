@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Record that motions have been checked, in each motion's ReadMe.
+"""Record a language audit in each motion's ReadMe.
+
+An audit means a third party (not the people who recorded or cleaned the
+motion) has verified the signing is correct in the language. It is separate
+from the animation review every motion gets before upload, which is not
+recorded here.
 
 Writes "Audited by: <who> <date>" into the ReadMe's "Audited by:" line (or adds
 the line if the ReadMe has none). The catalog's `audited` column, the summary
@@ -13,7 +18,7 @@ Name the motions any way that's handy, mixed freely:
     gallery slug  robot-2026-11-19
 
 Examples (run from the repository root):
-    python tools/mark_audited.py --by "Studio Galt" "SG ASL Robot 2026-11-19"
+    python tools/mark_audited.py --by "Jane Doe" "SG ASL Robot 2026-11-19"
     python tools/mark_audited.py --by "Jane Doe" --list checked.txt --dry-run
     python tools/mark_audited.py --unaudit "SG ASL Robot 2026-11-19"
 
@@ -107,7 +112,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("motions", nargs="*", help="folder paths, catalog ids, gallery links or slugs")
     ap.add_argument("--list", type=Path, help="text file with one motion per line")
-    ap.add_argument("--by", help="who checked them (a name or handle)")
+    ap.add_argument("--by", help="the auditor who verified the signing (a name or handle)")
     ap.add_argument("--date", default=dt.date.today().isoformat(), help="audit date, default today")
     ap.add_argument("--unaudit", action="store_true", help='set "Unaudited as of <date>" instead')
     ap.add_argument("--dry-run", action="store_true", help="show what would change without writing")
@@ -121,7 +126,7 @@ def main() -> None:
     if not names:
         ap.error("name at least one motion, or use --list")
     if not args.unaudit and not args.by:
-        ap.error("--by is required (who checked the motions)")
+        ap.error("--by is required (the auditor who verified the signing)")
     value = f"Unaudited as of {args.date}" if args.unaudit else f"{args.by.strip()} {args.date}"
 
     root = args.root.resolve()

@@ -58,7 +58,7 @@ Useful columns:
 | `raw_mocap_source` | How that link was found: `readme` (the ReadMe's Original Motion), `bundled` (the copy in *FBX Files/Original*), or `name match` (a Raw Mocap file with the sign's name, used only when the ReadMe doesn't name a take; where both a plain and a `_frames_` cut exist it is a best guess) |
 | `keypose_frames` | Key pose frame numbers from the ReadMe |
 | `facial_animation` | `yes` if face shape keys move beyond blinking, `no` if only blinks, `unknown` for motions whose ShapeKeys file has no key names (mostly 2023) |
-| `audited_by`, `audited` | Who checked the motion against the sign, and when (from the ReadMe's *Audited by* line). `audited` is `yes` once someone has; a blank line or "Unaudited as of …" is `no` |
+| `audited_by`, `audited` | Whether a third party has verified the signing is correct in ASL, who, and when (from the ReadMe's *Audited by* line). `audited` is `yes` once someone has; a blank line or "Unaudited as of …" is `no`. Every motion's animation is reviewed before upload, but none is audited yet |
 | `has_…` columns | Which file types exist for that motion |
 
 The catalog is rebuilt automatically on every push by [`tools/build_catalog.py`](tools/build_catalog.py). Anything that looks misnamed or incomplete goes to [`catalog/issues.csv`](catalog/issues.csv). A raw take that really was used for more than one sign is listed in [`tools/shared_takes.txt`](tools/shared_takes.txt), so it isn't reported as a copied ReadMe value.

@@ -28,15 +28,17 @@ Keep each pull request to one change, and say in the description how you tested 
 
 ## Record an audit
 
-An audit means someone who knows the sign has watched the motion and confirmed it's signed correctly. It's recorded in the motion's ReadMe as `Audited by: <name> <date>`, and the catalog's `audited` column and the gallery pick it up from there.
+Every motion gets an **animation review** before it's uploaded: someone checks it plays cleanly, with no gimbal flips, and looks about right. That review isn't recorded as an audit.
 
-To mark motions you've checked, run this from the repository root, then commit and push:
+An **audit** is a separate check that the motion is correct as language. A third party, someone other than the people who recorded and cleaned it, verifies the signing: handshape, movement, location, orientation and meaning. Fluent signers, ideally Deaf signers, are best placed to do this. **All motions are currently unaudited.** If you'd like to audit some, [start a discussion](https://github.com/StudioGalt/Sign-Language-Mocap-Archive/discussions).
+
+An audit is recorded in the motion's ReadMe as `Audited by: <auditor> <date>`, and the catalog's `audited` column and the gallery pick it up from there. To record one, run this from the repository root, then commit and push:
 
 ```bash
-python tools/mark_audited.py --by "Your Name" "SG ASL Robot 2026-11-19" "SG ASL Hello 2024-6-9"
+python tools/mark_audited.py --by "Auditor Name" "SG ASL Robot 2026-11-19" "SG ASL Hello 2024-6-9"
 ```
 
-You can name motions by catalog id, folder path or gallery link, or put them in a text file and use `--list checked.txt`. Add `--dry-run` to see the changes first. If you're not a maintainer, open a pull request with the ReadMe changes, and say in it which reference you checked against.
+You can name motions by catalog id, folder path or gallery link, or put them in a text file and use `--list checked.txt`. Add `--dry-run` to see the changes first. Auditors who aren't maintainers can open a pull request with the ReadMe changes instead, saying what they checked each sign against.
 
 ## Contribute motions
 
