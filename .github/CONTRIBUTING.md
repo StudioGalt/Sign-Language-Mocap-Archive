@@ -30,7 +30,7 @@ Keep each pull request to one change, and say in the description how you tested 
 
 Every motion gets an **animation review** before it's uploaded: someone checks it plays cleanly, with no gimbal flips, and looks about right. That review isn't recorded as an audit.
 
-An **audit** is a separate check that the motion is correct as language. A third party, someone other than the people who recorded and cleaned it, verifies the signing: handshape, movement, location, orientation and meaning. Fluent signers, ideally Deaf signers, are best placed to do this. **All motions are currently unaudited.** If you'd like to audit some, [start a discussion](https://github.com/StudioGalt/Sign-Language-Mocap-Archive/discussions).
+An **audit** is a separate check that the motion is correct as language. A third party, someone other than the people who recorded and cleaned it, verifies the signing: handshape, movement, location, orientation and meaning. **All motions are currently unaudited.** If you're a fluent signer, you're invited to offer audits and critique in [Discussions](https://github.com/StudioGalt/Sign-Language-Mocap-Archive/discussions).
 
 An audit is recorded in the motion's ReadMe as `Audited by: <auditor> <date>`, and the catalog's `audited` column and the gallery pick it up from there. To record one, run this from the repository root, then commit and push:
 
