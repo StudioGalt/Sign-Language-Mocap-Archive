@@ -425,6 +425,7 @@
     add("Rig", m.rig);
     add("Blender", m.bv);
     add("Key poses", m.kp ? String(m.kp) : "");
+    add("Audited by", m.au);
     const keys = (m.sk || "").split(" ").filter(Boolean);
     const facial = keys.filter((k) => !/^EyesClose[LR]_/i.test(k)).map((k) => k.replace(/_AU\d+.*$/, "").replace(/_/g, " "));
     add("Face", facial.length ? facial.join(", ") : keys.length ? "Blinks only" : "");

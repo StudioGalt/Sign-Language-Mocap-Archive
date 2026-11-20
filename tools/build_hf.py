@@ -166,7 +166,7 @@ snapshot_download("{hf_repo}", repo_type="dataset", allow_patterns="packs/*rigif
 
 Earlier releases stay available: pass `revision="<release tag>"`.
 
-To get a single sign, copy its `folder` from the catalog and download that folder from GitHub (see [Downloading only what you need](https://github.com/{repo}#downloading)).
+To get a single sign, copy its `folder` from the catalog and download that folder from GitHub (see [Only the folders you need](https://github.com/{repo}#folders)).
 
 ## Catalog columns
 

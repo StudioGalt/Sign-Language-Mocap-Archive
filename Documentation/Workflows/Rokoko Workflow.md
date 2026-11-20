@@ -1,7 +1,5 @@
 # Rokoko Workflow
 
-_Converted from the original Word document in this folder._
-
 Start with vanilla blender
 
 ![Screenshot](images/rokoko-workflow/media/image1.png)

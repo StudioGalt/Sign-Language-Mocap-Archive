@@ -1,7 +1,5 @@
 # Unreal Workflow Mixamo
 
-_Converted from the original Word document in this folder._
-
 Completed on March 31<sup>st</sup>,
 
 Unreal Version: 5.3.2

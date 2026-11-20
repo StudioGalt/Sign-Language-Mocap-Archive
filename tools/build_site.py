@@ -187,6 +187,8 @@ def collect_motions(root: Path) -> list[dict]:
                          ("kp", "keypose_count"), ("sk", "animated_shape_keys")):
             if r.get(col) not in ("", None, 0, "0"):
                 rec[key] = r[col]
+        if r.get("audited") == "yes":
+            rec["au"] = r["audited_by"]
         motions.append(rec)
 
     # Stable, unique link names: assigned in id order so they never shuffle.
@@ -281,7 +283,8 @@ def write_sign_pages(out: Path, motions: list[dict], repo: str, branch: str, bas
         desc = (f"The ASL {kind} “{m['n']}” as motion capture"
                 + (f": FBX for {', '.join(software[:-1]) + ' and ' + software[-1] if len(software) > 1 else software[0]}" if software else "")
                 + ", with video and key poses. Free to use for anything under CC0.")
-        facts = ", ".join(x for x in [f"Recorded {m['d']}" if m["d"] else "", m.get("rig", "")] if x)
+        facts = ", ".join(x for x in [f"Recorded {m['d']}" if m["d"] else "", m.get("rig", ""),
+                                      f"audited by {m['au']}" if m.get("au") else ""] if x)
         thumb = f"{base_url}thumbs/{m['u']}.jpg" if m.get("th") else ""
         src = preview_source(m)
         if src and not src.lower().endswith(".gif"):
