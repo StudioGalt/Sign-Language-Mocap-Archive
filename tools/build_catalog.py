@@ -243,6 +243,13 @@ def find_entries(files: list[str]):
     return entries, stray
 
 
+def is_audited(value: str) -> bool:
+    """A ReadMe's "Audited by:" counts only when it names someone.
+    Blank, or the pipeline's placeholder "Unaudited as of <date>", is not an audit."""
+    v = value.strip()
+    return bool(v) and not v.lower().startswith(("unaudited", "not audited", "none", "n/a"))
+
+
 def layout_version(rel_files: list[str]) -> str:
     """Which generation of the folder layout an entry uses (see README "Folder layouts")."""
     dirs = {"/".join(f.split("/")[:2]) for f in rel_files if "/" in f}
@@ -365,6 +372,7 @@ def main(argv=None) -> int:
             "animated_shape_keys": " ".join(animated),
             "submitted_by": info["submitted_by"],
             "audited_by": info["audited_by"],
+            "audited": "yes" if is_audited(info["audited_by"]) else "no",
             "parent_motion": info["parent_motion"],
             "notes": " | ".join(info["keypose_notes"]),
         }
@@ -423,7 +431,7 @@ def main(argv=None) -> int:
         if problem:
             issue(r["folder"], problem + ("; no raw take matches by name" if not r["raw_mocap_file"] else ""), detail)
 
-    # A motion re-recorded under a newer date replaces the older one (README FAQ 12).
+    # A motion re-recorded under a newer date replaces the older one (Documentation/FAQ.md, General question 12).
     # Fingerspelling "Letters-Old" / "Numbers-Old" pair with "Letters" / "Numbers".
     by_key = collections.defaultdict(list)
     for r in rows:
@@ -478,7 +486,8 @@ def write_summary(path: Path, rows: list[dict], issues: list[dict]):
         f"- **With facial animation beyond blinks:** {sum(r['facial_animation'] == 'yes' for r in current)}",
         f"- **Linked to a raw mocap file:** {sum(bool(r['raw_mocap_file']) for r in rows)} "
         f"({', '.join(f'{c} by {s}' for s, c in collections.Counter(r['raw_mocap_source'] for r in rows if r['raw_mocap_source']).most_common())})",
-        f"- **Marked as audited:** {sum(bool(r['audited_by']) for r in rows)}",
+        f"- **Audited:** {sum(r['audited'] == 'yes' for r in current)} of {len(current)} current motions "
+        f"(an audit is recorded in the ReadMe's \"Audited by:\" line; see tools/mark_audited.py)",
         "",
         "## Coverage",
         "",

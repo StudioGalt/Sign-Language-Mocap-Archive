@@ -1,7 +1,5 @@
 # Unreal Mannequin Workflow
 
-_Converted from the original Word document in this folder._
-
 Completed 2024-04-02
 
 Tested Unreal version 5.3.2

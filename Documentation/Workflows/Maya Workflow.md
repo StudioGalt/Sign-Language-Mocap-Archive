@@ -1,7 +1,5 @@
 # Maya Workflow
 
-_Converted from the original Word document in this folder._
-
 Open Maya
 
 ![Screenshot](images/maya-workflow/media/image1.png)
