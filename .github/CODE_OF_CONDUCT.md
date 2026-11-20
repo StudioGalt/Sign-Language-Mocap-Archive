@@ -5,15 +5,15 @@ This archive exists to make sign language more available to everyone, and it's u
 ## Expected
 
 - Be respectful and patient, especially with people who are new to sign language or to 3D tools.
-- Respect Deaf culture and the language. Regional variation is real: when a sign differs from the one you know, describe the difference instead of calling it wrong, and name the region or source if you can.
+- Respect other people and cultures, including regional variations. 
 - Keep feedback about the motions and the files, not about people.
 - Assume good intent, and ask when something is unclear.
 
 ## Not acceptable
 
-- Harassment, insults, or discriminatory remarks of any kind, including about deafness, disability, or language.
-- Mocking sign languages or the people who use them.
-- Posting other people's private information.
+- Harassment, insults, or discriminatory remarks of any kind, including about deafness, disability, or language. Disagreement is fine, and encouraged.
+- Mocking sign languages or the people who use them (this includes people who are hearing, or new to the language).
+- Posting other people's private information. 
 - Spam, or repeatedly posting off-topic content.
 
 ## Reporting
