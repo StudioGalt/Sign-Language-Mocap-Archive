@@ -46,10 +46,18 @@ If you have sign language motion capture you'd like to add, please [start a disc
 
 Each motion lives in its own folder named `SG ASL <Sign> <Year>-<Month>-<Day> Upload`, filed under its collection and letter (for example `SG ASL Dictionary/ASL B/`). See [What's in a motion folder](../README.md#motion_folder) for the layout. Before a folder is added, check that:
 
-- `Documentation/` has a ReadMe.txt with its first line and the **Model** line filled in
+- `Documentation/` has a ReadMe.txt whose first line is the folder's name without " Upload", with **Submitted by**, **Audited by** and **Model** filled in
 - `FBX Files/Original/` has the raw take before cleanup
-- no single file is over 100 MB (GitHub refuses larger files)
+- no single file is over 100 MB (GitHub refuses larger files), and there are no Blender backups (`.blend1`)
 - a redo of an existing sign has a newer date than the version it replaces, and sits next to it in the same folder
+
+`tools/check_uploads.py` checks all of this for you. Run it on your upload folders before you add them; it uses the archive's existing versions to check redo dates, and also lists any standard exports that are missing:
+
+```bash
+python tools/check_uploads.py --dir "path/to/Ready for Upload"
+```
+
+The same check runs automatically on every push and pull request that changes a motion folder. If anything fails, the commit gets a red ✗ and the run's summary lists the problems.
 
 ## Code of conduct
 
