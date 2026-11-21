@@ -1,0 +1,62 @@
+title: "[Audit] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for checking the signing. An **audit** confirms a motion is correct in ASL: handshape, movement, location, palm orientation and meaning. Every motion's animation has been reviewed, but none has been audited by a third party yet.
+
+        One post can cover several signs. Critique is just as welcome as a pass: if something's off, say what you'd change.
+  - type: textarea
+    id: signs
+    attributes:
+      label: Signs checked
+      description: One per line. Paste the gallery link or the folder name (for example "SG ASL Robot 2026-11-19").
+      placeholder: |
+        https://studiogalt.github.io/Sign-Language-Mocap-Archive/sign/robot-2026-11-19/
+    validations:
+      required: true
+  - type: dropdown
+    id: verdict
+    attributes:
+      label: Verdict
+      options:
+        - Correct as signed
+        - Correct, but a regional or alternative variant
+        - Needs correction
+        - Wrong sign for this word
+        - Mixed (details below)
+    validations:
+      required: true
+  - type: checkboxes
+    id: issues
+    attributes:
+      label: If anything needs correcting, what?
+      options:
+        - label: Handshape
+        - label: Movement
+        - label: Location
+        - label: Palm orientation
+        - label: Facial expression or mouth
+        - label: Speed or rhythm
+        - label: Meaning or gloss (the name doesn't match the sign)
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What's right, what's off, and how you would sign it. A timestamp or key-pose number helps.
+  - type: input
+    id: reference
+    attributes:
+      label: Reference (optional)
+      description: A dictionary entry, video or region you're comparing against.
+  - type: input
+    id: background
+    attributes:
+      label: How you know ASL (optional)
+      description: For example native signer, interpreter, teacher, or years of use.
+  - type: input
+    id: credit
+    attributes:
+      label: Name for the ReadMe (optional)
+      description: If the signs pass, the ReadMe will say "Audited by <this name> <date>". Leave blank to use your GitHub username.

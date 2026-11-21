@@ -1,0 +1,61 @@
+# Checks motion folders that a push or pull request adds or changes:
+# folder name and place, ReadMe header, raw take, Blender backups, and that a
+# redo is dated after the version it replaces. See tools/check_uploads.py.
+# Only small text files are downloaded, so it runs in seconds.
+name: Check uploads
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "SG ASL Dictionary/**"
+      - "SG ASL Fingerspelling/**"
+  pull_request:
+    paths:
+      - "SG ASL Dictionary/**"
+      - "SG ASL Fingerspelling/**"
+  workflow_dispatch:
+    inputs:
+      since:
+        description: "Check every motion dated on or after (YYYY-MM-DD)"
+        required: true
+        default: "2026-11-01"
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/
+            /SG ASL Dictionary/**/*.txt
+            /SG ASL Fingerspelling/**/*.txt
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Check motion folders
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          SINCE: ${{ inputs.since }}
+        run: |
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            python tools/check_uploads.py --since "$SINCE"
+            exit $?
+          fi
+          BASE="${PR_BASE:-$BEFORE}"
+          if [ -z "$BASE" ] || [ "$BASE" = "0000000000000000000000000000000000000000" ]; then
+            echo "No earlier commit to compare with, so there's nothing to check."
+            exit 0
+          fi
+          git fetch --no-tags --depth=1 --filter=blob:none origin "$BASE"
+          python tools/check_uploads.py --base "$BASE"
