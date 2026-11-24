@@ -2,7 +2,7 @@
 
 Questions about the archive, the recordings, the Galtis avatar and the files. For getting started, see the [main README](../README.md).
 
-1. [General](#general_faq): licence, why ASL, errors and corrections, AI use
+1. [General](#general_faq): licence, why ASL, errors and corrections, AI use, versions and names
 2. [Tech](#tech_faq): recording, equipment, software, formats, facial data
 3. [Avatar](#avatar_faq): Galtis and her rig
 4. [Files](#file_faq): what's in each folder and file
@@ -94,6 +94,22 @@ The workflow now exports records of changes in layers as CSV. The idea is to use
 17) Can we use them for NFTs?
 
 Yes, but we will not endorse any NFT projects. We are for maximum access for everyone, whereas NFTs are about controlled access. That's not a bad goal, but it's not ours.
+
+18) Why are there several versions of some signs (Alt, Var, Other, 1, 2…)?
+
+The motion capture equipment was only available for a limited time, so we recorded as many signs as we could. Where there was more than one way to sign a word, or a conflict about which way was right, we recorded every version, and left the nuances of the language to be worked out afterwards.
+
+The labels *Alt*, *Var* and *Other* don't mean anything on their own: they only tell the versions apart, and don't say which is more common or more correct. A few labels do mean something:
+
+- **A number at the end** is usually the take number from the recording session: *Hello 3* is usually the third take.
+- **Ext** usually means an extended version.
+- **1H** and **2H** mean one-handed and two-handed versions.
+
+Some versions may turn out to be wrong, outdated or regional, and they stay in the archive until someone who knows can say which is which. If you can, please tell us with a [sign correction](https://github.com/StudioGalt/Sign-Language-Mocap-Archive/issues/new?template=sign-correction.yml) or by suggesting a better name (below).
+
+19) A sign's name is misspelled, unclear, or doesn't match the sign. Can I suggest a better one?
+
+Please do. Use **Suggest a better name** on the sign in the [gallery](https://studiogalt.github.io/Sign-Language-Mocap-Archive/), or the [name suggestion form](https://github.com/StudioGalt/Sign-Language-Mocap-Archive/issues/new?template=name-suggestion.yml). Once a name is accepted, the gallery and the catalog's `display_name` show it, and search finds both the old and new names. The folder keeps the name it was recorded under, so existing links, downloads and citations don't break.
 
 <a name="tech_faq"></a>
 ## Tech

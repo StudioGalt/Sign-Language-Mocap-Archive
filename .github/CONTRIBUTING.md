@@ -8,6 +8,7 @@ Use the [issue templates](https://github.com/StudioGalt/Sign-Language-Mocap-Arch
 
 - **Sign correction**: a motion shows a sign wrongly (handshape, movement, location, facial expression…).
 - **File problem**: a file is missing, won't load, or imports wrong in your software.
+- **Suggest a better name**: a sign's name is misspelled, unclear, or doesn't match the sign. Accepted names go in `tools/name_corrections.csv`; the folder keeps its original name.
 - **Request a sign**: a sign that isn't in the archive yet. Please [search the gallery](https://studiogalt.github.io/Sign-Language-Mocap-Archive/) and the [open requests](https://github.com/StudioGalt/Sign-Language-Mocap-Archive/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22sign%20request%22%20sort%3Areactions-%2B1-desc) first. If someone has already asked, add a 👍 to their request; the most-wanted signs are recorded first.
 
 For questions, ideas, or to show what you've made with the archive, use [Discussions](https://github.com/StudioGalt/Sign-Language-Mocap-Archive/discussions).

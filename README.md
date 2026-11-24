@@ -48,7 +48,7 @@ Useful columns:
 
 | Column | Meaning |
 |---|---|
-| `name`, `group` | The sign as named in the folder; `group` gathers alternates (Alt 1, Var, 2, …) of the same sign |
+| `name`, `display_name`, `group` | `name` is the sign as named in its folder; `display_name` is the name to show, with spelling and naming fixes from [tools/name_corrections.csv](tools/name_corrections.csv) (the same as `name` for most signs); `group` gathers the versions of a sign. *Alt*, *Var* and *Other* only tell versions apart; a number at the end is usually the take number, *Ext* an extended version, *1H*/*2H* one- or two-handed: see [FAQ 18](Documentation/FAQ.md#general_faq) |
 | `date` | Upload date (ISO format, so it sorts correctly) |
 | `status` | `current`, or `superseded` when the same motion was re-made under a newer date (`superseded_by` says which) |
 | `folder` | Where it lives in the repo |

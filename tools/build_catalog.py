@@ -243,6 +243,26 @@ def find_entries(files: list[str]):
     return entries, stray
 
 
+def load_name_corrections(path: Path):
+    """tools/name_corrections.csv: better names for signs, kept by hand (from accepted name
+    suggestions). A row matches one motion by `id`, or every motion recorded under `recorded_name`.
+    Returns (by id, by lower-case recorded name, rows)."""
+    by_id, by_name, rows = {}, {}, []
+    if not path.exists():
+        return by_id, by_name, rows
+    with open(path, newline="", encoding="utf-8-sig") as fh:
+        for row in csv.DictReader(fh):
+            new = (row.get("name") or "").strip()
+            if not new:
+                continue
+            rows.append(row)
+            if (row.get("id") or "").strip():
+                by_id[row["id"].strip()] = new
+            elif (row.get("recorded_name") or "").strip():
+                by_name[row["recorded_name"].strip().lower()] = new
+    return by_id, by_name, rows
+
+
 def is_audited(value: str) -> bool:
     """A ReadMe's "Audited by:" counts only when it names someone.
     Blank, or the pipeline's placeholder "Unaudited as of <date>", is not an audit."""
@@ -303,6 +323,7 @@ def main(argv=None) -> int:
 
     reader = TextReader(root)
     rows, issues = [], []
+    fix_by_id, fix_by_name, fix_rows = load_name_corrections(Path(__file__).with_name("name_corrections.csv"))
 
     def issue(folder, kind, detail):
         issues.append({"folder": folder, "issue": kind, "detail": detail})
@@ -349,12 +370,15 @@ def main(argv=None) -> int:
         if any(k.endswith(".blend1") for k in kinds):
             issue(folder, "Blender backup (.blend1) committed", "; ".join(k for k in kinds if k.endswith(".blend1")))
 
+        motion_id = re.sub(r" Upload$", "", folder_name)
+        display = fix_by_id.get(motion_id) or fix_by_name.get(name.lower()) or name
         row = {
-            "id": re.sub(r" Upload$", "", folder_name),
+            "id": motion_id,
             "collection": collection,
             "section": section,
             "name": name,
-            "group": VARIANT_RE.sub("", name).strip() or name,
+            "display_name": display,
+            "group": VARIANT_RE.sub("", display).strip() or display,
             "date": date,
             "status": "",  # filled in below
             "superseded_by": "",
@@ -452,6 +476,12 @@ def main(argv=None) -> int:
 
     for p in stray:
         issues.append({"folder": str(Path(p).parent.as_posix()), "issue": "file outside any motion folder", "detail": p})
+    ids, recorded = {r["id"] for r in rows}, {r["name"].lower() for r in rows}
+    for fix in fix_rows:
+        key = (fix.get("id") or "").strip()
+        if key and key not in ids or not key and (fix.get("recorded_name") or "").strip().lower() not in recorded:
+            issues.append({"folder": "tools/name_corrections.csv", "issue": "name correction matches no motion",
+                           "detail": key or fix.get("recorded_name", "")})
 
     out = root / args.out
     out.mkdir(parents=True, exist_ok=True)
@@ -488,6 +518,8 @@ def write_summary(path: Path, rows: list[dict], issues: list[dict]):
         f"({', '.join(f'{c} by {s}' for s, c in collections.Counter(r['raw_mocap_source'] for r in rows if r['raw_mocap_source']).most_common())})",
         f"- **Audited:** {sum(r['audited'] == 'yes' for r in current)} of {len(current)} current motions "
         f"(an audit is recorded in the ReadMe's \"Audited by:\" line; see tools/mark_audited.py)",
+        f"- **Shown under a better name:** {sum(r['display_name'] != r['name'] for r in current)} current motions "
+        f"(from tools/name_corrections.csv; folders keep the recorded name)",
         "",
         "## Coverage",
         "",

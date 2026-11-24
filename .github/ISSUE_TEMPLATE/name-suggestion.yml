@@ -1,0 +1,61 @@
+name: Suggest a better name
+description: A sign's name is misspelled, unclear, or doesn't match the sign (e.g. it's a regional variant)
+title: "[Name] "
+labels: ["name suggestion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. Many signs were recorded quickly, while motion capture equipment was available, so several ways of signing a word were often recorded side by side as "Alt", "Var", "Other" or with a number, to be sorted out later. Better names help everyone find the right one.
+
+        An accepted name is shown in the gallery and catalog, and search finds both names. The folder keeps its original name, so existing links and downloads don't break.
+  - type: input
+    id: folder
+    attributes:
+      label: Sign
+      description: The gallery link, folder name, or `id` from catalog/catalog.csv
+      placeholder: SG ASL Armidillo 1 2023-8-13
+    validations:
+      required: true
+  - type: input
+    id: current
+    attributes:
+      label: Current name
+      placeholder: Armidillo 1
+  - type: input
+    id: suggested
+    attributes:
+      label: Suggested name
+      description: Keep a number or Alt/Var if there are several versions and you're only correcting the word
+      placeholder: Armadillo 1
+    validations:
+      required: true
+  - type: dropdown
+    id: reason
+    attributes:
+      label: Why?
+      multiple: true
+      options:
+        - Spelling
+        - The name doesn't match the sign (it's a different word)
+        - It's a regional variant (say which region below)
+        - It's an older or outdated form
+        - Says which version is which (e.g. instead of Alt or Var)
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Anything that helps, e.g. how the versions differ, or where this form is used.
+  - type: input
+    id: reference
+    attributes:
+      label: Reference (optional)
+      description: A dictionary entry or video that uses this name
+  - type: input
+    id: region
+    attributes:
+      label: Region (optional)
+      description: Where this sign or name is used, if it's regional
