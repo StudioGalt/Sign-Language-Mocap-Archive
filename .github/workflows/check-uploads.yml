@@ -1,6 +1,7 @@
 # Checks motion folders that a push or pull request adds or changes:
-# folder name and place, ReadMe header, raw take, Blender backups, and that a
-# redo is dated after the version it replaces. See tools/check_uploads.py.
+# folder name and place, ReadMe header, raw take, Blender backups, that a
+# redo is dated after the version it replaces, and the spelling of the sign's
+# name (a warning only). See tools/check_uploads.py.
 # Only small text files are downloaded, so it runs in seconds.
 name: Check uploads
 
@@ -34,12 +35,16 @@ jobs:
           sparse-checkout-cone-mode: false
           sparse-checkout: |
             /tools/
+            /catalog/catalog.csv
             /SG ASL Dictionary/**/*.txt
             /SG ASL Fingerspelling/**/*.txt
 
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
+
+      - name: Install the spell checker (for sign names)
+        run: pip install --quiet pyspellchecker
 
       - name: Check motion folders
         env:

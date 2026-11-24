@@ -16,6 +16,9 @@ Warnings (reported, but the check still passes):
     animation .blend, pose data, captions video, ShapeKeys.txt)
   - (for --dir) a file over 50 MB, or the ReadMe's Date doesn't match the folder
   - "Redo of:" names a motion that isn't in the archive
+  - a word in the sign's name may be misspelled (needs pyspellchecker; words already used in
+    the catalog's sign names, version labels, and tools/sign_words.txt count as known), or
+    the name already has a better spelling in tools/name_corrections.csv
 
 Which folders to check:
   --base REV          folders changed between REV and HEAD (what the workflow uses)
@@ -42,7 +45,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build_catalog import (  # noqa: E402
     COLLECTIONS, FORMAT_COLUMNS, STAMP_RE, TextReader, file_kinds, find_entries,
-    iso_date, parse_readme, repo_root,
+    iso_date, load_name_corrections, parse_readme, repo_root,
 )
 
 MB = 1024 * 1024
@@ -54,6 +57,53 @@ EXPECTED = {
     "has_animation_blend": "Working or Finished .blend/.zip", "has_pose_data": "pose CSV/JSON",
     "has_video": "captions video",
 }
+
+
+VERSION_LABELS = {"alt", "var", "other", "ext", "eng", "1h", "2h"}
+
+
+class NameSpelling:
+    """Warns about words in a sign's name that look misspelled."""
+
+    def __init__(self, root: Path):
+        try:
+            from spellchecker import SpellChecker
+            self.speller = SpellChecker()
+        except ImportError:
+            self.speller = None
+        self.known = set()
+        catalog = root / "catalog" / "catalog.csv"
+        if catalog.exists():
+            import csv
+            with open(catalog, newline="", encoding="utf-8") as fh:
+                for row in csv.DictReader(fh):
+                    shown = row.get("display_name") or row.get("name") or ""
+                    self.known.update(self.words(shown))
+        allowed = root / "tools" / "sign_words.txt"
+        if allowed.exists():
+            for line in allowed.read_text(encoding="utf-8").splitlines():
+                if line.strip() and not line.lstrip().startswith("#"):
+                    self.known.add(line.strip().lower())
+        _, self.fixes, _ = load_name_corrections(root / "tools" / "name_corrections.csv")
+
+    @staticmethod
+    def words(name: str) -> list:
+        return [re.sub(r"'s$", "", w.lower()) for w in re.findall(r"[A-Za-z][A-Za-z']*", name)]
+
+    def check(self, name: str) -> list:
+        out = []
+        fix = self.fixes.get(name.lower())
+        if fix:
+            out.append(f'"{name}" is shown as "{fix}" (tools/name_corrections.csv); consider recording it under that name')
+        if self.speller is None:
+            return out
+        for word in self.words(name):
+            if len(word) <= 3 or word in VERSION_LABELS or word in self.known or word in self.speller:
+                continue
+            guess = self.speller.correction(word)
+            out.append(f'"{word}" in the name may be misspelled' + (f' (did you mean "{guess}"?)' if guess and guess != word else "")
+                       + "; if it's right, add it to tools/sign_words.txt")
+        return out
 
 
 class Motion:
@@ -99,12 +149,14 @@ def existing_versions(all_files: list[str]):
     return index, by_id
 
 
-def check(m: Motion, versions, by_id) -> None:
+def check(m: Motion, versions, by_id, spelling: "NameSpelling | None" = None) -> None:
     sp = stamp_parts(m.name)
     if not sp:
         m.errors.append(f'folder name should be "SG ASL <Sign> <Year>-<Month>-<Day> Upload", not "{m.name}"')
         return
     name, date, has_upload = sp
+    if spelling is not None:
+        m.warnings.extend(spelling.check(name))
     stamp = re.sub(r" Upload$", "", m.name)
     if not has_upload:
         m.errors.append('folder name should end in " Upload"')
@@ -331,8 +383,11 @@ def main(argv=None) -> int:
         if not motions:
             print("No motion folders to check.")
             return 0
+    spelling = NameSpelling(root)
     for m in motions:
-        check(m, versions, by_id)
+        check(m, versions, by_id, spelling)
+    if spelling.speller is None:
+        print("(Spelling of sign names not checked: install pyspellchecker with  pip install pyspellchecker)")
     return report(motions)
 
 

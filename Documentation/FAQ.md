@@ -99,7 +99,13 @@ Yes, but we will not endorse any NFT projects. We are for maximum access for eve
 
 The motion capture equipment was only available for a limited time, so we recorded as many signs as we could. Where there was more than one way to sign a word, or a conflict about which way was right, we recorded every version, and left the nuances of the language to be worked out afterwards.
 
-The labels *Alt*, *Var*, *Other* and the numbers don't mean anything on their own: they only tell the versions apart. They don't say which is more common or more correct. Some versions may turn out to be wrong, outdated or regional, and they stay in the archive until someone who knows can say which is which. If you can, please tell us with a [sign correction](https://github.com/StudioGalt/Sign-Language-Mocap-Archive/issues/new?template=sign-correction.yml) or by suggesting a better name (below).
+The labels *Alt*, *Var* and *Other* don't mean anything on their own: they only tell the versions apart, and don't say which is more common or more correct. A few labels do mean something:
+
+- **A number at the end** is usually the take number from the recording session: *Hello 3* is usually the third take.
+- **Ext** usually means an extended version.
+- **1H** and **2H** mean one-handed and two-handed versions.
+
+Some versions may turn out to be wrong, outdated or regional, and they stay in the archive until someone who knows can say which is which. If you can, please tell us with a [sign correction](https://github.com/StudioGalt/Sign-Language-Mocap-Archive/issues/new?template=sign-correction.yml) or by suggesting a better name (below).
 
 19) A sign's name is misspelled, unclear, or doesn't match the sign. Can I suggest a better one?
 
