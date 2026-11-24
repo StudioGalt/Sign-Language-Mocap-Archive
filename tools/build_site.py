@@ -170,7 +170,7 @@ def collect_motions(root: Path) -> list[dict]:
             tags.append("rigify")
         rec = {
             "i": stamp,
-            "n": r["name"],
+            "n": r.get("display_name") or r["name"],
             "g": r["group"],
             "d": r["date"],
             "c": "F" if r["collection"] == "Fingerspelling" else "D",
@@ -189,6 +189,8 @@ def collect_motions(root: Path) -> list[dict]:
                 rec[key] = r[col]
         if r.get("audited") == "yes":
             rec["au"] = r["audited_by"]
+        if rec["n"] != r["name"]:
+            rec["rn"] = r["name"]                      # recorded under this name (the folder's)
         motions.append(rec)
 
     # Stable, unique link names: assigned in id order so they never shuffle.
@@ -250,6 +252,7 @@ SIGN_PAGE = """<!DOCTYPE html>
     <a class="primary" href="../../#sign={hash}">Open in the gallery</a>
     <a href="{zip}">Download all files (zip)</a>
     <a href="{folder}">Open on GitHub</a>
+    <a href="{rename}">Suggest a better name</a>
   </div>
   <p>{desc}</p>
   {packs}
@@ -283,7 +286,8 @@ def write_sign_pages(out: Path, motions: list[dict], repo: str, branch: str, bas
         desc = (f"The ASL {kind} “{m['n']}” as motion capture"
                 + (f": FBX for {', '.join(software[:-1]) + ' and ' + software[-1] if len(software) > 1 else software[0]}" if software else "")
                 + ", with video and key poses. Free to use for anything under CC0.")
-        facts = ", ".join(x for x in [f"Recorded {m['d']}" if m["d"] else "", m.get("rig", ""),
+        facts = ", ".join(x for x in [f"Recorded {m['d']}" if m["d"] else "",
+                                      f"recorded as “{m['rn']}”" if m.get("rn") else "", m.get("rig", ""),
                                       f"audited by {m['au']}" if m.get("au") else ""] if x)
         thumb = f"{base_url}thumbs/{m['u']}.jpg" if m.get("th") else ""
         src = preview_source(m)
@@ -317,6 +321,8 @@ def write_sign_pages(out: Path, motions: list[dict], repo: str, branch: str, bas
             hash=quote(m["i"]),
             zip=html.escape(f"https://downgit.github.io/#/home?url={quote(folder_url, safe='')}"),
             folder=html.escape(folder_url),
+            rename=html.escape(f"https://github.com/{repo}/issues/new?template=name-suggestion.yml"
+                               f"&folder={quote(m['i'])}&current={quote(m['n'])}&title={quote('[Name] ' + m['n'])}"),
             packs=packs_block(m, packs),
         )
         d = out / "sign" / m["u"]
