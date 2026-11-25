@@ -6,6 +6,7 @@
 <title>Sign Language Mocap Archive</title>
 <meta name="description" content="Free motion capture of American Sign Language signs, ready for Blender, Unreal Engine, Mixamo and Rigify. Released under CC0.">
 <link rel="canonical" href="{{BASE_URL}}">
+<link rel="alternate" type="application/atom+xml" title="New signs" href="{{BASE_URL}}feed.xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sign Language Mocap Archive">
 <meta property="og:title" content="Sign Language Mocap Archive">
@@ -139,6 +140,8 @@
   }
   .tile .meta { display: block; color: var(--slate); font-size: 0.85rem; margin-top: 2px; }
   .older { color: #8A5A00; }
+  .new { display: inline-block; background: var(--signal); color: var(--ink); font-weight: 700;
+    font-size: 0.75rem; letter-spacing: 0.02em; padding: 0 6px; border-radius: 3px; vertical-align: 1px; }
   .more {
     display: block; margin: 32px auto 0; padding: 12px 22px;
     font: 700 1rem var(--font); color: var(--white); background: var(--ink);
@@ -238,6 +241,12 @@
         <option value="rigify">Blender Rigify</option>
       </select>
     </label>
+    <label>Order
+      <select id="sort">
+        <option value="">A to Z</option>
+        <option value="new">Newest first</option>
+      </select>
+    </label>
     <label><input id="old" type="checkbox"> Include older versions</label>
     <span class="count" id="count" aria-live="polite"></span>
   </div>
@@ -251,6 +260,7 @@
   <p>Recorded by Studio Galt with an Xsens suit and StretchSense gloves, cleaned in Blender. Every file is CC0: use it however you like.</p>
   <p>Signs are made by a hearing signer and are not a substitute for a Deaf-led translation. If one looks wrong, use “Report a problem” on that sign and it will be re-recorded.</p>
   <p>Using these in research? Cite the archive as <a href="https://doi.org/10.5281/zenodo.24378054">doi:10.5281/zenodo.24378054</a>.</p>
+  <p>New signs are added most weeks: see them <a href="?sort=new">newest first</a>, follow the <a href="feed.xml">feed</a>, or read <a id="whatsnew" href="#">what's new</a>.</p>
   <p>Missing a sign? <a id="request" href="#">Request it</a>, or add a 👍 to one that's <a id="requested" href="#">already been requested</a>. The most-wanted signs get recorded first.</p>
 </footer>
 
@@ -284,7 +294,10 @@
   // Still images only for people who asked for less motion or less data; previews play on hover.
   const animate = !reduceMotion && !(navigator.connection && navigator.connection.saveData);
   const $ = (id) => document.getElementById(id);
-  const state = { q: "", letter: "", tool: "", old: false, shown: PAGE };
+  const state = { q: "", letter: "", tool: "", old: false, sort: "", shown: PAGE };
+  const NEW_DAYS = 30;  // uploads this recent get a "New" label
+  const added = (m) => m.a || m.d;
+  let newSince = "";
   let DATA = null, byId = new Map(), list = [];
 
   const enc = (p) => p.split("/").map(encodeURIComponent).join("/");
@@ -354,6 +367,8 @@
     if (q) {
       const rank = (m) => m._k === q ? 0 : m._k.startsWith(q) ? 1 : m._k.split(" ").some((w) => w.startsWith(q)) ? 2 : 3;
       out = out.map((m) => [rank(m), m]).sort((a, b) => a[0] - b[0]).map((x) => x[1]);
+    } else if (state.sort === "new") {
+      out = [...out].sort((a, b) => added(b).localeCompare(added(a)) || a.n.localeCompare(b.n));
     }
     return out;
   }
@@ -367,9 +382,11 @@
     $("count").textContent = list.length === 1 ? "1 motion" : `${list.length.toLocaleString()} motions, ${signs.toLocaleString()} signs`;
     for (const m of list.slice(0, state.shown)) {
       const frame = el("span", { class: "frame" }, media(m, { tile: true }));
-      const meta = el("span", { class: "meta" }, document.createTextNode(prettyDate(m.d)));
+      const isNew = !m.old && newSince && added(m) >= newSince;
+      const meta = el("span", { class: "meta" }, isNew ? el("span", { class: "new", text: "New" }) : null,
+        document.createTextNode((isNew ? " " : "") + prettyDate(m.d)));
       if (m.old) meta.append(" ", el("span", { class: "older", text: "older version" }));
-      const b = el("button", { class: "tile", type: "button", "aria-label": `${m.n}${m.old ? ", older version" : ""}` },
+      const b = el("button", { class: "tile", type: "button", "aria-label": `${m.n}${isNew ? ", new" : ""}${m.old ? ", older version" : ""}` },
         frame, el("span", { class: "name", text: m.n }), meta);
       b.addEventListener("click", () => openSign(m.i));
       const gif = b.querySelector("img[data-src]");
@@ -424,6 +441,7 @@
     facts.replaceChildren();
     const add = (label, value) => { if (!value) return; if (facts.childNodes.length) facts.append(document.createElement("br")); facts.append(label + " ", el("b", { text: value })); };
     add("Recorded", prettyDate(m.d));
+    add("Uploaded", m.a ? prettyDate(m.a) : "");
     add("Recorded as", m.rn);
     add("Rig", m.rig);
     add("Blender", m.bv);
@@ -525,6 +543,13 @@
   $("clear").addEventListener("click", () => { $("q").value = ""; state.q = ""; $("clear").hidden = true; render(); $("q").focus(); });
   $("tool").addEventListener("change", (e) => { state.tool = e.target.value; state.shown = PAGE; render(); });
   $("old").addEventListener("change", (e) => { state.old = e.target.checked; state.shown = PAGE; render(); });
+  $("sort").addEventListener("change", (e) => {
+    state.sort = e.target.value; state.shown = PAGE;
+    const u = new URL(location.href);
+    if (state.sort) u.searchParams.set("sort", state.sort); else u.searchParams.delete("sort");
+    history.replaceState(null, "", u);
+    render();
+  });
   $("more").addEventListener("click", () => { state.shown += PAGE; render(); });
   $("dclose").addEventListener("click", closeSign);
   $("detail").addEventListener("close", () => { if ($("dstage").childNodes.length) closeSign(); });
@@ -539,6 +564,10 @@
     $("packs").href = `https://github.com/${DATA.repo}/releases/latest`;
     $("request").href = requestUrl("");
     $("requested").href = requestedUrl();
+    $("whatsnew").href = `https://github.com/${DATA.repo}/blob/${DATA.branch}/catalog/WHATS_NEW.md`;
+    const since = new Date(Date.now() - NEW_DAYS * 864e5);
+    newSince = `${since.getFullYear()}-${String(since.getMonth() + 1).padStart(2, "0")}-${String(since.getDate()).padStart(2, "0")}`;
+    if (new URLSearchParams(location.search).get("sort") === "new") { state.sort = "new"; $("sort").value = "new"; }
     const signs = new Set(DATA.motions.filter((m) => !m.old).map((m) => m.g.toLowerCase())).size;
     $("q").placeholder = `Find a sign among ${signs.toLocaleString()}`;
     buildLetters();

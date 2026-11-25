@@ -10,6 +10,7 @@ Writes:
     catalog/catalog.json  the same data, for scripts and websites
     catalog/issues.csv    entries that look incomplete or misnamed
     catalog/SUMMARY.md    counts and coverage, linked from the main README
+    catalog/WHATS_NEW.md  the latest uploads, newest first (see tools/whats_new.py)
 
 Only the Python standard library is needed. The file list comes from git, so
 this works in a sparse or partial clone where the large FBX/blend/video files
@@ -26,9 +27,11 @@ import os
 import re
 import subprocess
 import sys
+import datetime as dt
 from pathlib import Path
 
 COLLECTIONS = ("SG ASL Dictionary", "SG ASL Fingerspelling")
+GALLERY = "https://studiogalt.github.io/Sign-Language-Mocap-Archive/"
 RAW_MOCAP = "Raw Mocap"
 
 # "SG ASL Alert (Inform) Alt 1 2023-5-17 Upload" -> name="Alert (Inform) Alt 1", date=2023-5-17
@@ -263,6 +266,50 @@ def load_name_corrections(path: Path):
     return by_id, by_name, rows
 
 
+def sign_slugs(ids) -> dict:
+    """Each motion's link name in the gallery (GALLERY + "sign/<slug>/").
+
+    Assigned in id order so they never shuffle when motions are added.
+    """
+    slugs, used = {}, set()
+    for motion_id in sorted(ids):
+        base = re.sub(r"[^a-z0-9]+", "-", re.sub(r"^SG ASL ", "", motion_id).lower()).strip("-") or "sign"
+        slug, n = base, 2
+        while slug in used:
+            slug, n = f"{base}-{n}", n + 1
+        used.add(slug)
+        slugs[motion_id] = slug
+    return slugs
+
+
+def added_dates(previous_csv: Path, rows: list[dict], today: dt.date | None = None) -> dict:
+    """The day each motion first appeared in the catalog, by id.
+
+    Kept from the previous catalog.csv. A motion the catalog hasn't seen before gets
+    today's date, unless its folder date is within a few days of today (the usual
+    case: the date in the folder name is the day it was made). Before this column
+    existed, every motion was dated by its folder name, and the git history doesn't
+    go back further than the 2026-11-18 re-upload, so that's the best record there is.
+    """
+    today = today or dt.datetime.now(dt.timezone.utc).date()
+    known, seeded = {}, False
+    if previous_csv.is_file():
+        with open(previous_csv, newline="", encoding="utf-8") as fh:
+            reader = csv.DictReader(fh)
+            seeded = "added" in (reader.fieldnames or [])
+            known = {r["id"]: r.get("added", "") for r in reader}
+    out = {}
+    for r in rows:
+        if known.get(r["id"]):
+            out[r["id"]] = known[r["id"]]
+        elif not seeded or r["id"] in known or not r["date"]:
+            out[r["id"]] = r["date"]
+        else:
+            age = (today - dt.date.fromisoformat(r["date"])).days
+            out[r["id"]] = r["date"] if -1 <= age <= 3 else today.isoformat()
+    return out
+
+
 def is_audited(value: str) -> bool:
     """A ReadMe's "Audited by:" counts only when it names someone.
     Blank, or the pipeline's placeholder "Unaudited as of <date>", is not an audit."""
@@ -380,6 +427,7 @@ def main(argv=None) -> int:
             "display_name": display,
             "group": VARIANT_RE.sub("", display).strip() or display,
             "date": date,
+            "added": "",  # filled in below
             "status": "",  # filled in below
             "superseded_by": "",
             "folder": folder,
@@ -483,6 +531,12 @@ def main(argv=None) -> int:
             issues.append({"folder": "tools/name_corrections.csv", "issue": "name correction matches no motion",
                            "detail": key or fix.get("recorded_name", "")})
 
+    # Always read the committed catalog, so the gallery (built into a temporary
+    # folder) and the catalog agree on when each motion was added.
+    added = added_dates(root / "catalog" / "catalog.csv", rows)
+    for r in rows:
+        r["added"] = added[r["id"]]
+
     out = root / args.out
     out.mkdir(parents=True, exist_ok=True)
     fields = list(rows[0].keys()) if rows else []
@@ -498,6 +552,8 @@ def main(argv=None) -> int:
         w.writeheader()
         w.writerows(sorted(issues, key=lambda i: (i["issue"], i["folder"])))
     write_summary(out / "SUMMARY.md", rows, issues)
+    import whats_new
+    (out / "WHATS_NEW.md").write_text(whats_new.render(rows), encoding="utf-8")
 
     print(f"{len(rows)} motions, {sum(r['status'] == 'current' for r in rows)} current, "
           f"{len(issues)} issues -> {out}")
@@ -520,6 +576,8 @@ def write_summary(path: Path, rows: list[dict], issues: list[dict]):
         f"(an audit is recorded in the ReadMe's \"Audited by:\" line; see tools/mark_audited.py)",
         f"- **Shown under a better name:** {sum(r['display_name'] != r['name'] for r in current)} current motions "
         f"(from tools/name_corrections.csv; folders keep the recorded name)",
+        "",
+        "Latest uploads: [WHATS_NEW.md](WHATS_NEW.md).",
         "",
         "## Coverage",
         "",
