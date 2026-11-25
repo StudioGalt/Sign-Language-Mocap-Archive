@@ -7,7 +7,7 @@ Hello, this is Studio Galt. Since 2020 we have been recording motion capture, pr
 
 **[Browse the signs](https://studiogalt.github.io/Sign-Language-Mocap-Archive/)** Search the archive, watch each sign, and download its files without cloning anything.
 
-**At a glance:** about 2,700 motions covering 2,100+ signs, plus the ASL fingerspelling alphabet and numbers. Each motion comes as FBX for Blender, Unreal and Mixamo-style rigs (and loads in Unity and Maya), with a rendered video and a ReadMe. See [catalog/SUMMARY.md](catalog/SUMMARY.md) for current counts and coverage.
+**At a glance:** about 2,700 motions covering 2,100+ signs, plus the ASL fingerspelling alphabet and numbers. Each motion comes as FBX for Blender, Unreal and Mixamo-style rigs (and loads in Unity and Maya), with a rendered video and a ReadMe. See [catalog/SUMMARY.md](catalog/SUMMARY.md) for current counts and coverage, and [What's new](catalog/WHATS_NEW.md) for the latest uploads (or sort the gallery by [newest first](https://studiogalt.github.io/Sign-Language-Mocap-Archive/?sort=new)).
 
 **Please don't clone the whole repository.** It's about 45 GB. Instead:
 

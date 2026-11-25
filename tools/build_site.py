@@ -12,6 +12,7 @@ Writes to _site/:
                         its picture and name when shared, and search engines
                         can index it
     thumbs/             still images made by build_thumbs.py, if present
+    feed.xml            new uploads, one entry per day (tools/whats_new.py)
     sitemap.xml, robots.txt, social.png
 
 With --release (latest, or a tag), each sign also lists the release's download
@@ -39,6 +40,7 @@ from urllib.parse import quote
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_catalog as bc  # noqa: E402
+import whats_new  # noqa: E402
 
 # Order matters: the first matching rule decides a file's group.
 GROUPS = [
@@ -115,10 +117,6 @@ def short(rel: str, stamp: str) -> str:
     return rel.replace(stamp, "~")
 
 
-def slugify(text: str) -> str:
-    return re.sub(r"[^a-z0-9]+", "-", re.sub(r"^SG ASL ", "", text).lower()).strip("-") or "sign"
-
-
 def default_base_url(repo: str) -> str:
     owner, name = repo.split("/", 1)
     return f"https://{owner.lower()}.github.io/{name}/"
@@ -130,7 +128,7 @@ def preview_source(m: dict) -> str:
     return f"{m['f']}/{rel.replace('~', m['i'])}" if rel else ""
 
 
-def collect_motions(root: Path) -> list[dict]:
+def collect_motions(root: Path, catalog_rows: list | None = None) -> list[dict]:
     files = bc.list_files(root)
     entries, _ = bc.find_entries(files)
 
@@ -139,6 +137,8 @@ def collect_motions(root: Path) -> list[dict]:
         rel_tmp = Path(tmp).relative_to(root).as_posix()
         bc.main(["--out", rel_tmp])
         rows = json.loads((Path(tmp) / "catalog.json").read_text(encoding="utf-8"))
+    if catalog_rows is not None:
+        catalog_rows.extend(rows)
 
     motions = []
     for r in rows:
@@ -181,6 +181,8 @@ def collect_motions(root: Path) -> list[dict]:
             "gif": gif,
             "files": groups,
         }
+        if r.get("added") and r["added"] != r["date"]:
+            rec["a"] = r["added"]                      # uploaded on (when not the folder's date)
         if r["status"] != "current":
             rec["old"] = r["superseded_by"] or 1
         for key, col in (("rig", "rig"), ("bv", "blender_version"), ("raw", "raw_mocap_file"),
@@ -193,15 +195,10 @@ def collect_motions(root: Path) -> list[dict]:
             rec["rn"] = r["name"]                      # recorded under this name (the folder's)
         motions.append(rec)
 
-    # Stable, unique link names: assigned in id order so they never shuffle.
-    used: set[str] = set()
-    for m in sorted(motions, key=lambda m: m["i"]):
-        base = slugify(m["i"])
-        slug, n = base, 2
-        while slug in used:
-            slug, n = f"{base}-{n}", n + 1
-        used.add(slug)
-        m["u"] = slug
+    # Stable, unique link names (shared with catalog/WHATS_NEW.md).
+    slugs = bc.sign_slugs(m["i"] for m in motions)
+    for m in motions:
+        m["u"] = slugs[m["i"]]
 
     motions.sort(key=lambda m: (m["c"] != "D", m["n"].lower(), m["d"]))
     return motions
@@ -343,7 +340,8 @@ def main(argv=None) -> int:
     base_url = (args.base_url or default_base_url(args.repo)).rstrip("/") + "/"
 
     root = bc.repo_root()
-    motions = collect_motions(root)
+    rows: list[dict] = []
+    motions = collect_motions(root, rows)
     out = root / args.out
     if out.exists():
         shutil.rmtree(out)
@@ -376,6 +374,7 @@ def main(argv=None) -> int:
     if (root / "site" / "social.png").is_file():
         shutil.copy(root / "site" / "social.png", out / "social.png")
     (out / ".nojekyll").write_text("", encoding="utf-8")
+    (out / "feed.xml").write_text(whats_new.atom(rows, base_url), encoding="utf-8")
 
     urls = write_sign_pages(out, motions, args.repo, args.branch, base_url, packs)
     sitemap = ['<?xml version="1.0" encoding="UTF-8"?>',
