@@ -22,14 +22,16 @@ from typing import List, Dict, Optional, Tuple
 # of its own ("SGM Pose Camera") in front of the character, framed so the whole body - in every marked pose -
 # fits (thumbnail="WHOLE_BODY"), or from the hips up ("UPPER_BODY"). "SCENE" leaves the scene's camera as it is.
 # While the thumbnails are drawn, everything but the character is hidden (thumbnail_isolate=True); the scene's
-# camera and those objects are put back once Blender has finished the thumbnails.
+# camera and those objects are put back once Blender has finished the thumbnails. The character is its meshes plus
+# whatever is attached to them or to the rig: hair (Curves objects), eyebrows, clothes, props in its hands.
 #
 # Face poses (face_poses=True): the face board's controls on each marker are made into a pose asset of their own,
 # "<pose name> Face P1", P2 ..., in the same library. Its thumbnail is a picture of the face on that frame, taken
 # by "SGM Face Camera" from in front of the face (face_view="FRONT") or from its left or right side ("LEFT",
 # "RIGHT"). The face poses are made first, then the body poses.
 
-LIB_VERSION = 4          # 2: pose_prefix (the name the poses are given); 3: thumbnail camera; 4: face board poses
+LIB_VERSION = 5          # 2: pose_prefix (the name the poses are given); 3: thumbnail camera; 4: face board poses;
+                         # 5: hair and other attached objects stay in the thumbnails
 
 GALTIS_BONES = [
     "bicepfk_L", "forearmfk_L", "handfk_L", "bicepfk_R", "forearmfk_R", "handfk_R",
@@ -175,6 +177,39 @@ def character_objects(armature) -> list:
                    if t is not None and t is not armature and t.type == "ARMATURE"}
         rigs = {o for o in bpy.context.scene.objects for lead in leaders if follows(o, lead)}
         found = _meshes_of(rigs)
+    return found
+
+
+def attached_objects(keep) -> set:
+    """Visible objects that go with the ones in keep: parented to one of them (at any depth), hair curves grown
+    on one's surface, or a modifier that follows one (Armature, Surface Deform, Shrinkwrap ...). Galtis's hair is
+    Curves objects parented to the rig, which aren't meshes, so they'd otherwise be hidden from the thumbnails."""
+    keep = set(keep)
+    found = set()
+    others = [o for o in bpy.context.scene.objects if o not in keep and o.type not in ("CAMERA", "LIGHT")
+              and o.visible_get()]
+    grew = True
+    while grew:                                # hair on a head mesh that is itself parented to the rig, etc.
+        grew = False
+        for obj in others:
+            if obj in found:
+                continue
+            parent, linked = obj.parent, False
+            while parent is not None and not linked:
+                linked = parent in keep or parent in found
+                parent = parent.parent
+            if not linked and obj.type == "CURVES":
+                surface = getattr(obj.data, "surface", None)
+                linked = surface is not None and (surface in keep or surface in found)
+            if not linked:
+                for m in getattr(obj, "modifiers", []):
+                    targets = [getattr(m, a, None) for a in ("object", "target")]
+                    if any(t is not None and (t in keep or t in found) for t in targets):
+                        linked = True
+                        break
+            if linked:
+                found.add(obj)
+                grew = True
     return found
 
 
@@ -473,6 +508,7 @@ class ThumbnailSetup:
         if isolate:
             keep = set(character_objects(armature)) | {armature}
             keep |= {o for o in self.scene.objects if follows(o, armature)}
+            keep |= attached_objects(keep)
             for obj in self.scene.objects:
                 if obj in keep or obj.type in ("CAMERA", "LIGHT") or not obj.visible_get():
                     continue
