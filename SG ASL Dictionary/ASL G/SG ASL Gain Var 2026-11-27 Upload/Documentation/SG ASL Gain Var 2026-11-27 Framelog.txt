@@ -1,0 +1,43 @@
+End Frame Adjustment Report
+Generated from: SG ASL Gain Var 2026-11-27
+Blender Version: 5.3.0
+File: SG ASL Gain Var 2026-11-27 Retargeted.blend
+Frame Range: 1 - 136
+Auto Cleanup (Autopilot): no glove dropouts
+Fix Hand Flicks (layer 1, snap above 2 deg/frame, dropouts snap 6+ deg):
+  Left: 15 bones over frames 0-136, 16 snap(s), 0 dropout(s), 0 frames repaired, smoothed (1)
+  Right: 15 bones over frames 0-136, 15 snap(s), 0 dropout(s), 0 frames repaired, smoothed (1)
+  After: No dropouts
+  After: Frames to check: none
+  After: No dropouts
+  After: 1 other snap(s), one-frame jumps that aren't dropouts: 30
+  After: Frames to check: 30
+Left IK hand: 0 key(s) given the same sign as the one before
+Right IK hand: 0 key(s) given the same sign as the one before
+Neutral fingers on the first frame (1): fine (0.0 deg)
+Neutral fingers on the last frame (136): fine (0.0 deg)
+
+Animation Shift Report
+====================
+
+Original Frame Range: 1 - 136
+Original Length: 136 frames
+
+Shift Point: 15 frames
+Frame 1: neutral pose (built-in (Superset neutral)), within 0.0 deg
+Blend In: frame 1 to 20
+
+New Frame Range: 1 - 121
+New Length: 121 frames
+
+Total Keyframes Shifted: 220024
+Keyframes Dropped Before Frame 0: 41086
+Actions Processed: 4
+Original Range: 1 - 121 (121 frames)
+New Range:      1 - 94 (94 frames)
+New End Point:  94
+Last Frame:     neutral pose (built-in (Superset neutral)), within 0.0 deg
+Blend Out:      frame 74 to 94
+Frame Change:   -27 frames
+Keyframes Deleted After End: 44659
+
